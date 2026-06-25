@@ -1,5 +1,35 @@
+from numpy.random.mtrand import shuffle
 import streamlit as st
 from random import choice, randint
+from string import ascii_lowercase, ascii_uppercase, digits, punctuation
+
+def generate_password(textbox_key: str, passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int):
+	password: list[str] = []
+
+	# Specified number of Uppercase Characters
+	for i in range(upper_chars):
+		password.append(choice(ascii_uppercase))
+
+	# Specified number of Lowercase Characters
+	for i in range(lower_chars):
+		password.append(choice(ascii_lowercase))
+
+	# Specified number of Special Characters
+	for i in range(spcl_chars):
+		password.append(choice(punctuation))
+
+	# Specified number of Numeric Digits
+	for i in range(num_digits):
+		password.append(choice(digits))
+
+	# Specified Password Length met with random characters
+	if passwd_len > (upper_chars + lower_chars + num_digits):
+		for i in range(passwd_len - (upper_chars + lower_chars + num_digits)):
+			password.append(choice(choice([ascii_lowercase, ascii_uppercase, punctuation, digits])))
+
+	shuffle(password) # Shuffle password
+
+	st.session_state[textbox_key] = "".join(password) # Return password as string
 
 # Define Default Values
 default_values = {
@@ -47,7 +77,7 @@ with col1:
 
 		# Password Length Slider
 		with st.container(border=False, horizontal=True):
-			st.slider(
+			passwd_len = st.slider(
 				label="Password Length",
 				key="slider_passwd_len",
 				min_value=st.session_state['min_passwd_len'],
@@ -80,7 +110,7 @@ with col1:
 
 			# Slider for Number of Uppercase Characters
 			with st.container(border=False, horizontal=True):
-				st.slider(
+				upper_chars = st.slider(
 					key="slider_upper_chars",
 					label="Number of Uppercase characters [`A`, `B`, `C`, ... `Z`]",
 					min_value=st.session_state['min_upper_chars'],
@@ -98,7 +128,7 @@ with col1:
 
 			# Slider for Number of Lowercase Characters
 			with st.container(border=False, horizontal=True):
-				st.slider(
+				lower_chars = st.slider(
 					key="slider_lower_chars",
 					label="Number of Lowercase characters [`a`, `b`, `c`, ... `z`]",
 					min_value=st.session_state['min_lower_chars'],
@@ -116,7 +146,7 @@ with col1:
 
 			# Slider for Number of Special Characters
 			with st.container(border=False, horizontal=True):
-				st.slider(
+				spcl_chars = st.slider(
 					key="slider_spcl_chars",
 					label="Number of Special characters [`,`, `!`, `_`, etc.]",
 					min_value=st.session_state['min_spcl_chars'],
@@ -134,7 +164,7 @@ with col1:
 
 			# Slider for Number of Digits
 			with st.container(border=False, horizontal=True):
-				st.slider(
+				num_digits = st.slider(
 					key="slider_digits",
 					label="Number of Digits [`0`, `1`, `2`, ... `9`]",
 					min_value=st.session_state['min_digits'],
@@ -150,15 +180,26 @@ with col1:
 				)
 
 		# Password Generator Button
-		st.button(label="**Generate Password**", type="primary", width="stretch")
+		st.button(
+			label="**Generate Password**",
+			type="primary", width="stretch",
+			on_click=generate_password,
+			args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
+		)
 
 		# Password Output Panel
 		with st.container(horizontal=True):
-			st.text_input(label="Generated Password", label_visibility="collapsed", placeholder="Your Randomly Generated Password")
+			passwd_text = st.text_input(
+				key="passwd_textbox",
+				label="Generated Password",
+				label_visibility="collapsed",
+				placeholder="Your Randomly Generated Password",
+			)
 			st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary")
 
 with col2:
 	st.write(st.session_state)
+	st.write(passwd_len, upper_chars, lower_chars, num_digits)
 
 with st.bottom:
 	st.caption("Made by **Sonal Karmakar**", text_alignment="center")
