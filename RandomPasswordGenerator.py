@@ -3,8 +3,9 @@ from random import choice, randint, shuffle
 from string import ascii_lowercase, ascii_uppercase, digits, punctuation
 
 # Sets a Slider's value
-def set_slider_value(slider_key: str, value: int) -> None:
+def set_slider_value(slider_key: str, value: int, is_btn_disabled: bool = False) -> None:
 	st.session_state[slider_key] = value
+	st.session_state['disable_reset_btn'] = is_btn_disabled
 
 # Randomize Parameter Slider
 def rndmz_param_slider(slider_key: str, bottom: int, top: int):
@@ -18,6 +19,7 @@ def rndmz_all_sliders():
 
 # Reset all Parameter Sliders
 def reset_all_sliders():
+	st.session_state['disable_reset_btn'] = True
 	for key, val in param_sliders.items():
 		st.session_state[key] = val['min_val']
 
@@ -67,6 +69,7 @@ default_values = {
 	"min_passwd_len": 8,
 	"max_passwd_len": 128,
 	"safe_passwd_len": 64,
+	"disable_reset_btn": True,
 }
 # Set Default Values in Session State
 for key, value in default_values.items():
@@ -130,7 +133,7 @@ with col1:
 				width="content", type="tertiary",
 				help="Randomise password length.",
 				on_click=set_slider_value,
-				args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len'])),
+				args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len']), True),
 			)
 
 		# Panel for other sliders
@@ -140,16 +143,16 @@ with col1:
 				st.text(body="Valid Characters", width="stretch")
 				st.button(
 					label="",
-					disabled=False,
 					key="reset_all_params",
+					on_click=reset_all_sliders,
 					icon=":material/reset_settings:",
 					width="content", type="tertiary",
 					help="Reset all parameters below.",
-					on_click=reset_all_sliders,
+					disabled=st.session_state['disable_reset_btn'],
 				)
 				st.button(
 					label="",
-					key="rndm_btn_param",
+					key="btn_rndmz_param",
 					on_click=rndmz_all_sliders,
 					icon=choice(randomiser_icons),
 					width="content", type="tertiary",
