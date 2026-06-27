@@ -1,115 +1,14 @@
 import streamlit as st
-from random import choice, randint, shuffle
-from string import ascii_lowercase, ascii_uppercase, digits, punctuation
+from random import choice, randint
 
-# Sets a Slider's value
-def set_slider_value(slider_key: str, value: int, is_btn_disabled: bool = False, chk_passlen_slider: bool = False) -> None:
-	st.session_state[slider_key] = value
-	st.session_state['disable_reset_btn'] = is_btn_disabled
-	if chk_passlen_slider:
-		chk_passlen_slider_val()
+import functions.logic as logic
+import functions.ui_control as ui
+from definitions.defaults import default_values
+from definitions.parameters import param_sliders
 
-# Randomize Parameter Slider
-def rndmz_param_slider(slider_key: str, bottom: int, top: int, set_dpdt_slider: bool = True):
-	set_slider_value(slider_key, randint(bottom, top))
-	if set_dpdt_slider:
-		set_passwd_slider()
-
-# Randomise all Parameter Sliders
-def rndmz_all_sliders():
-	for key, val in param_sliders.items():
-		rndmz_param_slider(key, val['min_val'], val['max_val'], False)
-	set_passwd_slider()
-
-# Reset all Parameter Sliders
-def reset_all_sliders():
-	st.session_state['disable_reset_btn'] = True
-	for key, val in param_sliders.items():
-		st.session_state[key] = val['min_val']
-
-# Check Password Length Slider's value
-def chk_passlen_slider_val():
-	logical_min_val = (
-		st.session_state['slider_upper_chars'] +
-		st.session_state['slider_lower_chars'] +
-		st.session_state['slider_spcl_chars'] +
-		st.session_state['slider_digits']
-	)
-
-	if st.session_state['slider_passwd_len'] < logical_min_val:
-		reset_all_sliders()
-
-# Set Password Length to sum of depending parameters
-def set_passwd_slider():
-	logical_min_val = (
-		st.session_state['slider_upper_chars'] +
-		st.session_state['slider_lower_chars'] +
-		st.session_state['slider_spcl_chars'] +
-		st.session_state['slider_digits']
-	)
-
-	if st.session_state['slider_passwd_len'] < logical_min_val:
-		set_slider_value("slider_passwd_len", logical_min_val)
-
-# Generates the Random Password
-def generate_password(textbox_key: str, passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int):
-	password: list[str] = []
-
-	# Specified number of Uppercase Characters
-	for i in range(upper_chars):
-		password.append(choice(ascii_uppercase))
-
-	# Specified number of Lowercase Characters
-	for i in range(lower_chars):
-		password.append(choice(ascii_lowercase))
-
-	# Specified number of Special Characters
-	for i in range(spcl_chars):
-		password.append(choice(punctuation))
-
-	# Specified number of Numeric Digits
-	for i in range(num_digits):
-		password.append(choice(digits))
-
-	# Specified Password Length met with random characters
-	if passwd_len > (upper_chars + lower_chars + num_digits):
-		for i in range(passwd_len - (upper_chars + lower_chars + num_digits)):
-			password.append(choice(choice([ascii_lowercase, ascii_uppercase, punctuation, digits])))
-
-	shuffle(password) # Shuffle password
-
-	st.session_state[textbox_key] = "".join(password) # Return password as string
-
-# Define Default Values
-default_values = {
-	"min_passwd_len": 8,
-	"max_passwd_len": 128,
-	"safe_passwd_len": 64,
-	"disable_reset_btn": True,
-}
 # Set Default Values in Session State
 for key, value in default_values.items():
 	st.session_state.setdefault(key, value)
-
-# Parameter Slider dictionary
-param_sliders = {
-	"slider_upper_chars": {
-		"min_val": 1,
-		"max_val": 16,
-	},
-	"slider_lower_chars": {
-		"min_val": 1,
-		"max_val": 16,
-	},
-	"slider_spcl_chars": {
-		"min_val": 1,
-		"max_val": 16,
-	},
-	"slider_digits": {
-		"min_val": 1,
-		"max_val": 16,
-	},
-}
 
 # Aligns input to centre and removes "Press Enter to apply" prompt
 customise_text_input = """
@@ -137,7 +36,7 @@ with generator_panel:
 		passwd_len = st.slider(
 			label="Password Length",
 			key="slider_passwd_len",
-			on_change=chk_passlen_slider_val,
+			on_change=ui.chk_passlen_slider_val,
 			min_value=st.session_state['min_passwd_len'],
 			max_value=st.session_state['max_passwd_len'],
 		)
@@ -147,7 +46,7 @@ with generator_panel:
 			icon=choice(randomiser_icons),
 			width="content", type="tertiary",
 			help="Randomise password length.",
-			on_click=set_slider_value,
+			on_click=ui.set_slider_value,
 			args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len']), True),
 		)
 
@@ -169,7 +68,7 @@ with generator_panel:
 			st.button(
 				label="",
 				key="reset_all_params",
-				on_click=reset_all_sliders,
+				on_click=ui.reset_all_sliders,
 				icon=":material/reset_settings:",
 				width="content", type="tertiary",
 				help="Reset all parameters below.",
@@ -178,7 +77,7 @@ with generator_panel:
 			st.button(
 				label="",
 				key="btn_rndmz_param",
-				on_click=rndmz_all_sliders,
+				on_click=ui.rndmz_all_sliders,
 				icon=choice(randomiser_icons),
 				width="content", type="tertiary",
 				help="Randomise number of all character types.",
@@ -193,7 +92,7 @@ with generator_panel:
 				label="Number of Uppercase characters [`A`, `B`, `C`, ... `Z`]",
 				min_value=param_sliders["slider_upper_chars"]['min_val'],
 				max_value=param_sliders["slider_upper_chars"]['max_val'],
-				on_change=set_passwd_slider,
+				on_change=ui.set_passwd_slider,
 			)
 			st.button(
 				label="",
@@ -201,7 +100,7 @@ with generator_panel:
 				icon=choice(randomiser_icons),
 				width="content", type="tertiary",
 				help="Randomise number of uppercase characters.",
-				on_click=rndmz_param_slider,
+				on_click=ui.rndmz_param_slider,
 				args=("slider_upper_chars", param_sliders["slider_upper_chars"]['min_val'], param_sliders["slider_upper_chars"]['max_val']),
 			)
 
@@ -212,7 +111,7 @@ with generator_panel:
 				label="Number of Lowercase characters [`a`, `b`, `c`, ... `z`]",
 				min_value=param_sliders["slider_lower_chars"]['min_val'],
 				max_value=param_sliders["slider_lower_chars"]['max_val'],
-				on_change=set_passwd_slider,
+				on_change=ui.set_passwd_slider,
 			)
 			st.button(
 				label="",
@@ -220,7 +119,7 @@ with generator_panel:
 				icon=choice(randomiser_icons),
 				width="content", type="tertiary",
 				help="Randomise number of lowercase characters.",
-				on_click=rndmz_param_slider,
+				on_click=ui.rndmz_param_slider,
 				args=("slider_lower_chars", param_sliders["slider_lower_chars"]['min_val'], param_sliders["slider_lower_chars"]['max_val']),
 			)
 
@@ -231,7 +130,7 @@ with generator_panel:
 				label="Number of Special characters [`,`, `!`, `_`, etc.]",
 				min_value=param_sliders["slider_spcl_chars"]['min_val'],
 				max_value=param_sliders["slider_spcl_chars"]['max_val'],
-				on_change=set_passwd_slider,
+				on_change=ui.set_passwd_slider,
 			)
 			st.button(
 				label="",
@@ -239,7 +138,7 @@ with generator_panel:
 				icon=choice(randomiser_icons),
 				width="content", type="tertiary",
 				help="Randomise number of special characters.",
-				on_click=rndmz_param_slider,
+				on_click=ui.rndmz_param_slider,
 				args=("slider_spcl_chars", param_sliders["slider_spcl_chars"]['min_val'], param_sliders["slider_spcl_chars"]['max_val']),
 			)
 
@@ -250,14 +149,14 @@ with generator_panel:
 				label="Number of Digits [`0`, `1`, `2`, ... `9`]",
 				min_value=param_sliders["slider_digits"]['min_val'],
 				max_value=param_sliders["slider_digits"]['max_val'],
-				on_change=set_passwd_slider,
+				on_change=ui.set_passwd_slider,
 			)
 			st.button(
 				label="", key="rndm_btn_digits",
 				icon=choice(randomiser_icons),
 				width="content", type="tertiary",
 				help="Randomise number of digits.",
-				on_click=rndmz_param_slider,
+				on_click=ui.rndmz_param_slider,
 				args=("slider_digits", param_sliders["slider_digits"]['min_val'], param_sliders["slider_digits"]['max_val']),
 			)
 
@@ -265,7 +164,7 @@ with generator_panel:
 	st.button(
 		label="**Generate Password**",
 		type="primary", width="stretch",
-		on_click=generate_password,
+		on_click=logic.generate_password,
 		args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
 	)
 
