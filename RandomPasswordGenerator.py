@@ -125,7 +125,7 @@ st.markdown(customise_text_input, unsafe_allow_html=True)
 randomiser_icons = [":material/casino:", ":material/ifl:"]
 
 # Use full page width instead of centred readable area
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="centered", page_icon=choice(randomiser_icons), page_title="Random Password Generator",)
 
 # Password Generator Panel
 generator_panel = st.container(key="generator_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top")
