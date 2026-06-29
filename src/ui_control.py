@@ -1,8 +1,9 @@
 import streamlit as st
 from random import randint
-from definitions.parameters import param_sliders
+from defined import param_sliders
 
 __all__ = [
+	'load_markdown',
 	'set_slider_value',
 	'rndmz_all_sliders',
 	'reset_all_sliders',
@@ -10,6 +11,11 @@ __all__ = [
 	'rndmz_param_slider',
 	'chk_passlen_slider_val',
 ]
+
+# Load Page Content from Markdown file
+def load_markdown(file_path: str):
+	with open(file_path, 'r', encoding="utf-8") as f:
+		return f.read()
 
 # Sets a Slider's value
 def set_slider_value(slider_key: str, value: int, is_btn_disabled: bool = False, chk_passlen_slider: bool = False) -> None:

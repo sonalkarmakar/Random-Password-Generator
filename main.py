@@ -1,10 +1,12 @@
 import streamlit as st
 from random import choice, randint
 
-import functions.logic as logic
-import functions.ui_control as ui
-from definitions.defaults import default_values
-from definitions.parameters import param_sliders
+from src import defined
+import src.logic as logic
+import src.ui_control as ui
+from src.defined import content_paths, default_values, icons, param_sliders
+# from definitions.defaults import default_values
+# from definitions.parameters import param_sliders
 
 # Set Default Values in Session State
 for key, value in default_values.items():
@@ -20,16 +22,15 @@ customise_text_input = """
 # Applies HTML definition above
 st.markdown(customise_text_input, unsafe_allow_html=True)
 
-# Icons for randomiser buttons
-randomiser_icons = [":material/casino:", ":material/ifl:"]
-
 # Use full page width instead of centred readable area
-st.set_page_config(layout="centered", page_icon=choice(randomiser_icons), page_title="Random Password Generator",)
+st.set_page_config(layout="centered", page_icon=choice(icons['randomiser_icons']), page_title="Random Password Generator",)
+# Website title
+st.title(body="Random Password Generator", text_alignment="center", anchor=False,)
 
 # Password Generator Panel
-generator_panel = st.container(key="generator_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top")
+generator_panel = st.container(key="generator_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
 with generator_panel:
-	st.subheader(body="Random Password Generator", text_alignment="center", anchor=False)
+	st.subheader(body="Generate Random Password", text_alignment="center", anchor=False,)
 
 	# Password Length Slider
 	with st.container(border=False, horizontal=True):
@@ -43,7 +44,7 @@ with generator_panel:
 		st.button(
 			label="",
 			key="rndm_btn_passlen",
-			icon=choice(randomiser_icons),
+			icon=choice(icons['randomiser_icons']),
 			width="content", type="tertiary",
 			help="Randomise password length.",
 			on_click=ui.set_slider_value,
@@ -78,7 +79,7 @@ with generator_panel:
 				label="",
 				key="btn_rndmz_param",
 				on_click=ui.rndmz_all_sliders,
-				icon=choice(randomiser_icons),
+				icon=choice(icons['randomiser_icons']),
 				width="content", type="tertiary",
 				help="Randomise number of all character types.",
 			)
@@ -97,7 +98,7 @@ with generator_panel:
 			st.button(
 				label="",
 				key="rndm_btn_uppercase",
-				icon=choice(randomiser_icons),
+				icon=choice(icons['randomiser_icons']),
 				width="content", type="tertiary",
 				help="Randomise number of uppercase characters.",
 				on_click=ui.rndmz_param_slider,
@@ -116,7 +117,7 @@ with generator_panel:
 			st.button(
 				label="",
 				key="rndm_btn_lowercase",
-				icon=choice(randomiser_icons),
+				icon=choice(icons['randomiser_icons']),
 				width="content", type="tertiary",
 				help="Randomise number of lowercase characters.",
 				on_click=ui.rndmz_param_slider,
@@ -135,7 +136,7 @@ with generator_panel:
 			st.button(
 				label="",
 				key="rndm_btn_special",
-				icon=choice(randomiser_icons),
+				icon=choice(icons['randomiser_icons']),
 				width="content", type="tertiary",
 				help="Randomise number of special characters.",
 				on_click=ui.rndmz_param_slider,
@@ -153,7 +154,7 @@ with generator_panel:
 			)
 			st.button(
 				label="", key="rndm_btn_digits",
-				icon=choice(randomiser_icons),
+				icon=choice(icons['randomiser_icons']),
 				width="content", type="tertiary",
 				help="Randomise number of digits.",
 				on_click=ui.rndmz_param_slider,
@@ -178,5 +179,16 @@ with generator_panel:
 		)
 		st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary")
 
+# Password Guidelines Panel
+guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
+with guidelines_panel:
+	st.subheader(body="Password Guidelines", text_alignment="center", anchor=False,)
+
+	with st.expander(key="expnd_create_passwd", icon=":material/password:", label="**Creating Secure Password**"):
+		st.text(ui.load_markdown(defined.content_paths['create_passwd']))
+
+	with st.expander(key="expnd_maintain_passwd", icon=":material/privacy_tip:", label="**Maintaining Password Security**",):
+		st.text("Contents here")
+
 with st.bottom:
-	st.caption("Made by **Sonal Karmakar**", text_alignment="center")
+	st.caption("Made by **Sonal Karmakar**", text_alignment="center",)
