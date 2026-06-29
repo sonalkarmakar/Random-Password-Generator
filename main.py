@@ -30,7 +30,7 @@ st.title(body="Random Password Generator", text_alignment="center", anchor=False
 # Password Generator Panel
 generator_panel = st.container(key="generator_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
 with generator_panel:
-	st.subheader(body="Generate Random Password", text_alignment="center", anchor=False,)
+	st.header(body="Generate Random Password", text_alignment="center", anchor=False,)
 
 	# Password Length Slider
 	with st.container(border=False, horizontal=True):
@@ -161,34 +161,35 @@ with generator_panel:
 				args=("slider_digits", param_sliders["slider_digits"]['min_val'], param_sliders["slider_digits"]['max_val']),
 			)
 
-	# Password Generator Button
-	st.button(
-		label="**Generate Password**",
-		type="primary", width="stretch",
-		on_click=logic.generate_password,
-		args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
-	)
-
 	# Password Output Panel
 	with st.container(horizontal=True):
+		# Password Generator Button
+		st.button(
+			label="**Generate Password**",
+			type="primary", width="content",
+			on_click=logic.generate_password,
+			args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
+		)
+		# Shows the Password
 		passwd_text = st.text_input(
 			key="passwd_textbox",
 			label="Generated Password",
 			label_visibility="collapsed",
 			placeholder="Your Randomly Generated Password",
 		)
+		# Copy Password Button
 		st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary")
 
 # Password Guidelines Panel
 guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
 with guidelines_panel:
-	st.subheader(body="Password Guidelines", text_alignment="center", anchor=False,)
+	st.header(body="Password Guidelines", text_alignment="center", anchor=False,)
 
 	with st.expander(key="expnd_create_passwd", icon=":material/password:", label="**Creating Secure Password**"):
-		st.text(ui.load_markdown(defined.content_paths['create_passwd']))
+		st.markdown(ui.load_markdown(content_paths['create_passwd']))
 
 	with st.expander(key="expnd_maintain_passwd", icon=":material/privacy_tip:", label="**Maintaining Password Security**",):
-		st.text("Contents here")
+		st.markdown(ui.load_markdown(content_paths['maintain_passwd']))
 
 with st.bottom:
 	st.caption("Made by **Sonal Karmakar**", text_alignment="center",)
