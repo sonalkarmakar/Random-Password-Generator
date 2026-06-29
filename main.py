@@ -1,7 +1,6 @@
 import streamlit as st
 from random import choice, randint
 
-from src import defined
 import src.logic as logic
 import src.ui_control as ui
 from src.defined import content_paths, default_values, icons, param_sliders
