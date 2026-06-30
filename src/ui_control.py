@@ -1,6 +1,7 @@
 import streamlit as st
 from random import randint
 from src.defined import param_sliders
+from src.logic import generate_password
 
 __all__ = [
 	'load_markdown',
@@ -11,6 +12,10 @@ __all__ = [
 	'rndmz_param_slider',
 	'chk_passlen_slider_val',
 ]
+
+# Show the password in textbox
+def show_password(textbox_key: str, passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int):
+	st.session_state[textbox_key] = generate_password(passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
 
 # Load Page Content from Markdown file
 @st.cache_data

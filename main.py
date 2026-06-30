@@ -1,7 +1,6 @@
 import streamlit as st
 from random import choice, randint
 
-import src.logic as logic
 import src.ui_control as ui
 from src.defined import content_paths, default_values, icons, param_sliders
 # from definitions.defaults import default_values
@@ -166,7 +165,7 @@ with generator_panel:
 		st.button(
 			label="**Generate Password**",
 			type="primary", width="content",
-			on_click=logic.generate_password,
+			on_click=ui.show_password,
 			args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
 		)
 		# Shows the Password

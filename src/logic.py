@@ -1,9 +1,8 @@
-import streamlit as st
 from random import choice, shuffle
 from string import ascii_lowercase, ascii_uppercase, punctuation, digits
 
 # Generates the Random Password
-def generate_password(textbox_key: str, passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int):
+def generate_password(passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int) -> str:
 	password: list[str] = []
 
 	# Specified number of Uppercase Characters
@@ -29,4 +28,4 @@ def generate_password(textbox_key: str, passwd_len: int, upper_chars: int, lower
 
 	shuffle(password) # Shuffle password
 
-	st.session_state[textbox_key] = "".join(password) # Return password as string
+	return "".join(password) # Return password as string
