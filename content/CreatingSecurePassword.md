@@ -1,5 +1,8 @@
 ### A secure Password must have...
-To create a secure password, it must satisfy the following criteria.
+The following criteria that are flexible to accommodate different application criticalities.
+
+#### Eight or more characters
+The password must be of _at least_ eight characters or longer, based on on preference and criticality.
 
 #### One or more Lowercase Character
 One or more character(s) from the _lowercase alphabet_:  
