@@ -44,7 +44,7 @@ with generator_panel:
 			width="content", type="tertiary",
 			help="Randomise password length.",
 			on_click=ui.set_slider_value,
-			args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len']), True),
+			args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len']), True, True),
 		)
 
 	warning_panel = st.empty()
