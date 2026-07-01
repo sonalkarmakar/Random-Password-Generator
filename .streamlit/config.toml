@@ -1,0 +1,7 @@
+[theme.dark]
+primaryColor = "#BF8F00"
+backgroundColor = "#060B1A"
+
+[theme.light]
+primaryColor = "#B38600"
+backgroundColor = "#F7F9FF"

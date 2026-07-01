@@ -44,3 +44,19 @@ content_paths = {
 	"create_passwd": "content/CreatingSecurePassword.md",
 	"maintain_passwd": "content/MaintainingPasswordSecurity.md",
 }
+
+# App Author Details
+author_details = {
+	"name": "Sonal Karmakar",
+	"email": "",
+	"links": {
+		"websites": {
+			"GitHub": "https://github.com/sonalkarmakar",
+			"GitLab": "https://gitlab.com/sonalkarmakar",
+		},
+		"repository": {
+			"GitHub": "https://github.com/sonalkarmakar/<repository-name>",
+			"GitLab": "https://gitlab.com/sonalkarmakar/<repository-name>",
+		},
+	},
+}

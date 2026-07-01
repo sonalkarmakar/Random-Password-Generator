@@ -2,7 +2,7 @@ import streamlit as st
 from random import choice, randint
 
 import ui_controls.st_controls as ui
-from src.defined import content_paths, default_values, icons, param_sliders
+from src.defined import content_paths, default_values, icons, param_sliders, author_details
 
 # Set Default Values in Session State
 for key, value in default_values.items():
@@ -188,4 +188,7 @@ with guidelines_panel:
 		st.markdown(ui.load_markdown(content_paths['maintain_passwd']))
 
 with st.bottom:
-	st.caption("Made by **Sonal Karmakar**", text_alignment="center",)
+	st.caption(
+		text_alignment="center",
+		body=f"Made by **{author_details['name']}** | [GitHub]({author_details['links']['websites']['GitHub']}) | [GitLab]({author_details['links']['websites']['GitLab']})",
+	)
