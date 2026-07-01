@@ -1,10 +1,8 @@
 import streamlit as st
 from random import choice, randint
 
-import src.ui_control as ui
+import ui_controls.st_controls as ui
 from src.defined import content_paths, default_values, icons, param_sliders
-# from definitions.defaults import default_values
-# from definitions.parameters import param_sliders
 
 # Set Default Values in Session State
 for key, value in default_values.items():
