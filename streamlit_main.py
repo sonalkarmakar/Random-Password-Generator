@@ -22,7 +22,7 @@ customise_text_input = """
 st.markdown(customise_text_input, unsafe_allow_html=True)
 
 # Use full page width instead of centred readable area
-st.set_page_config(layout="centered", page_icon=choice(icons['randomiser_icons']), page_title="Random Password Generator",)
+st.set_page_config(layout="centered", page_icon=f":material/{choice(icons['randomiser_icons'])}:", page_title="Random Password Generator",)
 # Website title
 st.title(body="Random Password Generator", text_alignment="center", anchor=False,)
 
@@ -43,7 +43,7 @@ with generator_panel:
 		st.button(
 			label="",
 			key="rndm_btn_passlen",
-			icon=choice(icons['randomiser_icons']),
+			icon=f":material/{choice(icons['randomiser_icons'])}:",
 			width="content", type="tertiary",
 			help="Randomise password length.",
 			on_click=ui.set_slider_value,
@@ -57,7 +57,7 @@ with generator_panel:
 		st.warning(
 			title="Password length might be too long!",
 			body="Old systems may not support this length.",
-			icon=":material/warning:",
+			icon=f":material/{icons['warning']}:",
 		)
 
 	# Panel for other sliders
@@ -69,7 +69,7 @@ with generator_panel:
 				label="",
 				key="reset_all_params",
 				on_click=ui.reset_all_sliders,
-				icon=":material/reset_settings:",
+				icon=f":material/{icons['reset_settings']}:",
 				width="content", type="tertiary",
 				help="Reset all parameters below.",
 				disabled=st.session_state['disable_reset_btn'],
@@ -78,7 +78,7 @@ with generator_panel:
 				label="",
 				key="btn_rndmz_param",
 				on_click=ui.rndmz_all_sliders,
-				icon=choice(icons['randomiser_icons']),
+				icon=f":material/{choice(icons['randomiser_icons'])}:",
 				width="content", type="tertiary",
 				help="Randomise number of all character types.",
 			)
@@ -103,7 +103,7 @@ with generator_panel:
 					on_click=ui.rndmz_param_slider,
 					width="content", type="tertiary",
 					key=param_sliders[k]['rndmz_btn_key'],
-					icon=choice(icons['randomiser_icons']),
+					icon=f":material/{choice(icons['randomiser_icons'])}:",
 					help=param_sliders[k]['rndmz_btn_tip'],
 					args=(k, param_sliders[k]['min_val'], param_sliders[k]['max_val']),
 				)
@@ -132,17 +132,17 @@ with generator_panel:
 			placeholder="Your Randomly Generated Password",
 		)
 		# [DOESN'T FUNCTION] Copy Password Button
-		st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary", on_click=ui.copy_password)
+		st.button(label="", key="copy_btn", icon=f":material/{icons['content_copy']}:", width="content", type="tertiary", on_click=ui.copy_password)
 
 # Password Guidelines Panel
 guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
 with guidelines_panel:
 	st.header(body="Password Guidelines", text_alignment="center", anchor=False,)
 
-	with st.expander(key="expnd_create_passwd", icon=":material/password:", label="**Creating Secure Password**"):
+	with st.expander(key="expnd_create_passwd", icon=f":material/{icons['password']}:", label="**Creating Secure Password**"):
 		st.markdown(ui.load_markdown(content_paths['create_passwd']))
 
-	with st.expander(key="expnd_maintain_passwd", icon=":material/privacy_tip:", label="**Maintaining Password Security**",):
+	with st.expander(key="expnd_maintain_passwd", icon=f":material/{icons['privacy_tip']}:", label="**Maintaining Password Security**",):
 		st.markdown(ui.load_markdown(content_paths['maintain_passwd']))
 
 with st.bottom:
