@@ -13,18 +13,30 @@ param_sliders = {
 	"slider_upper_chars": {
 		"min_val": 1,
 		"max_val": 16,
+		"rndmz_btn_key": "rndmz_btn_uppercase",
+		"rndmz_btn_tip": "Randomise number of uppercase characters.",
+		"label": "Number of Uppercase characters [`A`, `B`, `C`, ... `Z`]",
 	},
 	"slider_lower_chars": {
 		"min_val": 1,
 		"max_val": 16,
+		"rndmz_btn_key": "rndmz_btn_lowercase",
+		"rndmz_btn_tip": "Randomise number of lowercase characters.",
+		"label": "Number of Lowercase characters [`a`, `b`, `c`, ... `z`]",
 	},
 	"slider_spcl_chars": {
 		"min_val": 1,
 		"max_val": 16,
+		"rndmz_btn_key": "rndmz_btn_special",
+		"rndmz_btn_tip": "Randomise number of special characters.",
+		"label": "Number of Special characters [`,`, `!`, `_`, etc.]",
 	},
 	"slider_digits": {
 		"min_val": 1,
 		"max_val": 16,
+		"rndmz_btn_key": "rndmz_btn_digits",
+		"rndmz_btn_tip": "Randomise number of digits.",
+		"label": "Number of Digits [`0`, `1`, `2`, ... `9`]",
 	},
 }
 

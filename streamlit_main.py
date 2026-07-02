@@ -4,6 +4,9 @@ from random import choice, randint
 import ui_controls.st_controls as ui
 from src.defined import content_paths, default_values, icons, param_sliders, author_details
 
+# Stores user-input for parameters
+param_input: dict[str, int] = {}
+
 # Set Default Values in Session State
 for key, value in default_values.items():
 	st.session_state.setdefault(key, value)
@@ -82,80 +85,28 @@ with generator_panel:
 
 		# Divider takes too much vertical space
 
-		# Slider for Number of Uppercase Characters
-		with st.container(border=False, horizontal=True):
-			upper_chars = st.slider(
-				key="slider_upper_chars",
-				label="Number of Uppercase characters [`A`, `B`, `C`, ... `Z`]",
-				min_value=param_sliders["slider_upper_chars"]['min_val'],
-				max_value=param_sliders["slider_upper_chars"]['max_val'],
-				on_change=ui.set_passwd_slider,
-			)
-			st.button(
-				label="",
-				key="rndm_btn_uppercase",
-				icon=choice(icons['randomiser_icons']),
-				width="content", type="tertiary",
-				help="Randomise number of uppercase characters.",
-				on_click=ui.rndmz_param_slider,
-				args=("slider_upper_chars", param_sliders["slider_upper_chars"]['min_val'], param_sliders["slider_upper_chars"]['max_val']),
-			)
+		# Loop through Parameters Dictionary to create UI elements
+		for k, v in param_sliders.items():
+			with st.container(border=False, horizontal=True):
+				param_input.update({k:
+					st.slider(
+						key=k,
+						label=param_sliders[k]['label'],
+						min_value=param_sliders[k]['min_val'],
+						max_value=param_sliders[k]['max_val'],
+						on_change=ui.set_passwd_slider,
+					)
+				})
 
-		# Slider for Number of Lowercase Characters
-		with st.container(border=False, horizontal=True):
-			lower_chars = st.slider(
-				key="slider_lower_chars",
-				label="Number of Lowercase characters [`a`, `b`, `c`, ... `z`]",
-				min_value=param_sliders["slider_lower_chars"]['min_val'],
-				max_value=param_sliders["slider_lower_chars"]['max_val'],
-				on_change=ui.set_passwd_slider,
-			)
-			st.button(
-				label="",
-				key="rndm_btn_lowercase",
-				icon=choice(icons['randomiser_icons']),
-				width="content", type="tertiary",
-				help="Randomise number of lowercase characters.",
-				on_click=ui.rndmz_param_slider,
-				args=("slider_lower_chars", param_sliders["slider_lower_chars"]['min_val'], param_sliders["slider_lower_chars"]['max_val']),
-			)
-
-		# Slider for Number of Special Characters
-		with st.container(border=False, horizontal=True):
-			spcl_chars = st.slider(
-				key="slider_spcl_chars",
-				label="Number of Special characters [`,`, `!`, `_`, etc.]",
-				min_value=param_sliders["slider_spcl_chars"]['min_val'],
-				max_value=param_sliders["slider_spcl_chars"]['max_val'],
-				on_change=ui.set_passwd_slider,
-			)
-			st.button(
-				label="",
-				key="rndm_btn_special",
-				icon=choice(icons['randomiser_icons']),
-				width="content", type="tertiary",
-				help="Randomise number of special characters.",
-				on_click=ui.rndmz_param_slider,
-				args=("slider_spcl_chars", param_sliders["slider_spcl_chars"]['min_val'], param_sliders["slider_spcl_chars"]['max_val']),
-			)
-
-		# Slider for Number of Digits
-		with st.container(border=False, horizontal=True):
-			num_digits = st.slider(
-				key="slider_digits",
-				label="Number of Digits [`0`, `1`, `2`, ... `9`]",
-				min_value=param_sliders["slider_digits"]['min_val'],
-				max_value=param_sliders["slider_digits"]['max_val'],
-				on_change=ui.set_passwd_slider,
-			)
-			st.button(
-				label="", key="rndm_btn_digits",
-				icon=choice(icons['randomiser_icons']),
-				width="content", type="tertiary",
-				help="Randomise number of digits.",
-				on_click=ui.rndmz_param_slider,
-				args=("slider_digits", param_sliders["slider_digits"]['min_val'], param_sliders["slider_digits"]['max_val']),
-			)
+				st.button(
+					label="",
+					on_click=ui.rndmz_param_slider,
+					width="content", type="tertiary",
+					key=param_sliders[k]['rndmz_btn_key'],
+					icon=choice(icons['randomiser_icons']),
+					help=param_sliders[k]['rndmz_btn_tip'],
+					args=(k, param_sliders[k]['min_val'], param_sliders[k]['max_val']),
+				)
 
 	# Password Output Panel
 	with st.container(horizontal=True):
@@ -164,7 +115,14 @@ with generator_panel:
 			label="**Generate Password**",
 			type="primary", width="content",
 			on_click=ui.show_password,
-			args=("passwd_textbox", passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
+			args=(
+				"passwd_textbox",
+				passwd_len,
+				param_input['slider_upper_chars'],
+			 	param_input['slider_lower_chars'],
+				param_input['slider_spcl_chars'],
+				param_input['slider_digits']
+			)
 		)
 		# Shows the Password
 		passwd_text = st.text_input(
@@ -173,8 +131,8 @@ with generator_panel:
 			label_visibility="collapsed",
 			placeholder="Your Randomly Generated Password",
 		)
-		# Copy Password Button
-		st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary")
+		# [DOESN'T FUNCTION] Copy Password Button
+		st.button(label="", key="copy_btn", icon=":material/content_copy:", width="content", type="tertiary", on_click=ui.copy_password)
 
 # Password Guidelines Panel
 guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
