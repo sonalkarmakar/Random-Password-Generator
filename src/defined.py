@@ -43,12 +43,12 @@ param_sliders = {
 # Icons for randomiser buttons
 # UI Icons
 icons = {
-	"warning": ":material/warning:",
-	"password": ":material/password:",
-	"privacy_tip": ":material/privacy_tip",
-	"content_copy": ":material/content_copy",
-	"reset_settings": ":material/reset_settings",
-	"randomiser_icons": [":material/casino:", ":material/ifl:"],
+	"warning": "warning",
+	"password": "password",
+	"privacy_tip": "privacy_tip",
+	"content_copy": "content_copy",
+	"reset_settings": "reset_settings",
+	"randomiser_icons": ["casino", "ifl"],
 }
 
 # Content Paths
