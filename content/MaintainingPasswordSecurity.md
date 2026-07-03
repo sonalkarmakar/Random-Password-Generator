@@ -3,6 +3,7 @@ Follow the guidelines below, that are strongly recommended by multiple safety an
 
 #### Never expose your password
 Don't keep your password unprotected or exposed such that they're completely visible through minimal efforts. Examples of such cases are:
+
 - Notes and notebooks.
 - Shared or visible screens/storage.
 - Unencrypted files/storage.
@@ -24,6 +25,7 @@ It is advised to change your passwords every 120 days. Earlier for more critical
 Multi-Factor Authentication are a set of mutually unique and independent key items that are simultaneously required for full authentication.
 
 Use at least 2 of the following authentication factor categories:
+
 - _Something **you are**_ (face, iris/retina, fingerprint).
 - _Something **you know**_ (passwords, codes, patterns, etc.).
 - _Something **you have**_ (mobile device, USB key, key cards, etc.).
@@ -34,6 +36,7 @@ Password Managers are simply a database of your passwords/credentials for each p
 Almost all password managers can generate a completely random password following the usual security guidelines. Password Managers that run as browser extensions, can automatically detect the platform from the webpage and apply the credentials without any user-input other than the master password. Most of them also provide cloud-features to ease configuration across multiple devices for a user. Some of them also offer other authentication methods, like scanning fingerprint, face, USB key, key cards.
 
 To choose the best Password Manager for you,
+
 - Identify the features you need the most.
 - Weigh the pros and cons of their ecosystem, like open or closed source, first-party cloud or self-hosted, browser extension or dedicated app, etc.
 - Check their history for breaches, exploits and vulnerabilities.
