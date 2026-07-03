@@ -1,7 +1,8 @@
 from nicegui import ui
 from random import choice
 
-from src.defined import author_details, icons, param_sliders
+import ui_controls.ngui_controls as ngc
+from src.defined import author_details, icons, param_sliders, content_paths
 
 param_input: dict[str, int] = {}
 
@@ -63,8 +64,12 @@ with ui.column(align_items="center").classes("w-full"):
 						.props("outlined rounded dense input-class='text-center'")
 					ui.button(color="flat", icon=f"o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
 
-			with ui.tab_panel(tab_2).classes("items-center"):
-				ui.markdown("# Load Markdown Content here")
+			with ui.tab_panel(tab_2).classes("items-center p-1").props("dense"):
+				with ui.expansion("Creating Secure Password", icon=icons['password']).classes("w-full"):
+					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))
+
+				with ui.expansion("Creating Secure Password", icon=icons['privacy_tip']).classes("w-full"):
+					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
 with ui.footer().classes("p-0"):
 	ui.space()
