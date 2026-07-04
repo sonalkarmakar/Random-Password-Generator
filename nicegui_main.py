@@ -21,7 +21,7 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.row(align_items="center").classes("w-full"):
 					ui.label("Password Length")
 					ui.space()
-					ui.button(color="flat", icon=f"o_{icons['randomiser_icons'][0]}").props("flat round dense") \
+					ui.button(color="flat", icon=f"sym_o_{icons['randomiser_icons'][1]}").props("flat round dense") \
 						.tooltip("Randomise password length.")
 
 				passwd_len = ui.slider(min=1, max=16, value=1).props("label-always").classes("w-[97%]")
@@ -30,10 +30,10 @@ with ui.column(align_items="center").classes("w-full"):
 					with ui.row(align_items="center").classes("w-full gap-2"):
 						ui.label("Valid Characters")
 						ui.space()
-						ui.button(color="flat", icon="o_refresh") \
+						ui.button(color="flat", icon=f"sym_o_{icons['reset_settings']}") \
 							.props("flat round dense padding='xs'") \
 							.tooltip("Reset all parameters below.")
-						ui.button(color="flat", icon=f"o_{icons['randomiser_icons'][0]}") \
+						ui.button(color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}") \
 							.props("flat round dense padding='xs'") \
 							.tooltip("Randomise number of all character types.")
 
@@ -43,8 +43,7 @@ with ui.column(align_items="center").classes("w-full"):
 						with ui.row(align_items="center").classes("w-full"):
 							ui.markdown(param_sliders[k]['label'])
 							ui.space()
-							# NiceGUI doesn't support new Material icons like "ifl"
-							ui.button(color="flat", icon=f"o_{icons['randomiser_icons'][0]}") \
+							ui.button(color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}") \
 								.props("flat round dense padding='xs'") \
 								.tooltip(param_sliders[k]['rndmz_btn_tip'])
 
@@ -62,13 +61,13 @@ with ui.column(align_items="center").classes("w-full"):
 					ui.button(text="Generate").props("no-caps no-wrap rounded")
 					ui.input(placeholder="Your Randomly Generated Password").classes("w-full") \
 						.props("outlined rounded dense input-class='text-center'")
-					ui.button(color="flat", icon=f"o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
+					ui.button(color="flat", icon=f"sym_o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
 
 			with ui.tab_panel(tab_2).classes("items-center p-1 max-h-[75vh]"):
-				with ui.expansion("Creating Secure Password", icon=icons['password']).classes("w-full"):
+				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['password']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))#.classes("max-h-[57vh]")
 
-				with ui.expansion("Creating Secure Password", icon=icons['privacy_tip']).classes("w-full"):
+				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))#.classes("max-h-[57vh]")
 
 with ui.footer().classes("p-0"):
