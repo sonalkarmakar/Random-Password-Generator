@@ -9,12 +9,12 @@ param_input: dict[str, int] = {}
 # Create UI Elements
 with ui.column(align_items="center").classes("w-full"):
 	ui.html("<center><h3>Random Password Generator</h3></center>")
-	with ui.card(align_items="center").classes("rounded-3xl"):
+	with ui.card(align_items="center").classes("min-w-[34%] md:w-1/3 rounded-3xl"):
 		with ui.tabs().classes("w-full flex").props("no-caps dense indicator-color='primary' active-color='primary'") as tabs:
 			tab_1 = ui.tab("Generate Random Password").classes("flex-1")
 			tab_2 = ui.tab("Secure Password Guidelines").classes("flex-1")
 
-		with ui.tab_panels(tabs, value=tab_1):
+		with ui.tab_panels(tabs, value=tab_1).classes("w-full"):
 			with ui.tab_panel(tab_1).classes("items-center p-1"):
 				ui.html("<center><h4>Generate a Random Password</h4></center>")
 
@@ -64,12 +64,12 @@ with ui.column(align_items="center").classes("w-full"):
 						.props("outlined rounded dense input-class='text-center'")
 					ui.button(color="flat", icon=f"o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
 
-			with ui.tab_panel(tab_2).classes("items-center p-1").props("dense"):
+			with ui.tab_panel(tab_2).classes("items-center p-1 max-h-[75vh]"):
 				with ui.expansion("Creating Secure Password", icon=icons['password']).classes("w-full"):
-					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))
+					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))#.classes("max-h-[57vh]")
 
 				with ui.expansion("Creating Secure Password", icon=icons['privacy_tip']).classes("w-full"):
-					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
+					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))#.classes("max-h-[57vh]")
 
 with ui.footer().classes("p-0"):
 	ui.space()
