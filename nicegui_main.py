@@ -1,10 +1,10 @@
 from nicegui import ui
-from random import choice
+from random import choice, randint
 
 import ui_controls.ngui_controls as ngc
 from src.defined import author_details, icons, param_sliders, content_paths
 
-param_input: dict[str, int] = {}
+param_input_sliders: dict[str, ui.slider] = {}
 
 # Create UI Elements
 with ui.column(align_items="center").classes("w-full"):
@@ -43,19 +43,24 @@ with ui.column(align_items="center").classes("w-full"):
 						with ui.row(align_items="center").classes("w-full"):
 							ui.markdown(param_sliders[k]['label'])
 							ui.space()
-							ui.button(color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}") \
+							ui.button(
+								color="flat",
+								icon=f"sym_o_{choice(icons['randomiser_icons'])}",
+								on_click=lambda _, key=k: ngc.set_slider_value(
+									param_input_sliders[key],
+									randint(param_sliders[key]['min_val'], param_sliders[k]['max_val']),
+								)
+							) \
 								.props("flat round dense padding='xs'") \
 								.tooltip(param_sliders[k]['rndmz_btn_tip'])
 
-						slider = ui.slider(
-							min=param_sliders[k]['min_val'],
-							max=param_sliders[k]['max_val'],
-							value=param_sliders[k]['min_val']
-						).props("label-always").classes("w-[97%]")
-
-						# print(type(slider.value)) shows <class 'int'>, but linter detects it as float | None
-						assert isinstance(slider.value, int) # Eliminate float and None types
-						param_input.update({k: slider.value})
+						param_input_sliders.update({k:
+							ui.slider(
+								min=param_sliders[k]['min_val'],
+								max=param_sliders[k]['max_val'],
+								value=param_sliders[k]['min_val']
+							).props("label-always").classes("w-[97%]")
+						})
 
 				with ui.row(align_items="center", wrap=False).classes("w-full gap-2"):
 					ui.button(text="Generate").props("no-caps no-wrap rounded")
