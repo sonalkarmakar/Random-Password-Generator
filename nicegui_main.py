@@ -30,7 +30,12 @@ with ui.column(align_items="center").classes("w-full"):
 						.props("flat round dense") \
 						.tooltip("Randomise password length.")
 
-				ngc.slider_passwd_len = ui.slider(min=default_values['min_passwd_len'], max=default_values['max_passwd_len'], value=1) \
+				ngc.slider_passwd_len = ui.slider(
+					value=default_values['min_passwd_len'],
+					min=default_values['min_passwd_len'],
+					max=default_values['max_passwd_len'],
+					on_change=lambda: ngc.chk_passlen_slider_val(),
+				) \
 					.props("label-always id=slider_passwd_len").classes("w-[97%]")
 
 				with ui.card(align_items="center").classes("w-full rounded-3xl shadow-inner shadow-gray-300 border border-gray-300"):
@@ -78,10 +83,10 @@ with ui.column(align_items="center").classes("w-full"):
 
 			with ui.tab_panel(tab_2).classes("items-center p-1.5 max-h-[75vh]"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['password']}").classes("w-full"):
-					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))#.classes("max-h-[57vh]")
+					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))
 
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
-					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))#.classes("max-h-[57vh]")
+					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
 with ui.footer().classes("p-0"):
 	ui.space()

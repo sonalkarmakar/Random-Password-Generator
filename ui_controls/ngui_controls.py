@@ -25,14 +25,28 @@ def set_slider_value(slider_ref: ui.slider, val: int, chk_passlen_slider: bool =
 		set_passwd_slider()
 
 # Randomise a Slider's value
-def rndmz_all_sliders(slider_ref: ui.slider, bottom: int, top: int, set_dpdt_slider: bool = True) -> None:
-	set_slider_value(slider_ref, randint(bottom, top))
+def rndmz_all_sliders(set_dpdt_slider: bool = True) -> None:
+	for k, v in param_input_sliders.items():
+		set_slider_value(v, randint(param_sliders[k]['min_val'], param_sliders[k]['max_val']))
+
 	if set_dpdt_slider:
 		set_passwd_slider()
 
+# Reset all Parameter Sliders
+def reset_all_sliders() -> None:
+	for k, v in param_input_sliders.items():
+		set_slider_value(v, param_sliders[k]['min_val'])
+
 # Set Password Length to sum of depending parameters
-def set_passwd_slider():
+def set_passwd_slider() -> None:
 	logical_min_val = sum(slider.value for slider in param_input_sliders.values())
 
-	if logical_min_val > slider_passwd_len.value:
+	if slider_passwd_len.value < logical_min_val:
 		slider_passwd_len.value = logical_min_val
+
+# Check Password Length Slider's value
+def chk_passlen_slider_val() -> None:
+	logical_min_val = sum(slider.value for slider in param_input_sliders.values())
+
+	if slider_passwd_len.value < logical_min_val:
+		reset_all_sliders()
