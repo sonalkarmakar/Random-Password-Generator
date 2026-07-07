@@ -2,9 +2,7 @@ from nicegui import ui
 from random import choice, randint
 
 import ui_controls.ngui_controls as ngc
-from src.defined import author_details, icons, param_sliders, content_paths
-
-param_input_sliders: dict[str, ui.slider] = {}
+from src.defined import author_details, icons, param_sliders, content_paths, default_values
 
 # Create UI Elements
 with ui.column(align_items="center").classes("w-full"):
@@ -21,10 +19,19 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.row(align_items="center").classes("w-full"):
 					ui.label("Password Length")
 					ui.space()
-					ui.button(color="flat", icon=f"sym_o_{icons['randomiser_icons'][1]}").props("flat round dense") \
+					ui.button(
+						color="flat",
+						icon=f"sym_o_{choice(icons['randomiser_icons'])}",
+						on_click=lambda: ngc.set_slider_value(
+							ngc.slider_passwd_len,
+							randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])
+						),
+					) \
+						.props("flat round dense") \
 						.tooltip("Randomise password length.")
 
-				passwd_len = ui.slider(min=1, max=16, value=1).props("label-always").classes("w-[97%]")
+				ngc.slider_passwd_len = ui.slider(min=default_values['min_passwd_len'], max=default_values['max_passwd_len'], value=1) \
+					.props("label-always id=slider_passwd_len").classes("w-[97%]")
 
 				with ui.card(align_items="center").classes("w-full rounded-3xl shadow-inner shadow-gray-300 border border-gray-300"):
 					with ui.row(align_items="center").classes("w-full gap-2"):
@@ -47,19 +54,20 @@ with ui.column(align_items="center").classes("w-full"):
 								color="flat",
 								icon=f"sym_o_{choice(icons['randomiser_icons'])}",
 								on_click=lambda _, key=k: ngc.set_slider_value(
-									param_input_sliders[key],
+									ngc.param_input_sliders[key],
 									randint(param_sliders[key]['min_val'], param_sliders[k]['max_val']),
+									chk_passlen_slider=True
 								)
 							) \
 								.props("flat round dense padding='xs'") \
 								.tooltip(param_sliders[k]['rndmz_btn_tip'])
 
-						param_input_sliders.update({k:
+						ngc.param_input_sliders.update({k:
 							ui.slider(
 								min=param_sliders[k]['min_val'],
 								max=param_sliders[k]['max_val'],
 								value=param_sliders[k]['min_val']
-							).props("label-always").classes("w-[97%]")
+							).props(f"label-always id={k}").classes("w-[97%]")
 						})
 
 				with ui.row(align_items="center", wrap=False).classes("w-full gap-2"):
