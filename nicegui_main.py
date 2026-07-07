@@ -13,7 +13,7 @@ with ui.column(align_items="center").classes("w-full"):
 			tab_2 = ui.tab("Secure Password Guidelines").classes("flex-1")
 
 		with ui.tab_panels(tabs, value=tab_1).classes("w-full"):
-			with ui.tab_panel(tab_1).classes("items-center p-1"):
+			with ui.tab_panel(tab_1).classes("items-center p-1.5"):
 				ui.html("<center><h4>Generate a Random Password</h4></center>")
 
 				with ui.row(align_items="center").classes("w-full"):
@@ -37,10 +37,10 @@ with ui.column(align_items="center").classes("w-full"):
 					with ui.row(align_items="center").classes("w-full gap-2"):
 						ui.label("Valid Characters")
 						ui.space()
-						ui.button(color="flat", icon=f"sym_o_{icons['reset_settings']}") \
+						ui.button(color="flat", icon=f"sym_o_{icons['reset_settings']}", on_click=lambda: ngc.reset_all_sliders()) \
 							.props("flat round dense padding='xs'") \
 							.tooltip("Reset all parameters below.")
-						ui.button(color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}") \
+						ui.button(color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}", on_click=lambda: ngc.rndmz_all_sliders()) \
 							.props("flat round dense padding='xs'") \
 							.tooltip("Randomise number of all character types.")
 
@@ -76,7 +76,7 @@ with ui.column(align_items="center").classes("w-full"):
 						.props("outlined rounded dense input-class='text-center'")
 					ui.button(color="flat", icon=f"sym_o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
 
-			with ui.tab_panel(tab_2).classes("items-center p-1 max-h-[75vh]"):
+			with ui.tab_panel(tab_2).classes("items-center p-1.5 max-h-[75vh]"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['password']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))#.classes("max-h-[57vh]")
 
