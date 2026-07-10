@@ -76,10 +76,14 @@ with ui.column(align_items="center").classes("w-full"):
 						})
 
 				with ui.row(align_items="center", wrap=False).classes("w-full gap-2"):
-					ui.button(text="Generate").props("no-caps no-wrap rounded")
-					ui.input(placeholder="Your Randomly Generated Password").classes("w-full") \
+					ui.button(text="Generate", on_click=lambda: ngc.show_password(passwd_text)).props("no-caps no-wrap rounded")
+					passwd_text = ui.input(placeholder="Your Randomly Generated Password").classes("w-full") \
 						.props("outlined rounded dense input-class='text-center'")
-					ui.button(color="flat", icon=f"sym_o_{icons['content_copy']}").props("flat round dense").tooltip("Copy")
+					ui.button(
+						color="flat", icon=f"sym_o_{icons['content_copy']}",
+						on_click=lambda: ngc.copy_to_clipboard(passwd_text.value),
+					) \
+						.props("flat round dense").tooltip("Copy")
 
 			with ui.tab_panel(tab_2).classes("items-center p-1.5 max-h-[75vh]"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['password']}").classes("w-full"):

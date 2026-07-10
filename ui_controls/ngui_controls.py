@@ -1,8 +1,8 @@
-from fastapi._compat.shared import value_is_sequence
 from nicegui import ui
 from random import randint
 
 from src.defined import param_sliders
+from src.logic import generate_password
 
 __all__ = [
 	"load_markdown",
@@ -50,3 +50,21 @@ def chk_passlen_slider_val() -> None:
 
 	if slider_passwd_len.value < logical_min_val:
 		reset_all_sliders()
+
+# Shows the Generated Password in the Text Field
+def show_password(text_input: ui.input) -> None:
+	text_input.value = generate_password(
+		slider_passwd_len.value,
+		param_input_sliders['slider_upper_chars'].value,
+		param_input_sliders['slider_lower_chars'].value,
+		param_input_sliders['slider_spcl_chars'].value,
+		param_input_sliders['slider_digits'].value
+	)
+
+# Copies Text to User's Clipboard (DOESN'T YET WORK ON ALL CLIENTS)
+def copy_to_clipboard(text: str | None) -> None:
+	if text:
+		ui.run_javascript(f"navigator.clipboard.writeText('{text}')")
+		ui.notify(message="Copied!", type="positive", position="top", color="primary")
+	else:
+		pass
