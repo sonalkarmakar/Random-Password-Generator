@@ -4,6 +4,8 @@ from random import choice, randint
 import ui_controls.ngui_controls as ngc
 from src.defined import author_details, icons, param_sliders, content_paths, default_values
 
+dark_theme = ui.dark_mode()
+
 # Create UI Elements
 with ui.column(align_items="center").classes("w-full"):
 	ui.html("<center><h3>Random Password Generator</h3></center>")
@@ -38,7 +40,8 @@ with ui.column(align_items="center").classes("w-full"):
 				) \
 					.props("label-always id=slider_passwd_len").classes("w-[97%]")
 
-				with ui.card(align_items="center").classes("w-full rounded-3xl shadow-inner shadow-gray-300 border border-gray-300"):
+				with ui.card(align_items="center") \
+					.classes("w-full rounded-3xl shadow-inner shadow-gray-300 border border-gray-300 dark:shadow-gray-600 dark:border-gray-600"):
 					with ui.row(align_items="center").classes("w-full gap-2"):
 						ui.label("Valid Characters")
 						ui.space()
@@ -92,10 +95,13 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
-with ui.footer().classes("p-0"):
+with ui.footer().classes("p-0 bg-grey"):
+	ui.switch("Dark Mode", value=False, on_change=lambda e: dark_theme.enable() if e.value else dark_theme.disable()) \
+		.props("color=grey-9")
 	ui.space()
 	ui.markdown(f"Made by **{author_details['name']}**")
 	ui.space()
+	ui.markdown(f"Source code: [GitHub]({author_details['links']['repository']['GitHub']}) | [GitLab]({author_details['links']['repository']['GitLab']})")
 
 # Run the app
 ui.run(native=False) # True = native app; False = webapp
