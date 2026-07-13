@@ -10,7 +10,7 @@ __all__ = [
 	"param_input_sliders",
 ]
 
-slider_passwd_len: ui.slider
+slider_passwd_len: ui.slider = ui.slider(min=1, max=5)
 param_input_sliders: dict[str, ui.slider] = {}
 
 # Load Markdown content from file
@@ -39,21 +39,21 @@ def reset_all_sliders() -> None:
 
 # Set Password Length to sum of depending parameters
 def set_passwd_slider() -> None:
-	logical_min_val = sum(slider.value for slider in param_input_sliders.values())
+	logical_min_val = sum(slider.value for slider in param_input_sliders.values()) # Editor might whine, don't know how to fix
 
 	if slider_passwd_len.value < logical_min_val:
 		slider_passwd_len.value = logical_min_val
 
 # Check Password Length Slider's value
 def chk_passlen_slider_val() -> None:
-	logical_min_val = sum(slider.value for slider in param_input_sliders.values())
+	logical_min_val = sum(slider.value for slider in param_input_sliders.values()) # Editor might whine, don't know how to fix
 
 	if slider_passwd_len.value < logical_min_val:
 		reset_all_sliders()
 
 # Shows the Generated Password in the Text Field
 def show_password(text_input: ui.input) -> None:
-	text_input.value = generate_password(
+	text_input.value = generate_password( # Editor might whine, don't know how to fix
 		slider_passwd_len.value,
 		param_input_sliders['slider_upper_chars'].value,
 		param_input_sliders['slider_lower_chars'].value,
@@ -61,10 +61,10 @@ def show_password(text_input: ui.input) -> None:
 		param_input_sliders['slider_digits'].value
 	)
 
-# Copies Text to User's Clipboard (DOESN'T YET WORK ON ALL CLIENTS)
+# Copies Text to User's Clipboard
 def copy_to_clipboard(text: str | None) -> None:
 	if text:
-		ui.run_javascript(f"navigator.clipboard.writeText('{text}')")
+		ui.run_javascript(f"navigator.clipboard.writeText('{text}')") # WORKS ONLY ON LOCALHOST WITHOUT HTTPS
 		ui.notify(message="Copied!", type="positive", position="top", color="primary")
 	else:
 		pass

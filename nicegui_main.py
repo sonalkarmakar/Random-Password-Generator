@@ -95,7 +95,7 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
-with ui.footer().classes("p-0 bg-grey"):
+with ui.footer().classes("p-0 bg-blue-grey-3 text-grey-9"):
 	ui.switch("Dark Mode", value=False, on_change=lambda e: dark_theme.enable() if e.value else dark_theme.disable()) \
 		.props("color=grey-9")
 	ui.space()
