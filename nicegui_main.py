@@ -40,6 +40,20 @@ with ui.column(align_items="center").classes("w-full"):
 				) \
 					.props("label-always id=slider_passwd_len").classes("w-[97%]")
 
+				with ui.row(align_items="center") \
+					.classes("gap-2 p-2 rounded-lg border border-amber-300 bg-amber-100 dark:bg-amber-800") as warning_box: #bg-amber-50
+					ui.icon(name="warning", color="warning", size="lg")
+
+					with ui.column().classes("gap-1"):
+						ui.label("Password length might be too long!").classes("font-bold leading-none text-amber-700 dark:text-amber-200")
+						ui.label("Old systems may not support this length.").classes("text-amber-600 dark:text-amber-100")
+
+				warning_box.bind_visibility_from(
+					target_object=ngc.slider_passwd_len,
+					target_name='value',
+					backward=lambda v: v > default_values['safe_passwd_len'],
+				)
+
 				with ui.card(align_items="center") \
 					.classes("w-full rounded-3xl shadow-inner shadow-gray-300 border border-gray-300 dark:shadow-gray-600 dark:border-gray-600"):
 					with ui.row(align_items="center").classes("w-full gap-2"):
@@ -95,7 +109,7 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
-with ui.footer().classes("p-0 bg-blue-grey-3 text-grey-9"):
+with ui.footer().classes("items-center p-0 bg-blue-grey-3 text-grey-9"):
 	ui.switch("Dark Mode", value=False, on_change=lambda e: dark_theme.enable() if e.value else dark_theme.disable()) \
 		.props("color=grey-9")
 	ui.space()
