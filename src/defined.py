@@ -48,6 +48,8 @@ icons = {
 	"content_copy": "content_copy",
 	"reset_settings": "reset_settings",
 	"randomiser_icons": ["casino", "ifl"], # Icons for randomiser buttons
+	"github": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg",
+	"gitlab": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/gitlab.svg",
 }
 
 # Content Paths
@@ -66,8 +68,8 @@ author_details = {
 			"GitLab": "https://gitlab.com/sonalkarmakar",
 		},
 		"repository": {
-			"GitHub": "https://github.com/sonalkarmakar/<repository-name>",
-			"GitLab": "https://gitlab.com/sonalkarmakar/<repository-name>",
+			"GitHub": "https://github.com/sonalkarmakar/Random-Password-Generator",
+			"GitLab": "https://gitlab.com/sonalkarmakar/Random-Password-Generator",
 		},
 	},
 }
