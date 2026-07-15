@@ -4,6 +4,7 @@ from random import choice, randint
 import ui_controls.ngui_controls as ngc
 from src.defined import author_details, icons, param_sliders, content_paths, default_values
 
+# Declare Dark Theme/Mode
 dark_theme = ui.dark_mode()
 
 # Create UI Elements
@@ -115,7 +116,21 @@ with ui.footer().classes("items-center p-0 bg-blue-grey-3 text-grey-9"):
 	ui.space()
 	ui.markdown(f"Made by **{author_details['name']}**")
 	ui.space()
-	ui.markdown(f"Source code: [GitHub]({author_details['links']['repository']['GitHub']}) | [GitLab]({author_details['links']['repository']['GitLab']})")
+
+	with ui.row(align_items="center").classes("gap-1 p-0 pr-2"):
+		ui.label("Source code:")
+
+		# GitHub Link + Icon
+		with ui.link(target=f"{author_details['links']['repository']['GitHub']}", new_tab=True).classes("flex items-center text-blue-700 gap-1 p-0"):
+			ui.html("<img src='https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg' class='w-4 h-4' />")
+			ui.label("GitHub")
+
+		ui.label("│")
+
+		# GitLab Link + Icon
+		with ui.link(target=f"{author_details['links']['repository']['GitLab']}", new_tab=True).classes("flex items-center text-blue-700 gap-1 p-0"):
+			ui.html("<img src='https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/gitlab.svg' class='w-4 h-4' />")
+			ui.label("GitLab")
 
 # Run the app
 ui.run(native=False) # True = native app; False = webapp
