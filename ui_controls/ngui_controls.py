@@ -85,6 +85,6 @@ def show_password(text_input: ui.input) -> None:
 def copy_to_clipboard(text: str | None) -> None:
 	if text:
 		ui.run_javascript(f"navigator.clipboard.writeText('{text}')") # WORKS ONLY ON LOCALHOST WITHOUT HTTPS
-		ui.notify(message="Copied!", type="positive", position="top", color="primary")
+		ui.notify(message="Copied!", type="positive", position="bottom", color="primary")
 	else:
 		pass
