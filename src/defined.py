@@ -67,8 +67,8 @@ author_details = {
 			"GitLab": "https://gitlab.com/sonalkarmakar",
 		},
 		"repository": {
-			"GitHub": "https://github.com/sonalkarmakar/<repository-name>",
-			"GitLab": "https://gitlab.com/sonalkarmakar/<repository-name>",
+			"GitHub": "https://github.com/sonalkarmakar/Random-Password-Generator",
+			"GitLab": "https://gitlab.com/sonalkarmakar/Random-Password-Generator",
 		},
 	},
 }
