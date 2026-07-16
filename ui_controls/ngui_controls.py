@@ -50,7 +50,6 @@ def reset_all_sliders() -> None:
 # Set Password Length to sum of depending parameters
 def set_passwd_slider() -> None:
 	# Linter might whine, don't know how to fix
-
 	logical_min_val = sum(
 		(slider.value if slider.value is not None else -100)
 		for slider in param_input_sliders.values()

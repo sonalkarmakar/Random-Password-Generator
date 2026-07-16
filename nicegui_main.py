@@ -50,17 +50,14 @@ with ui.column(align_items="center").classes("w-full"):
 							ngc.slider_passwd_len,
 							randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])
 						),
-					) \
-						.props(ui_appearance['props']['tert_btn']) \
-						.tooltip("Randomise password length.")
+					).props(ui_appearance['props']['tert_btn']).tooltip("Randomise password length.")
 
 				ngc.slider_passwd_len = ui.slider(
 					min=default_values['min_passwd_len'],
 					max=default_values['max_passwd_len'],
 					value=default_values['min_passwd_len'],
 					on_change=lambda: ngc.chk_passlen_slider_val(),
-				) \
-					.props("label-always id=slider_passwd_len").classes("w-[97%]")
+				).props("label-always id=slider_passwd_len").classes("w-[97%]")
 
 				with ui.row(align_items="center") \
 					.classes(ui_appearance['class']['warning_box']) as warning_box: #bg-amber-50
@@ -110,6 +107,7 @@ with ui.column(align_items="center").classes("w-full"):
 								min=param_sliders[k]['min_val'],
 								max=param_sliders[k]['max_val'],
 								value=param_sliders[k]['min_val'],
+								on_change=lambda: ngc.set_passwd_slider()
 							).props(f"label-always id={k}").classes("w-[97%]")
 						})
 
