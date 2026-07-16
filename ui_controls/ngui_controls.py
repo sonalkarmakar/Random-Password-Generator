@@ -6,8 +6,14 @@ from src.logic import generate_password
 
 __all__ = [
 	"load_markdown",
+	"show_password",
 	"set_slider_value",
+	"copy_to_clipboard",
+	"rndmz_all_sliders",
+	"reset_all_sliders",
+	"set_passwd_slider",
 	"param_input_sliders",
+	"chk_passlen_slider_val",
 ]
 
 slider_passwd_len: ui.slider = ui.slider(min=1, max=5)
@@ -39,17 +45,28 @@ def reset_all_sliders() -> None:
 
 # Set Password Length to sum of depending parameters
 def set_passwd_slider() -> None:
-	logical_min_val = sum(slider.value for slider in param_input_sliders.values()) # Editor might whine, don't know how to fix
+	# Editor might whine, don't know how to fix
 
-	if slider_passwd_len.value < logical_min_val:
-		slider_passwd_len.value = logical_min_val
+	logical_min_val = sum(
+		(slider.value if slider.value is not None else -100)
+		for slider in param_input_sliders.values()
+	)
+
+	if slider_passwd_len.value is not None:
+		if slider_passwd_len.value < logical_min_val:
+			slider_passwd_len.value = logical_min_val
 
 # Check Password Length Slider's value
 def chk_passlen_slider_val() -> None:
-	logical_min_val = sum(slider.value for slider in param_input_sliders.values()) # Editor might whine, don't know how to fix
+	# Editor might whine, don't know how to fix
+	logical_min_val = sum(
+		(slider.value if slider.value is not None else -100)
+		for slider in param_input_sliders.values()
+	)
 
-	if slider_passwd_len.value < logical_min_val:
-		reset_all_sliders()
+	if slider_passwd_len.value is not None:
+		if slider_passwd_len.value < logical_min_val:
+			reset_all_sliders()
 
 # Shows the Generated Password in the Text Field
 def show_password(text_input: ui.input) -> None:
