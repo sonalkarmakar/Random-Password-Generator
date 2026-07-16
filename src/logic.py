@@ -2,7 +2,11 @@ from random import choice, shuffle
 from string import ascii_lowercase, ascii_uppercase, punctuation, digits
 
 # Generates the Random Password
-def generate_password(passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int) -> str:
+def generate_password(
+	passwd_len: int = 1,
+	upper_chars: int = 1, lower_chars: int = 1,
+	spcl_chars: int = 1, num_digits: int = 1
+) -> str:
 	password: list[str] = []
 
 	# Specified number of Uppercase Characters
