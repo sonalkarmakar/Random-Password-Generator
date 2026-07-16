@@ -76,23 +76,18 @@ with ui.column(align_items="center").classes("w-full"):
 					backward=lambda v: v > default_values['safe_passwd_len'],
 				)
 
-				with ui.card(align_items="center") \
-					.classes(ui_appearance['class']['params_card']):
+				with ui.card(align_items="center").classes(ui_appearance['class']['params_card']):
 					with ui.row(align_items="center").classes("w-full gap-2"):
 						ui.label("Valid Characters")
 						ui.space()
 						ui.button(
 							color="flat", icon=f"sym_o_{icons['reset_settings']}",
 							on_click=lambda: ngc.reset_all_sliders()
-						) \
-							.props(ui_appearance['props']['tert_btn']) \
-							.tooltip("Reset all parameters below.")
+						).props(ui_appearance['props']['tert_btn']).tooltip("Reset all parameters below.")
 						ui.button(
 							color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}",
 							on_click=lambda: ngc.rndmz_all_sliders()
-						) \
-							.props(ui_appearance['props']['tert_btn']) \
-							.tooltip("Randomise number of all character types.")
+						).props(ui_appearance['props']['tert_btn']).tooltip("Randomise number of all character types.")
 
 					ui.separator()
 
@@ -108,15 +103,13 @@ with ui.column(align_items="center").classes("w-full"):
 									randint(param_sliders[key]['min_val'], param_sliders[k]['max_val']),
 									chk_passlen_slider=True
 								)
-							) \
-								.props(ui_appearance['props']['tert_btn']) \
-								.tooltip(param_sliders[k]['rndmz_btn_tip'])
+							).props(ui_appearance['props']['tert_btn']).tooltip(param_sliders[k]['rndmz_btn_tip'])
 
 						ngc.param_input_sliders.update({k:
 							ui.slider(
 								min=param_sliders[k]['min_val'],
 								max=param_sliders[k]['max_val'],
-								value=param_sliders[k]['min_val']
+								value=param_sliders[k]['min_val'],
 							).props(f"label-always id={k}").classes("w-[97%]")
 						})
 
@@ -124,8 +117,8 @@ with ui.column(align_items="center").classes("w-full"):
 					ui.button(text="Generate", on_click=lambda: ngc.show_password(passwd_text)) \
 						.props(ui_appearance['props']['generate_btn'])
 
-					passwd_text = ui.input(placeholder="Your Randomly Generated Password").classes("w-full") \
-						.props(ui_appearance['props']['input'])
+					passwd_text = ui.input(placeholder="Your Randomly Generated Password") \
+						.classes("w-full").props(ui_appearance['props']['input'])
 
 					ui.button(
 						color="flat", icon=f"sym_o_{icons['content_copy']}",
