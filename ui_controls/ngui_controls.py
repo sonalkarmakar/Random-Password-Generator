@@ -16,8 +16,12 @@ __all__ = [
 	"chk_passlen_slider_val",
 ]
 
-slider_passwd_len: ui.slider = ui.slider(min=1, max=5)
+# Variable for Password Length Slider
+slider_passwd_len: ui.slider = ui.slider(min=1, max=2)
+# Dictionary for Parameter Sliders
 param_input_sliders: dict[str, ui.slider] = {}
+for k in param_sliders.keys():
+	param_input_sliders.update({k: ui.slider(min=1, max=2)})
 
 # Load Markdown content from file
 def load_markdown(file_path: str) -> str:
@@ -45,7 +49,7 @@ def reset_all_sliders() -> None:
 
 # Set Password Length to sum of depending parameters
 def set_passwd_slider() -> None:
-	# Editor might whine, don't know how to fix
+	# Linter might whine, don't know how to fix
 
 	logical_min_val = sum(
 		(slider.value if slider.value is not None else -100)
@@ -58,7 +62,7 @@ def set_passwd_slider() -> None:
 
 # Check Password Length Slider's value
 def chk_passlen_slider_val() -> None:
-	# Editor might whine, don't know how to fix
+	# Linter might whine, don't know how to fix
 	logical_min_val = sum(
 		(slider.value if slider.value is not None else -100)
 		for slider in param_input_sliders.values()
@@ -70,12 +74,12 @@ def chk_passlen_slider_val() -> None:
 
 # Shows the Generated Password in the Text Field
 def show_password(text_input: ui.input) -> None:
-	text_input.value = generate_password( # Editor might whine, don't know how to fix
-		slider_passwd_len.value,
-		param_input_sliders['slider_upper_chars'].value,
-		param_input_sliders['slider_lower_chars'].value,
-		param_input_sliders['slider_spcl_chars'].value,
-		param_input_sliders['slider_digits'].value
+	text_input.value = generate_password( # Linter might whine, don't know how to fix
+		int(slider_passwd_len.value) if slider_passwd_len.value is not None else 1,
+		int(param_input_sliders['slider_upper_chars'].value) if param_input_sliders['slider_upper_chars'].value is not None else 1,
+		int(param_input_sliders['slider_lower_chars'].value) if param_input_sliders['slider_lower_chars'].value is not None else 1,
+		int(param_input_sliders['slider_spcl_chars'].value) if param_input_sliders['slider_spcl_chars'].value is not None else 1,
+		int(param_input_sliders['slider_digits'].value) if param_input_sliders['slider_digits'].value is not None else 1,
 	)
 
 # Copies Text to User's Clipboard
