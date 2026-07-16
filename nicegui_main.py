@@ -130,30 +130,31 @@ with ui.column(align_items="center").classes("w-full"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
-with ui.footer().classes(ui_appearance['class']['footer']):
+with ui.footer(wrap=False).classes(ui_appearance['class']['footer']):
 	ui.switch(
 		"Dark Mode", value=False,
 		on_change=lambda e: dark_theme.enable() if e.value else dark_theme.disable()
 	).props("color=grey-9")
 
 	ui.space()
-	ui.markdown(f"Made by **{author_details['name']}**")
+	ui.markdown(f"Made by **{author_details['name']}**").classes("text-center")
 	ui.space()
 
-	with ui.row(align_items="center").classes("gap-1 p-0 pr-2"):
+	with ui.row(align_items="end").classes("gap-1 p-0 pr-2 justify-end"):
 		ui.label("Source code:")
-		# GitHub Link + Icon
-		with ui.link(target=f"{author_details['links']['repository']['GitHub']}", new_tab=True) \
-			.classes(ui_appearance['class']['link']):
-			ui.html(f"<img src='{icons['github']}' class='{ui_appearance['class']['footer_icons']}'/>")
-			ui.label("GitHub")
-		# Separator
-		ui.label("│")
-		# GitLab Link + Icon
-		with ui.link(target=f"{author_details['links']['repository']['GitLab']}", new_tab=True) \
-			.classes(ui_appearance['class']['link']):
-			ui.html(f"<img src='{icons['gitlab']}' class='{ui_appearance['class']['footer_icons']}'/>")
-			ui.label("GitLab")
+		with ui.row(align_items="center").classes("gap-0 p-0 wrap-none"):
+			# GitHub Link + Icon
+			with ui.link(target=f"{author_details['links']['repository']['GitHub']}", new_tab=True) \
+				.classes(ui_appearance['class']['link']):
+				ui.html(f"<img src='{icons['github']}' class='{ui_appearance['class']['footer_icons']}'/>")
+				ui.label("GitHub")
+			# Separator
+			ui.label("│")
+			# GitLab Link + Icon
+			with ui.link(target=f"{author_details['links']['repository']['GitLab']}", new_tab=True) \
+				.classes(ui_appearance['class']['link']):
+				ui.html(f"<img src='{icons['gitlab']}' class='{ui_appearance['class']['footer_icons']}'/>")
+				ui.label("GitLab")
 
 # Run the app
 ui.run(native=False) # True = native app; False = webapp
