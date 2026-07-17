@@ -161,4 +161,8 @@ with ui.footer(wrap=False).classes(ui_appearance['class']['footer']):
 					ui.label("GitLab")
 
 # Run the app
-ui.run(native=False) # True = native app; False = webapp
+ui.run(
+	native=False, # True = native app; False = webapp
+	title="Random Password Generator",
+	favicon="🎲", # Pictures or Emojis only
+)
