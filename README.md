@@ -4,6 +4,11 @@ This is a web-application that generates a random password based on the user-inp
 
 This version of the application is written in Python with the [NiceGUI library](https://nicegui.io/).
 
+## Screenshots
+| UI Library | Mobile UI                                                 | Desktop UI                                                  |
+|:----------:|:---------------------------------------------------------:|:-----------------------------------------------------------:|
+| NiceGUI    | ![Mobile UI with NiceGUI](screenshots/NiceGUI-Mobile.png) | ![Desktop UI with NiceGUI](screenshots/NiceGUI-Desktop.png) |
+
 ## Environment Setup
 Follow the steps below to set up your environment for running and developing this application:
 - <ins>**Step 1:**</ins> Install Python.
@@ -72,3 +77,7 @@ Follow the steps below to set up your environment for running and developing thi
 	```sh
 	python -m pip install -r requirements/nicegui-requirements.txt
 	```
+
+## Running and Packaging
+- To run the application, simply activate the virtual environment, and then run the command below.
+- Refer to [NiceGUI documentation](https://nicegui.io/documentation/section_configuration_deployment) for packaging and deployment configurations.
