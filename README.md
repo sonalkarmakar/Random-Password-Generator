@@ -80,6 +80,9 @@ Follow the steps below to set up your environment for running and developing thi
 
 ## Running and Packaging
 - To run the application, simply activate the virtual environment, and then run the command below.
+	```sh
+	python nicegui_main.py
+	```
 - Refer to [NiceGUI documentation](https://nicegui.io/documentation/section_configuration_deployment) for packaging and deployment configurations.
 
 ## References
