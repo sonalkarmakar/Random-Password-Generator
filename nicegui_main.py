@@ -32,7 +32,7 @@ dark_theme = ui.dark_mode()
 # Create UI Elements
 with ui.column(align_items="center").classes("w-full"):
 	ui.html("<center><h3>Random Password Generator</h3></center>")
-	with ui.card(align_items="center").classes("min-w-[34%] md:w-1/3 rounded-3xl"):
+	with ui.card(align_items="center").classes("w-full md:w-1/3 md:min-w-max rounded-3xl"):
 		with ui.tabs().classes("w-full flex").props(ui_appearance['props']['ui_tabs']) as tabs:
 			tab_1 = ui.tab("Generate Random Password").classes(ui_appearance['class']['tab'])
 			tab_2 = ui.tab("Secure Password Guidelines").classes(ui_appearance['class']['tab'])
@@ -61,7 +61,7 @@ with ui.column(align_items="center").classes("w-full"):
 				).props("label-always id=slider_passwd_len").classes("w-[97%]")
 
 				with ui.row(align_items="center") \
-					.classes(ui_appearance['class']['warning_box']) as warning_box: #bg-amber-50
+					.classes(ui_appearance['class']['warning_box']) as warning_box:
 					ui.icon(name="warning", color="warning", size="lg")
 
 					with ui.column().classes("gap-1"):
