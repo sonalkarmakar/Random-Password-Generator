@@ -19,7 +19,7 @@ customise_text_input: str = """
 		.stTextInput > div > div > input { text-align: center; }
 		[data-testid="InputInstructions"] { display:None; }
 	</style>
-	"""
+"""
 # Applies HTML definition above
 st.markdown(customise_text_input, unsafe_allow_html=True)
 
