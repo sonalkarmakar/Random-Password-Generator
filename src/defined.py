@@ -40,7 +40,6 @@ param_sliders = {
 	},
 }
 
-# Icons for randomiser buttons
 # UI Icons
 icons = {
 	"warning": "warning",
@@ -48,7 +47,9 @@ icons = {
 	"privacy_tip": "privacy_tip",
 	"content_copy": "content_copy",
 	"reset_settings": "reset_settings",
-	"randomiser_icons": ["casino", "ifl"],
+	"randomiser_icons": ["casino", "ifl"], # Icons for randomiser buttons
+	"github": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg",
+	"gitlab": "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/gitlab.svg",
 }
 
 # Content Paths

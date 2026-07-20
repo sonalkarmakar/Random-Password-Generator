@@ -1,6 +1,8 @@
 import streamlit as st
 from random import choice, randint
+from streamlit.delta_generator import DeltaGenerator
 
+from src import defined
 import ui_controls.st_controls as ui
 from src.defined import content_paths, default_values, icons, param_sliders, author_details
 
@@ -12,7 +14,7 @@ for key, value in default_values.items():
 	st.session_state.setdefault(key, value)
 
 # Aligns input to centre and removes "Press Enter to apply" prompt
-customise_text_input = """
+customise_text_input: str = """
 	<style>
 		.stTextInput > div > div > input { text-align: center; }
 		[data-testid="InputInstructions"] { display:None; }
@@ -27,13 +29,17 @@ st.set_page_config(layout="centered", page_icon=f":material/{choice(icons['rando
 st.title(body="Random Password Generator", text_alignment="center", anchor=False,)
 
 # Password Generator Panel
-generator_panel = st.container(key="generator_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
+generator_panel: DeltaGenerator = st.container(
+	key="generator_panel", border=True, width="stretch",
+	horizontal_alignment="center", vertical_alignment="top",
+)
+
 with generator_panel:
 	st.header(body="Generate Random Password", text_alignment="center", anchor=False,)
 
 	# Password Length Slider
 	with st.container(border=False, horizontal=True):
-		passwd_len = st.slider(
+		passwd_len: int = st.slider(
 			label="Password Length",
 			key="slider_passwd_len",
 			on_change=ui.chk_passlen_slider_val,
@@ -50,7 +56,7 @@ with generator_panel:
 			args=("slider_passwd_len", randint(st.session_state['min_passwd_len'], st.session_state['safe_passwd_len']), True, True),
 		)
 
-	warning_panel = st.empty()
+	warning_panel: DeltaGenerator = st.empty()
 
 	# Password length might be too long!
 	if passwd_len > st.session_state['safe_passwd_len']:
@@ -61,7 +67,7 @@ with generator_panel:
 		)
 
 	# Panel for other sliders
-	param_slider_panel = st.container(key="param_slider_panel", border=True)
+	param_slider_panel: DeltaGenerator = st.container(key="param_slider_panel", border=True)
 	with param_slider_panel:
 		with st.container(border=False, horizontal=True, vertical_alignment="center"):
 			st.text(body="Valid Characters", width="stretch")
@@ -125,7 +131,7 @@ with generator_panel:
 			)
 		)
 		# Shows the Password
-		passwd_text = st.text_input(
+		passwd_text: str = st.text_input(
 			key="passwd_textbox",
 			label="Generated Password",
 			label_visibility="collapsed",
@@ -140,7 +146,11 @@ with generator_panel:
 		)
 
 # Password Guidelines Panel
-guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
+guidelines_panel: DeltaGenerator = st.container(
+	key="guidelines_panel", border=True, width="stretch",
+	horizontal_alignment="center", vertical_alignment="top",
+)
+
 with guidelines_panel:
 	st.header(body="Password Guidelines", text_alignment="center", anchor=False,)
 
@@ -151,7 +161,22 @@ with guidelines_panel:
 		st.markdown(ui.load_markdown(content_paths['maintain_passwd']))
 
 with st.bottom:
+	# CSS for icon container styling
+	icon_cont_style: str = """
+		display: inline-block; width: 16px; height: 16px; background-color: currentColor;
+		vertical-align: middle; margin-right: 5px;
+	"""
+
+	# CSS for styling each icon
+	github_logo = f"{icon_cont_style} -webkit-mask: url({defined.icons['github']}) no-repeat center; mask: url({defined.icons['github']}) no-repeat center;"
+	gitlab_logo = f"{icon_cont_style} -webkit-mask: url({defined.icons['gitlab']}) no-repeat center; mask: url({defined.icons['gitlab']}) no-repeat center;"
+
 	st.caption(
+		f"Made by **{author_details['name']}** │ "
+		f"<span style='{github_logo}'></span>"
+		f"[GitHub]({author_details['links']['repository']['GitHub']}) &nbsp;"
+		f"<span style='{gitlab_logo}'></span>"
+		f"[GitLab]({author_details['links']['repository']['GitLab']})",
+		unsafe_allow_html=True,
 		text_alignment="center",
-		body=f"Made by **{author_details['name']}** | [GitHub]({author_details['links']['websites']['GitHub']}) | [GitLab]({author_details['links']['websites']['GitLab']})",
 	)
