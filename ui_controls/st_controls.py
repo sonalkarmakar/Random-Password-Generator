@@ -17,10 +17,14 @@ __all__ = [
 def show_password(textbox_key: str, passwd_len: int, upper_chars: int, lower_chars: int, spcl_chars: int, num_digits: int):
 	st.session_state[textbox_key] = generate_password(passwd_len, upper_chars, lower_chars, spcl_chars, num_digits)
 
-def copy_password():
-	# Copy password to clipboard not implemented due to lack of clipboard APIs
-	# Show copy notification
-	st.toast("Password copied!", icon=":material/done_all:", duration=2)
+def copy_password(text: str | None) -> None:
+	if text is not None:
+		# Execute JavaScript (WORKS ONLY ON LOCALHOST IF RAN WITHOUT HTTPS)
+		st.html(f"<script>navigator.clipboard.writeText('{text}');</script>", unsafe_allow_javascript=True)
+		# Show copy notification
+		st.toast("Password copied!", icon=":material/done_all:", duration=2)
+	else:
+		pass
 
 # Load Page Content from Markdown file
 @st.cache_data

@@ -132,7 +132,12 @@ with generator_panel:
 			placeholder="Your Randomly Generated Password",
 		)
 		# [DOESN'T FUNCTION] Copy Password Button
-		st.button(label="", key="copy_btn", icon=f":material/{icons['content_copy']}:", width="content", type="tertiary", on_click=ui.copy_password)
+		st.button(
+			label="", key="copy_btn",
+			icon=f":material/{icons['content_copy']}:",
+			width="content", type="tertiary",
+			on_click=ui.copy_password, args=[passwd_text]
+		)
 
 # Password Guidelines Panel
 guidelines_panel = st.container(key="guidelines_panel", border=True, width="stretch", horizontal_alignment="center", vertical_alignment="top",)
