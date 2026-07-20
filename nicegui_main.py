@@ -30,21 +30,26 @@ ui_appearance: dict[str, dict[str, str]] = {
 dark_theme = ui.dark_mode()
 
 # Create UI Elements
+# Root Element that centres the entire UI
 with ui.column(align_items="center").classes("w-full"):
 	ui.html("<center><h3>Random Password Generator</h3></center>")
+	# Card containing all main UI Elements
 	with ui.card(align_items="center").classes("w-full md:w-1/3 md:min-w-max rounded-3xl"):
+		# Defining the Tabs
 		with ui.tabs().classes("w-full flex").props(ui_appearance['props']['ui_tabs']) as tabs:
 			tab_1 = ui.tab("Generate Random Password").classes(ui_appearance['class']['tab'])
 			tab_2 = ui.tab("Secure Password Guidelines").classes(ui_appearance['class']['tab'])
 
+		# Rendering content for First Tab
 		with ui.tab_panels(tabs, value=tab_1).classes("w-full"):
 			with ui.tab_panel(tab_1).classes(ui_appearance['class']['tab_panel']):
 				ui.html("<center><h4>Generate a Random Password</h4></center>")
 
+				# Password Length Input
 				with ui.row(align_items="center").classes("w-full"):
 					ui.label("Password Length")
 					ui.space()
-					ui.button(
+					ui.button( # Randomiser Button for Password Length
 						color="flat",
 						icon=f"sym_o_{choice(icons['randomiser_icons'])}",
 						on_click=lambda: ngc.set_slider_value(
@@ -52,7 +57,7 @@ with ui.column(align_items="center").classes("w-full"):
 							randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])
 						),
 					).props(ui_appearance['props']['tert_btn']).tooltip("Randomise password length.")
-
+				# Password Length Slider
 				ngc.slider_passwd_len = ui.slider(
 					min=default_values['min_passwd_len'],
 					max=default_values['max_passwd_len'],
@@ -60,45 +65,52 @@ with ui.column(align_items="center").classes("w-full"):
 					on_change=lambda: ngc.chk_passlen_slider_val(),
 				).props("label-always id=slider_passwd_len").classes("w-[97%]")
 
+				# Warning Message Box
 				with ui.row(align_items="center") \
 					.classes(ui_appearance['class']['warning_box']) as warning_box:
 					ui.icon(name="warning", color="warning", size="lg")
-
+					# Warning Box layout
 					with ui.column().classes("gap-1"):
 						ui.label("Password length might be too long!").classes(ui_appearance['class']['warning_heading'])
 						ui.label("Old systems may not support this length.").classes(ui_appearance['class']['warning_text'])
-
+				# Warning Box visibility toggle
 				warning_box.bind_visibility_from(
 					target_object=ngc.slider_passwd_len,
 					target_name='value',
 					backward=lambda v: v > default_values['safe_passwd_len'],
 				)
 
+				# Card containing other Input Parameters
 				with ui.card(align_items="center").classes(ui_appearance['class']['params_card']):
+					# Subheading Section
 					with ui.row(align_items="center").classes("w-full gap-2"):
 						ui.label("Valid Characters")
 						ui.space()
-						ui.button(
+						# Reset all Input Parameters
+						reset_btn: ui.button = ui.button(
 							color="flat", icon=f"sym_o_{icons['reset_settings']}",
-							on_click=lambda: ngc.reset_all_sliders()
-						).props(ui_appearance['props']['tert_btn']).tooltip("Reset all parameters below.")
+							on_click=lambda: ngc.reset_all_sliders(reset_btn)
+						).disable().props(ui_appearance['props']['tert_btn']).tooltip("Reset all parameters below.")
+						# Randomise all Input Parameters
 						ui.button(
 							color="flat", icon=f"sym_o_{choice(icons['randomiser_icons'])}",
-							on_click=lambda: ngc.rndmz_all_sliders()
+							on_click=lambda: ngc.rndmz_all_sliders(reset_btn)
 						).props(ui_appearance['props']['tert_btn']).tooltip("Randomise number of all character types.")
 
 					ui.separator()
 
+					# Render all Input Parameters
 					for k, v in param_sliders.items():
 						with ui.row(align_items="center").classes("w-full"):
 							ui.markdown(param_sliders[k]['label'])
 							ui.space()
-							ui.button(
+							ui.button( # Randomiser Button
 								color="flat",
 								icon=f"sym_o_{choice(icons['randomiser_icons'])}",
 								on_click=lambda _, key=k: ngc.set_slider_value(
 									ngc.param_input_sliders[key],
 									randint(param_sliders[key]['min_val'], param_sliders[k]['max_val']),
+									reset_btn,
 									chk_passlen_slider=True
 								)
 							).props(ui_appearance['props']['tert_btn']).tooltip(param_sliders[k]['rndmz_btn_tip'])

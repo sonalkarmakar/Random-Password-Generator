@@ -78,7 +78,7 @@ Follow the steps below to set up your environment for running and developing thi
 	python -m pip install -r requirements/nicegui-requirements.txt
 	```
 
-## Running and Packaging
+## Running and Packaging/Deployment
 - To run the application, simply activate the virtual environment, and then run the command below.
 	```sh
 	python nicegui_main.py

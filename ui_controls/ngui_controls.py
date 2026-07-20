@@ -29,23 +29,30 @@ def load_markdown(file_path: str) -> str:
 		return f.read()
 
 # Set a Slider's value
-def set_slider_value(slider_ref: ui.slider, val: int, chk_passlen_slider: bool = False) -> None:
+def set_slider_value(slider_ref: ui.slider, val: int, button: ui.button | None = None, chk_passlen_slider: bool = False) -> None:
 	slider_ref.set_value(value=val)
 	if chk_passlen_slider:
 		set_passwd_slider()
+	if button is not None:
+		button.enable()
 
 # Randomise a Slider's value
-def rndmz_all_sliders(set_dpdt_slider: bool = True) -> None:
+def rndmz_all_sliders(button: ui.button | None = None, set_dpdt_slider: bool = True) -> None:
 	for k, v in param_input_sliders.items():
 		set_slider_value(v, randint(param_sliders[k]['min_val'], param_sliders[k]['max_val']))
+
+	if button is not None:
+		button.enable()
 
 	if set_dpdt_slider:
 		set_passwd_slider()
 
 # Reset all Parameter Sliders
-def reset_all_sliders() -> None:
-	for k, v in param_input_sliders.items():
-		set_slider_value(v, param_sliders[k]['min_val'])
+def reset_all_sliders(button: ui.button | None = None) -> None:
+	if button is not None:
+		button.disable()
+		for k, v in param_input_sliders.items():
+			set_slider_value(v, param_sliders[k]['min_val'])
 
 # Set Password Length to sum of depending parameters
 def set_passwd_slider() -> None:
