@@ -2,7 +2,7 @@
 ## Summary
 This is a web-application that generates a random password based on the user-input of how many uppercase, lowercase, special characters and digits must be present in the password.
 
-This version of the application is written in Python with the [NiceGUI library](https://nicegui.io/).
+This version of the application is written in Python with the [Streamlit library](https://streamlit.io/).
 
 ## Screenshots
 | UI Library | Mobile UI                                                     | Desktop UI                                                      |
