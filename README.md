@@ -46,6 +46,10 @@ Follow the steps below to set up your environment for running and developing thi
 		```sh
 		git clone https://github.com/sonalkarmakar/Random-Password-Generator.git
 		```
+		Or,
+		```sh
+		git clone https://gitlab.com/sonalkarmakar/Random-Password-Generator.git
+		```
 	- Go inside the project directory and open the Terminal/Console/Command Prompt/PowerShell.
 
 - <ins>**Step 4:**</ins> Create a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
