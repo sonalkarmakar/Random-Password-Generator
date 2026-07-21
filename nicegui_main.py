@@ -114,7 +114,7 @@ with ui.column(align_items="center").classes("w-full"):
 									chk_passlen_slider=True
 								)
 							).props(ui_appearance['props']['tert_btn']).tooltip(param_sliders[k]['rndmz_btn_tip'])
-
+						# Update the Sliders to UI-control dictionary
 						ngc.param_input_sliders.update({k:
 							ui.slider(
 								min=param_sliders[k]['min_val'],
@@ -124,37 +124,41 @@ with ui.column(align_items="center").classes("w-full"):
 							).props(f"label-always id={k}").classes("w-[97%]")
 						})
 
+				# Generate Button: generates the random password
 				with ui.row(align_items="center", wrap=False).classes("w-full gap-2"):
 					ui.button(text="Generate", on_click=lambda: ngc.show_password(passwd_text)) \
 						.props(ui_appearance['props']['generate_btn'])
 
+					# Textbox: shows generated password
 					passwd_text = ui.input(placeholder="Your Randomly Generated Password") \
 						.classes("w-full").props(ui_appearance['props']['input'])
-
+					# Copy Button: copies text in the textbox above
 					ui.button(
 						color="flat", icon=f"sym_o_{icons['content_copy']}",
 						on_click=lambda: ngc.copy_to_clipboard(passwd_text.value),
 					).props(ui_appearance['props']['copy_btn']).tooltip("Copy")
 
+			# Rendering for Second Tab
 			with ui.tab_panel(tab_2).classes(ui_appearance['class']['tab_panel'] + "max-h-[75vh]"):
 				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['password']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['create_passwd']))
 
-				with ui.expansion("Creating Secure Password", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
+				with ui.expansion("Maintaining Password Security", icon=f"sym_o_{icons['privacy_tip']}").classes("w-full"):
 					ui.markdown(ngc.load_markdown(content_paths['maintain_passwd']))
 
+# Footer
 with ui.footer(wrap=False).classes(ui_appearance['class']['footer']):
+	# Dark Mode switch
 	with ui.column(align_items="start").classes(ui_appearance['class']['footer_cols']):
 		ui.switch(
 			"Dark Mode", value=False,
 			on_change=lambda e: dark_theme.enable() if e.value else dark_theme.disable()
 		).props("color=grey-9")
 
-	# ui.space()
 	with ui.column(align_items="center").classes(ui_appearance['class']['footer_cols']):
 		ui.markdown(f"Made by **{author_details['name']}**").classes("text-center")
-	# ui.space()
 
+	# Repository Links
 	with ui.column(align_items="end").classes(ui_appearance['class']['footer_cols']):
 		with ui.row(align_items="end").classes("gap-1 p-0 pr-2 justify-end"):
 			ui.label("Source code:")
