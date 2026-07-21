@@ -120,7 +120,7 @@ with ui.column(align_items="center").classes("w-full"):
 								min=param_sliders[k]['min_val'],
 								max=param_sliders[k]['max_val'],
 								value=param_sliders[k]['min_val'],
-								on_change=lambda: ngc.set_passwd_slider()
+								on_change=lambda: ngc.param_slider_change(reset_btn)
 							).props(f"label-always id={k}").classes("w-[97%]")
 						})
 
