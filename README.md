@@ -1,4 +1,4 @@
-# Random Password Generator with NiceGUI
+# Random Password Generator with Streamlit
 ## Summary
 This is a web-application that generates a random password based on the user-input of how many uppercase, lowercase, special characters and digits must be present in the password.
 
