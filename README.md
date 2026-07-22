@@ -31,7 +31,7 @@ Follow the steps below to set up your environment for running and developing thi
 		- _Option 1:_ Follow the official [Python documentation](https://docs.python.org/3/using/unix.html).
 		- _Option 2:_ Check your distribution's documentation and repositories.
 
-> [!NOTE]
+> [!IMPORTANT]
 > - Depending on your OS, the Python binary can be named either "`python`" or "`python3`". The binary will be referred to as "`python`" here for convenience, you can replace it with "`python3`" in the commands if necessary.
 > - You may need to install additional package(s) for _virtual environments_. For example, the package "`python3.xx-venv`" is required for virtual environments in Ubuntu.
 
@@ -51,6 +51,12 @@ Follow the steps below to set up your environment for running and developing thi
 		git clone https://gitlab.com/sonalkarmakar/Random-Password-Generator.git
 		```
 	- Go inside the project directory and open the Terminal/Console/Command Prompt/PowerShell.
+
+> [!IMPORTANT]
+> If you cloned this repository, you need to switch to the `streamlit` branch in the project directory:
+> ```sh
+> git switch streamlit
+> ```
 
 - <ins>**Step 4:**</ins> Create a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
 	- Creating a virtual environment:
