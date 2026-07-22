@@ -52,6 +52,12 @@ Follow the steps below to set up your environment for running and developing thi
 		```
 	- Go inside the project directory and open the Terminal/Console/Command Prompt/PowerShell.
 
+> [!IMPORTANT]
+> If you cloned this repository, you need to switch to the `nicegui` branch in the project directory:
+> ```sh
+> git switch nicegui
+> ```
+
 - <ins>**Step 4:**</ins> Create a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
 	- Creating a virtual environment:
 		```sh
