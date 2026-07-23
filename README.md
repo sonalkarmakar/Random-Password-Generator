@@ -40,6 +40,9 @@ Follow the steps below to set up your environment for running and developing thi
 	python -m pip install --upgrade pip
 	```
 
+> [!NOTE]
+> Your system may not automatically install the `pip` module. In that case, you need to _perform Step 2 after Step 4_.
+
 - <ins>**Step 3:**</ins> Download or clone this project's repository.
 	- _Option 1:_ Download the project files using the Download Button from the web interface.
 	- _Option 2:_ Clone this repository if you have [installed](https://git-scm.com/install/) and [configured](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) _Git_.
@@ -82,6 +85,7 @@ Follow the steps below to set up your environment for running and developing thi
 		```sh
 		deactivate
 		```
+	> ✒️ You can _upgrade the `pip` module inside the virtual environment_ now, if your Python 3 installation didn't come with it.
 
 - <ins>**Step 5:**</ins> Install the required packages from the index. Ensure that you're in the _virtual environment_ inside the project directory.
 	```sh
