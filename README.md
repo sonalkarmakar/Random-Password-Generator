@@ -31,7 +31,7 @@ Follow the steps below to set up your environment for running and developing thi
 		- _Option 1:_ Follow the official [Python documentation](https://docs.python.org/3/using/unix.html).
 		- _Option 2:_ Check your distribution's documentation and repositories.
 
-> [!NOTE]
+> [!IMPORTANT]
 > - Depending on your OS, the Python binary can be named either "`python`" or "`python3`". The binary will be referred to as "`python`" here for convenience, you can replace it with "`python3`" in the commands if necessary.
 > - You may need to install additional package(s) for _virtual environments_. For example, the package "`python3.xx-venv`" is required for virtual environments in Ubuntu.
 
@@ -39,6 +39,9 @@ Follow the steps below to set up your environment for running and developing thi
 	```sh
 	python -m pip install --upgrade pip
 	```
+
+> [!NOTE]
+> Your system may not automatically install the `pip` module. In that case, you need to _perform Step 2 after Step 4_.
 
 - <ins>**Step 3:**</ins> Download or clone this project's repository.
 	- _Option 1:_ Download the project files using the Download Button from the web interface.
@@ -58,7 +61,7 @@ Follow the steps below to set up your environment for running and developing thi
 > git switch nicegui
 > ```
 
-- <ins>**Step 4:**</ins> Create a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
+- <ins>**Step 4:**</ins> Create and activate a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
 	- Creating a virtual environment:
 		```sh
 		python -m venv .venv # replace ".venv" with your preferred name
@@ -82,6 +85,7 @@ Follow the steps below to set up your environment for running and developing thi
 		```sh
 		deactivate
 		```
+	> ✒️ You can _upgrade the `pip` module inside the virtual environment_ now, if your Python 3 installation didn't come with it.
 
 - <ins>**Step 5:**</ins> Install the required packages from the index. Ensure that you're in the _virtual environment_ inside the project directory.
 	```sh
