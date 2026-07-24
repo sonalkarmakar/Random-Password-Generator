@@ -1,4 +1,4 @@
-__all__ = ['default_values', 'param_sliders', 'icons', 'content_paths']
+__all__ = ['default_values', 'param_sliders', 'icons', 'content_paths', 'author_details']
 
 # Define Default Values
 default_values = {
