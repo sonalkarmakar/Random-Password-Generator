@@ -1,36 +1,35 @@
 import flet as ft
 
-app_title = "Random Password Generator"
+from src.defined import *
 
-heading = ft.Text("Random Password Generator", theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
+page_components: list[ft.Control] = []
 
-tab_title = "Genrate Password"
-tab_panel_title = ft.Text("Generate a Random Password", theme_style=ft.TextThemeStyle.BODY_LARGE)
+# ==== DEBUGGING ====
+window_size_label = ft.Text()
+page_components.append(window_size_label)
 
-main_panel = ft.Container(
-	content=tab_panel_title,
-	padding=4, bgcolor=ft.Colors.LIGHT_BLUE_50,
-	border_radius=10,
-	border=ft.Border.all(width=1, color=ft.Colors.BLACK),
-	shadow=ft.BoxShadow(color=ft.Colors.GREY_500, blur_radius=2, offset=ft.Offset(x=3, y=3)),
+def update_size(e: ft.PageResizeEvent | ft.Page):
+	window_size_label.value = f"Width = {e.width} | Height = {e.height} | W/H = {e.width / e.height}"
+# == END DEBUGGING ==
+
+app_title: str = "Random Password Genrator"
+heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
+page_components.append(heading)
+
+
+footer_label_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
+
+dark_mode_togg: ft.Switch = ft.Switch(label="Dark Mode")
+author_credit: ft.Text = ft.Text(value=f"Made by {author_details['name']}", theme_style=footer_label_size)
+repositories: ft.Text = ft.Text(value="Source code: GitHub | GitLab", theme_style=footer_label_size)
+
+footer: ft.BottomAppBar = ft.BottomAppBar(
+	bgcolor=ft.Colors.GREY_200,
+	content=ft.Row(
+		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+		controls=[dark_mode_togg, author_credit, repositories],
+	)
 )
-
-dark_mode_switch = ft.Switch(label="Dark Mode")
-author_name = ft.Text("Made by Sonal Karmakar", theme_style=ft.TextThemeStyle.LABEL_SMALL)
-repository = ft.Text("Source code: GitHub | GitLab", theme_style=ft.TextThemeStyle.LABEL_SMALL)
-
-bottom_row = ft.Row(
-	controls=[dark_mode_switch, author_name, repository],
-	alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-	intrinsic_height=True,
-)
-
-footer = ft.BottomAppBar(
-	content=bottom_row,
-	padding=5
-)
-
-page_components = [heading, main_panel]
 
 def main(page: ft.Page):
 	page.title = app_title
@@ -38,6 +37,11 @@ def main(page: ft.Page):
 	page.bottom_appbar = footer
 	page.vertical_alignment = ft.MainAxisAlignment.CENTER
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+	# ==== DEBUGGING ====
+	update_size(page)
+	page.on_resize = update_size
+	# == END DEBUGGING ==
 
 	page.add(*page_components)
 
