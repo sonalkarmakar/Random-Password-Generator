@@ -10,6 +10,20 @@ page_components.append(window_size_label)
 
 def update_size(e: ft.PageResizeEvent | ft.Page):
 	window_size_label.value = f"Width = {e.width} | Height = {e.height} | W/H = {e.width / e.height}"
+
+flex_row: ft.ResponsiveRow = ft.ResponsiveRow(
+	alignment=ft.MainAxisAlignment.CENTER,
+	controls=[ft.Card(
+		col={
+			ft.ResponsiveRowBreakpoint.SM: 12,
+			ft.ResponsiveRowBreakpoint.MD: 6,
+			ft.ResponsiveRowBreakpoint.XXL: 4,
+		},
+		bgcolor=ft.Colors.LIGHT_BLUE_100,
+		content=ft.Text("Should be in the MIDDLE"),
+	)]
+)
+page_components.append(flex_row)
 # == END DEBUGGING ==
 
 app_title: str = "Random Password Genrator"
