@@ -1,17 +1,69 @@
 import flet as ft
+import ui_controls.fl_controls as fc
 
 from src.defined import *
 
+# Components to render
 page_components: list[ft.Control] = []
 
 # ==== DEBUGGING ====
-window_size_label = ft.Text()
-page_components.append(window_size_label)
+# window_size_label = ft.Text()
+# page_components.append(window_size_label)
 
-def update_size(e: ft.PageResizeEvent | ft.Page):
-	window_size_label.value = f"Width = {e.width} | Height = {e.height} | W/H = {e.width / e.height}"
+# def update_size(e: ft.PageResizeEvent | ft.Page):
+# 	window_size_label.value = f"Width = {e.width} | Height = {e.height} | W/H = {e.width / e.height}"
+# == END DEBUGGING ==
 
-flex_row: ft.ResponsiveRow = ft.ResponsiveRow(
+# App Title and Heading
+app_title: str = "Random Password Genrator"
+heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
+page_components.append(heading)
+
+# Main Panel Tabs
+
+# Tab Panel Title
+passgen_title: str = "Generate a Random Password"
+tab_panel_title: ft.Text = ft.Text(passgen_title, theme_style=ft.TextThemeStyle.TITLE_LARGE)
+
+# Password Length section
+# Slider Label
+passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=ft.TextThemeStyle.LABEL_LARGE)
+# Password Length value
+passlen_sldr_val: ft.Text = ft.Text()
+# Randomiser Button
+passlen_rndmz_btn: ft.IconButton = ft.IconButton(icon=ft.Icons.CASINO_OUTLINED)
+# Label + Randomiser Button in a Row
+passlen_lbl_cont: ft.Container = ft.Container(padding=ft.Padding(left=15, right=15,),
+	content=ft.Row(
+		controls=[
+			ft.Row(
+				expand=True,
+				alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+				controls=[passlen_sldr_lbl, passlen_sldr_val],
+			),
+			passlen_rndmz_btn
+		],
+	)
+)
+
+# Password Length Slider
+passlen_sldr: ft.Slider = ft.Slider(
+	# label="{value}",
+	key="passlen_slider",
+	min=default_values['min_passwd_len'],
+	max=default_values['max_passwd_len'],
+	value=default_values['min_passwd_len'],
+	on_change=lambda e: fc.update_sldr_lbl(label=passlen_sldr_val, event=e),
+	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
+)
+fc.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
+passlen_col: ft.Column = ft.Column(controls=[passlen_lbl_cont, passlen_sldr],)
+
+# Container inside Main Panel
+panel_container: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
+
+# Main Panel
+main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 	alignment=ft.MainAxisAlignment.CENTER,
 	controls=[ft.Card(
 		col={
@@ -20,16 +72,10 @@ flex_row: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
 		bgcolor=ft.Colors.LIGHT_BLUE_100,
-		content=ft.Text("Should be in the MIDDLE"),
+		content=panel_container,
 	)]
 )
-page_components.append(flex_row)
-# == END DEBUGGING ==
-
-app_title: str = "Random Password Genrator"
-heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
-page_components.append(heading)
-
+page_components.append(main_panel)
 
 footer_label_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
 
@@ -53,8 +99,8 @@ def main(page: ft.Page):
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
 	# ==== DEBUGGING ====
-	update_size(page)
-	page.on_resize = update_size
+	# update_size(page)
+	# page.on_resize = update_size
 	# == END DEBUGGING ==
 
 	page.add(*page_components)
