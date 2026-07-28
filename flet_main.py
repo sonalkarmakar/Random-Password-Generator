@@ -1,10 +1,12 @@
 import flet as ft
-import ui_controls.fl_controls as fc
+import ui_controls.fl_controls as ui
 
 from src.defined import *
 
 # Components to render
 page_components: list[ft.Control] = []
+
+sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 
 # ==== DEBUGGING ====
 # window_size_label = ft.Text()
@@ -27,9 +29,9 @@ tab_panel_title: ft.Text = ft.Text(passgen_title, theme_style=ft.TextThemeStyle.
 
 # Password Length section
 # Slider Label
-passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=ft.TextThemeStyle.LABEL_LARGE)
+passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm)
 # Password Length value
-passlen_sldr_val: ft.Text = ft.Text()
+passlen_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 # Randomiser Button
 passlen_rndmz_btn: ft.IconButton = ft.IconButton(icon=ft.Icons.CASINO_OUTLINED)
 # Label + Randomiser Button in a Row
@@ -42,7 +44,7 @@ passlen_lbl_cont: ft.Container = ft.Container(padding=ft.Padding(left=15, right=
 				controls=[passlen_sldr_lbl, passlen_sldr_val],
 			),
 			passlen_rndmz_btn
-		],
+		], intrinsic_height=True,
 	)
 )
 
@@ -53,10 +55,12 @@ passlen_sldr: ft.Slider = ft.Slider(
 	min=default_values['min_passwd_len'],
 	max=default_values['max_passwd_len'],
 	value=default_values['min_passwd_len'],
-	on_change=lambda e: fc.update_sldr_lbl(label=passlen_sldr_val, event=e),
+	# active_color=ft.Colors.AMBER,
+	# inactive_color=ft.Colors.AMBER_50,
+	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, event=e),
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
 )
-fc.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
+ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
 passlen_col: ft.Column = ft.Column(controls=[passlen_lbl_cont, passlen_sldr],)
 
 # Container inside Main Panel
@@ -71,7 +75,7 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.MD: 6,
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
-		bgcolor=ft.Colors.LIGHT_BLUE_100,
+		bgcolor=ft.Colors.LIGHT_BLUE_50,
 		content=panel_container,
 	)]
 )
