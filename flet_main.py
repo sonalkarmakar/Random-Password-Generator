@@ -5,6 +5,8 @@ from src.defined import *
 
 # Components to render
 page_components: list[ft.Control] = []
+# Main Panel Controls
+panel_ctrl_list: list[ft.Control] = []
 
 sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 
@@ -29,25 +31,19 @@ tab_panel_title: ft.Text = ft.Text(passgen_title, theme_style=ft.TextThemeStyle.
 
 # Password Length section
 # Slider Label
-passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm)
+passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm, expand=True)
 # Password Length value
 passlen_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 # Randomiser Button
-passlen_rndmz_btn: ft.IconButton = ft.IconButton(icon=ft.Icons.CASINO_OUTLINED)
-# Label + Randomiser Button in a Row
-passlen_lbl_cont: ft.Container = ft.Container(padding=ft.Padding(left=15, right=15,),
+passlen_rndmz_btn: ft.IconButton = ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
+# Container with Password Length Label and Randomiser Button
+passlen_lbl_cont: ft.Container = ft.Container(
+	padding=ft.Padding(left=15, right=15,),
 	content=ft.Row(
-		controls=[
-			ft.Row(
-				expand=True,
-				alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-				controls=[passlen_sldr_lbl, passlen_sldr_val],
-			),
-			passlen_rndmz_btn
-		], intrinsic_height=True,
+		intrinsic_height=True,
+		controls=[passlen_sldr_lbl, passlen_sldr_val, passlen_rndmz_btn],
 	)
 )
-
 # Password Length Slider
 passlen_sldr: ft.Slider = ft.Slider(
 	# label="{value}",
@@ -60,12 +56,34 @@ passlen_sldr: ft.Slider = ft.Slider(
 	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, event=e),
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
 )
+# Initiate with Minumum Slider Value
 ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
-passlen_col: ft.Column = ft.Column(controls=[passlen_lbl_cont, passlen_sldr],)
+# Password Length Warning
+warning_panel: ft.Card = ft.Card(
+	variant=ft.CardVariant.OUTLINED,
+	bgcolor=ft.Colors.AMBER_100,
+	content=ft.Container(
+		padding=5,
+		content=ft.Row(intrinsic_height=True, spacing=0, controls=[
+			ft.Container(content=ft.Icon(ft.Icons.WARNING_AMBER, color=ft.Colors.AMBER_700), aspect_ratio=1.0,),
+			ft.VerticalDivider(color=ft.Colors.AMBER, thickness=2),
+			ft.Column(expand=True, spacing=5, controls=[
+				ft.Text("Password length might be too long!", weight=ft.FontWeight.BOLD, color=ft.Colors.AMBER_900),
+				ft.Text("Old systems may not support this length.", color=ft.Colors.AMBER_700),
+			]),
+		])
+	)
+)
 
-# Container inside Main Panel
-panel_container: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
+# Password Length Container
+# passlen_cont: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
 
+# Password Length section Column
+passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passlen_sldr, warning_panel])
+panel_ctrl_list.append(passlen_col)
+
+# Main Panel Column
+panel_col: ft.Column = ft.Column(spacing=0, controls=panel_ctrl_list)
 # Main Panel
 main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 	alignment=ft.MainAxisAlignment.CENTER,
@@ -76,7 +94,7 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
 		bgcolor=ft.Colors.LIGHT_BLUE_50,
-		content=panel_container,
+		content=panel_col,
 	)]
 )
 page_components.append(main_panel)
