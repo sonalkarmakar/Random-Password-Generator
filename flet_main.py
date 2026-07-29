@@ -1,7 +1,9 @@
 import flet as ft
+from flet.controls.material import slider
 import ui_controls.fl_controls as ui
 
 from src.defined import *
+from random import randint
 
 # Components to render
 page_components: list[ft.Control] = []
@@ -34,16 +36,6 @@ tab_panel_title: ft.Text = ft.Text(passgen_title, theme_style=ft.TextThemeStyle.
 passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm, expand=True)
 # Password Length value
 passlen_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
-# Randomiser Button
-passlen_rndmz_btn: ft.IconButton = ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
-# Container with Password Length Label and Randomiser Button
-passlen_lbl_cont: ft.Container = ft.Container(
-	padding=ft.Padding(left=15, right=15,),
-	content=ft.Row(
-		intrinsic_height=True,
-		controls=[passlen_sldr_lbl, passlen_sldr_val, passlen_rndmz_btn],
-	)
-)
 # Password Length Warning
 warning_panel: ft.Container = ft.Container(
 	visible=False, alignment=ft.Alignment.CENTER,
@@ -71,14 +63,29 @@ passlen_sldr: ft.Slider = ft.Slider(
 	min=default_values['min_passwd_len'],
 	max=default_values['max_passwd_len'],
 	value=default_values['min_passwd_len'],
-	# active_color=ft.Colors.AMBER,
-	# inactive_color=ft.Colors.AMBER_50,
-	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, event=e),
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
+	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, slider=e.control),
 )
 # Initiate with Minumum Slider Value
 ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
 # ui.passlen_sldr_warn(warn_msg=warning_panel, slider=passlen_sldr)
+
+# Randomiser Button
+passlen_rndmz_btn: ft.IconButton = ft.IconButton(
+	icon=ft.Icons.CASINO_OUTLINED, padding=0,
+	on_click=lambda e: [
+		ui.set_sldr_val(passlen_sldr, randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])),
+		ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, slider=passlen_sldr)
+	],
+)
+# Container with Password Length Label and Randomiser Button
+passlen_lbl_cont: ft.Container = ft.Container(
+	padding=ft.Padding(left=15, right=15,),
+	content=ft.Row(
+		intrinsic_height=True,
+		controls=[passlen_sldr_lbl, passlen_sldr_val, passlen_rndmz_btn],
+	)
+)
 
 # Password Length Container
 # passlen_cont: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
