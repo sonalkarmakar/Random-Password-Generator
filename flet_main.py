@@ -8,7 +8,7 @@ page_components: list[ft.Control] = []
 # Main Panel Controls
 panel_ctrl_list: list[ft.Control] = []
 
-sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
+sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_LARGE
 
 # ==== DEBUGGING ====
 # window_size_label = ft.Text()
@@ -44,6 +44,26 @@ passlen_lbl_cont: ft.Container = ft.Container(
 		controls=[passlen_sldr_lbl, passlen_sldr_val, passlen_rndmz_btn],
 	)
 )
+# Password Length Warning
+warning_panel: ft.Container = ft.Container(
+	visible=False, alignment=ft.Alignment.CENTER,
+	padding=ft.Padding.symmetric(horizontal=10),
+	content=ft.Card(
+		variant=ft.CardVariant.OUTLINED,
+		bgcolor=ft.Colors.YELLOW_100,
+		content=ft.Container(
+			padding=5,
+			content=ft.Row(intrinsic_height=True, spacing=0, controls=[
+				ft.Container(content=ft.Icon(ft.Icons.WARNING, size=40, color=ft.Colors.AMBER_600), aspect_ratio=1.0,),
+				ft.VerticalDivider(color=ft.Colors.AMBER_600, thickness=2),
+				ft.Column(expand=True, spacing=5, controls=[
+					ft.Text("Password length might be too long!", weight=ft.FontWeight.BOLD, color=ft.Colors.DEEP_ORANGE_900),
+					ft.Text("Old systems may not support this length.", color=ft.Colors.YELLOW_900),
+				]),
+			])
+		)
+	)
+)
 # Password Length Slider
 passlen_sldr: ft.Slider = ft.Slider(
 	# label="{value}",
@@ -53,27 +73,12 @@ passlen_sldr: ft.Slider = ft.Slider(
 	value=default_values['min_passwd_len'],
 	# active_color=ft.Colors.AMBER,
 	# inactive_color=ft.Colors.AMBER_50,
-	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, event=e),
+	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, event=e),
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
 )
 # Initiate with Minumum Slider Value
 ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
-# Password Length Warning
-warning_panel: ft.Card = ft.Card(
-	variant=ft.CardVariant.OUTLINED,
-	bgcolor=ft.Colors.AMBER_100,
-	content=ft.Container(
-		padding=5,
-		content=ft.Row(intrinsic_height=True, spacing=0, controls=[
-			ft.Container(content=ft.Icon(ft.Icons.WARNING_AMBER, color=ft.Colors.AMBER_700), aspect_ratio=1.0,),
-			ft.VerticalDivider(color=ft.Colors.AMBER, thickness=2),
-			ft.Column(expand=True, spacing=5, controls=[
-				ft.Text("Password length might be too long!", weight=ft.FontWeight.BOLD, color=ft.Colors.AMBER_900),
-				ft.Text("Old systems may not support this length.", color=ft.Colors.AMBER_700),
-			]),
-		])
-	)
-)
+# ui.passlen_sldr_warn(warn_msg=warning_panel, slider=passlen_sldr)
 
 # Password Length Container
 # passlen_cont: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
@@ -117,7 +122,7 @@ def main(page: ft.Page):
 	page.title = app_title
 	page.theme_mode = ft.ThemeMode.LIGHT
 	page.bottom_appbar = footer
-	page.vertical_alignment = ft.MainAxisAlignment.CENTER
+	page.vertical_alignment = ft.MainAxisAlignment.START
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
 	# ==== DEBUGGING ====
