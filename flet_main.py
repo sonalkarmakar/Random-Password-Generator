@@ -87,6 +87,57 @@ ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
 passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passlen_sldr, warning_panel])
 panel_ctrl_list.append(passlen_col)
 
+# Parameters Section
+# ==== DEBUGGING ====
+# k = "slider_upper_chars"
+# v = param_sliders[k]
+# == END DEBUGGING ==
+
+# Parameters List
+params_list: list[ft.Control] = []
+
+# Parameters Section
+for k, v in param_sliders.items():
+	# Parameter Label Container
+	param_lbl_cont: ft.Container = ft.Container(
+		padding=ft.Padding.symmetric(horizontal=15),
+		content=ft.Row(
+			intrinsic_height=True,
+			controls=[
+				ft.Markdown(value=v['label'], expand=True),
+				ft.Text("<sldr_val>", theme_style=sldr_lbl_txt_thm),
+				ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
+			]
+		)
+	)
+	# Parameter Slider
+	param_sldr: ft.Slider = ft.Slider(
+		key=k,
+		min=v['min_val'],
+		max=v['max_val'],
+		value=v['min_val'],
+		divisions=(v['max_val'] - v['min_val']),
+	)
+	# Individual Parameter Container
+	param_sldr_cont: ft.Container = ft.Container(
+		padding=0, alignment=ft.Alignment.CENTER,
+		content=ft.Column(
+			spacing=0,
+			controls=[param_lbl_cont, param_sldr]
+		)
+	)
+	params_list.append(param_sldr_cont)
+
+# Parameters Panel
+params_panel: ft.Container = ft.Container(
+	padding=15, alignment=ft.Alignment.CENTER,
+	content=ft.Card(
+		variant=ft.CardVariant.OUTLINED,
+		content=ft.Column(alignment=ft.MainAxisAlignment.CENTER, controls=params_list)
+	)
+)
+panel_ctrl_list.append(params_panel)
+
 # Main Panel Column
 panel_col: ft.Column = ft.Column(spacing=0, controls=panel_ctrl_list)
 # Main Panel
