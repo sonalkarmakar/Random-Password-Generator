@@ -87,17 +87,12 @@ ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
 passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passlen_sldr, warning_panel])
 panel_ctrl_list.append(passlen_col)
 
-# Parameters Section
-# ==== DEBUGGING ====
-# k = "slider_upper_chars"
-# v = param_sliders[k]
-# == END DEBUGGING ==
 
+# Parameters Section
 # Parameters List
-params_list: list[ft.Control] = []
+params_list: list[ft.Control] = [] # list of Controls to render for Parameters Panel
 
-# Parameters Section
-for k, v in param_sliders.items():
+for k, v in param_sliders.items(): # defines all Parameter Controls
 	# Parameter Label Container
 	param_lbl_cont: ft.Container = ft.Container(
 		padding=ft.Padding.symmetric(horizontal=15),
@@ -137,6 +132,7 @@ params_panel: ft.Container = ft.Container(
 	)
 )
 panel_ctrl_list.append(params_panel)
+
 
 # Main Panel Column
 panel_col: ft.Column = ft.Column(spacing=0, controls=panel_ctrl_list)
