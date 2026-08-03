@@ -5,14 +5,17 @@ from src.defined import *
 __all__ =[
 	"update_sldr_lbl",
 	"passlen_sldr_warn",
-	"update_passlen_sldr",
+	"update_sldr",
 	"set_sldr_val",
 ]
 
-def update_passlen_sldr(label: ft.Text, panel: ft.Control, slider: ft.Slider | None = None) -> None:
+param_input_sldrs: dict[str, ft.Slider] = {}
+
+def update_sldr(label: ft.Text, slider: ft.Slider | None = None, panel: ft.Control | None = None, is_passlen: bool = False) -> None:
 	if slider is not None:
 		update_sldr_lbl(label=label, value=f"{slider.value}")
-		passlen_sldr_warn(panel, slider)
+		if is_passlen and panel is not None:
+			passlen_sldr_warn(panel, slider)
 
 def update_sldr_lbl(label: ft.Text, value: str | None = None) -> None:
 	label.value = f"{value}"

@@ -12,13 +12,6 @@ panel_ctrl_list: list[ft.Control] = []
 
 sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_LARGE
 
-# ==== DEBUGGING ====
-# window_size_label = ft.Text()
-# page_components.append(window_size_label)
-
-# def update_size(e: ft.PageResizeEvent | ft.Page):
-# 	window_size_label.value = f"Width = {e.width} | Height = {e.height} | W/H = {e.width / e.height}"
-# == END DEBUGGING ==
 
 # App Title and Heading
 app_title: str = "Random Password Genrator"
@@ -64,18 +57,17 @@ passlen_sldr: ft.Slider = ft.Slider(
 	max=default_values['max_passwd_len'],
 	value=default_values['min_passwd_len'],
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
-	on_change=lambda e: ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, slider=e.control),
+	on_change=lambda e: ui.update_sldr(passlen_sldr_val, e.control, warning_panel, True),
 )
 # Initiate with Minumum Slider Value
 ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
-# ui.passlen_sldr_warn(warn_msg=warning_panel, slider=passlen_sldr)
 
 # Randomiser Button
 passlen_rndmz_btn: ft.IconButton = ft.IconButton(
 	icon=ft.Icons.CASINO_OUTLINED, padding=0,
 	on_click=lambda e: [
 		ui.set_sldr_val(passlen_sldr, randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])),
-		ui.update_passlen_sldr(label=passlen_sldr_val, panel=warning_panel, slider=passlen_sldr)
+		ui.update_sldr(passlen_sldr_val, passlen_sldr, warning_panel, True)
 	],
 )
 # Container with Password Length Label and Randomiser Button
@@ -87,9 +79,6 @@ passlen_lbl_cont: ft.Container = ft.Container(
 	)
 )
 
-# Password Length Container
-# passlen_cont: ft.Container = ft.Container(alignment=ft.Alignment.CENTER, content=passlen_col,)
-
 # Password Length section Column
 passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passlen_sldr, warning_panel])
 panel_ctrl_list.append(passlen_col)
@@ -100,18 +89,8 @@ panel_ctrl_list.append(passlen_col)
 params_list: list[ft.Control] = [] # list of Controls to render for Parameters Panel
 
 for k, v in param_sliders.items(): # defines all Parameter Controls
-	# Parameter Label Container
-	param_lbl_cont: ft.Container = ft.Container(
-		padding=ft.Padding.symmetric(horizontal=15),
-		content=ft.Row(
-			intrinsic_height=True,
-			controls=[
-				ft.Markdown(value=v['label'], expand=True),
-				ft.Text("<sldr_val>", theme_style=sldr_lbl_txt_thm),
-				ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
-			]
-		)
-	)
+	# Shows Parameter Slider value
+	param_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 	# Parameter Slider
 	param_sldr: ft.Slider = ft.Slider(
 		key=k,
@@ -119,7 +98,30 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 		max=v['max_val'],
 		value=v['min_val'],
 		divisions=(v['max_val'] - v['min_val']),
+		on_change=lambda e, lbl=param_sldr_val: ui.update_sldr(label=lbl, slider=e.control)
 	)
+	# Parameter Label Container
+	param_lbl_cont: ft.Container = ft.Container(
+		padding=ft.Padding.symmetric(horizontal=15),
+		content=ft.Row(
+			intrinsic_height=True,
+			controls=[
+				ft.Markdown(value=v['label'], expand=True),
+				param_sldr_val,
+				ft.IconButton(
+					icon=ft.Icons.CASINO_OUTLINED, padding=0,
+					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr: [
+						ui.set_sldr_val(s, randint(v_['min_val'], v_['max_val'])),
+						ui.update_sldr(lbl, s)
+					]
+				)
+			]
+		)
+	)
+	# Storing Sliders to fetch their values later
+	ui.param_input_sldrs.update({k: param_sldr})
+	# Initiate with Minimum Slider Value
+	ui.update_sldr_lbl(label=param_sldr_val, value=f"{param_sldr.value}")
 	# Individual Parameter Container
 	param_sldr_cont: ft.Container = ft.Container(
 		padding=0, alignment=ft.Alignment.CENTER,
@@ -132,7 +134,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 
 # Parameters Panel
 params_panel: ft.Container = ft.Container(
-	padding=15, alignment=ft.Alignment.CENTER,
+	padding=10, alignment=ft.Alignment.CENTER,
 	content=ft.Card(
 		variant=ft.CardVariant.OUTLINED,
 		content=ft.Column(alignment=ft.MainAxisAlignment.CENTER, controls=params_list)
