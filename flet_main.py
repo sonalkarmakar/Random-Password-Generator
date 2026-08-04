@@ -10,7 +10,7 @@ page_components: list[ft.Control] = []
 # Main Panel Controls
 panel_ctrl_list: list[ft.Control] = []
 
-sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_LARGE
+sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 
 
 # App Title and Heading
@@ -97,7 +97,7 @@ params_list.append(
 				ft.Row(
 					intrinsic_height=True, spacing=0,
 					alignment=ft.MainAxisAlignment.CENTER, controls=[
-						ft.Text("Valid Characters", expand=True),
+						ft.Text("Valid Characters", expand=True, theme_style=sldr_lbl_txt_thm),
 						ft.IconButton(
 							icon=ft.Icons.SETTINGS_BACKUP_RESTORE_OUTLINED,
 							padding=0, tooltip="Reset all parameters below.",
@@ -131,7 +131,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 		padding=ft.Padding.symmetric(horizontal=15),
 		content=ft.Row(
 			intrinsic_height=True, controls=[
-				ft.Markdown(value=v['label'], expand=True),
+				ft.Markdown(value=v['label'], expand=True,),
 				param_sldr_val,
 				ft.IconButton(
 					icon=ft.Icons.CASINO_OUTLINED, padding=0,
@@ -170,8 +170,9 @@ panel_ctrl_list.append(params_panel)
 
 
 # Output Section
+const_height = 45
 # Password Generator Button
-passgen_btn: ft.FilledButton = ft.FilledButton(content="Generate Password", )
+passgen_btn: ft.FilledButton = ft.FilledButton(content="Generate Password",)
 # Show Generated Password
 passwd_output: ft.TextField = ft.TextField(
 	hint_text="Your Randomly Generated Password", expand=True,
@@ -186,7 +187,8 @@ passwd_copy_btn: ft.IconButton = ft.IconButton(
 output_cont: ft.Container = ft.Container(
 	padding=15, alignment=ft.Alignment.CENTER,
 	content=ft.Row(
-		intrinsic_height=True, alignment=ft.MainAxisAlignment.CENTER,
+		intrinsic_height=True, alignment=ft.MainAxisAlignment.SPACE_EVENLY,
+		vertical_alignment=ft.CrossAxisAlignment.STRETCH,
 		controls=[passgen_btn, passwd_output, passwd_copy_btn]
 	)
 )
