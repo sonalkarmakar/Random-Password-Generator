@@ -62,9 +62,9 @@ passlen_sldr: ft.Slider = ft.Slider(
 # Initiate with Minumum Slider Value
 ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
 
-# Randomiser Button
+# Password Length Randomiser Button
 passlen_rndmz_btn: ft.IconButton = ft.IconButton(
-	icon=ft.Icons.CASINO_OUTLINED, padding=0,
+	icon=ft.Icons.CASINO_OUTLINED, padding=0, tooltip="Randomise password length.",
 	on_click=lambda e: [
 		ui.set_sldr_val(passlen_sldr, randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])),
 		ui.update_sldr(passlen_sldr_val, passlen_sldr, warning_panel, True)
@@ -98,8 +98,14 @@ params_list.append(
 					intrinsic_height=True, spacing=0,
 					alignment=ft.MainAxisAlignment.CENTER, controls=[
 						ft.Text("Valid Characters", expand=True),
-						ft.IconButton(icon=ft.Icons.LOCK_RESET_OUTLINED, padding=0),
-						ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
+						ft.IconButton(
+							icon=ft.Icons.SETTINGS_BACKUP_RESTORE_OUTLINED,
+							padding=0, tooltip="Reset all parameters below.",
+						),
+						ft.IconButton(
+							icon=ft.Icons.CASINO_OUTLINED, padding=0,
+							tooltip="Randomise number of all character types.",
+						)
 					]
 				),
 				ft.Divider(),
@@ -129,6 +135,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 				param_sldr_val,
 				ft.IconButton(
 					icon=ft.Icons.CASINO_OUTLINED, padding=0,
+					tooltip=f"{v['rndmz_btn_tip']}",
 					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr: [
 						ui.set_sldr_val(s, randint(v_['min_val'], v_['max_val'])),
 						ui.update_sldr(lbl, s)
@@ -160,6 +167,30 @@ params_panel: ft.Container = ft.Container(
 	)
 )
 panel_ctrl_list.append(params_panel)
+
+
+# Output Section
+# Password Generator Button
+passgen_btn: ft.FilledButton = ft.FilledButton(content="Generate Password", )
+# Show Generated Password
+passwd_output: ft.TextField = ft.TextField(
+	hint_text="Your Randomly Generated Password", expand=True,
+	border_radius=200, text_align=ft.TextAlign.CENTER,
+)
+# Password Copy Button
+passwd_copy_btn: ft.IconButton = ft.IconButton(
+	padding=0, icon=ft.Icons.CONTENT_COPY_OUTLINED,
+	tooltip="Copy password"
+)
+# Container for getting output
+output_cont: ft.Container = ft.Container(
+	padding=15, alignment=ft.Alignment.CENTER,
+	content=ft.Row(
+		intrinsic_height=True, alignment=ft.MainAxisAlignment.CENTER,
+		controls=[passgen_btn, passwd_output, passwd_copy_btn]
+	)
+)
+panel_ctrl_list.append(output_cont)
 
 
 # Main Panel Column
