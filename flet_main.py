@@ -88,6 +88,26 @@ panel_ctrl_list.append(passlen_col)
 # Parameters List
 params_list: list[ft.Control] = [] # list of Controls to render for Parameters Panel
 
+# Parameters Heading
+params_list.append(
+	ft.Container(
+		padding=ft.Padding.symmetric(horizontal=15), alignment=ft.Alignment.CENTER,
+		content=ft.Column(
+			alignment=ft.MainAxisAlignment.CENTER, spacing=10, controls=[
+				ft.Row(
+					intrinsic_height=True, spacing=0,
+					alignment=ft.MainAxisAlignment.CENTER, controls=[
+						ft.Text("Valid Characters", expand=True),
+						ft.IconButton(icon=ft.Icons.LOCK_RESET_OUTLINED, padding=0),
+						ft.IconButton(icon=ft.Icons.CASINO_OUTLINED, padding=0)
+					]
+				),
+				ft.Divider(),
+			]
+		)
+	)
+)
+
 for k, v in param_sliders.items(): # defines all Parameter Controls
 	# Shows Parameter Slider value
 	param_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
@@ -104,8 +124,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 	param_lbl_cont: ft.Container = ft.Container(
 		padding=ft.Padding.symmetric(horizontal=15),
 		content=ft.Row(
-			intrinsic_height=True,
-			controls=[
+			intrinsic_height=True, controls=[
 				ft.Markdown(value=v['label'], expand=True),
 				param_sldr_val,
 				ft.IconButton(
@@ -114,7 +133,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 						ui.set_sldr_val(s, randint(v_['min_val'], v_['max_val'])),
 						ui.update_sldr(lbl, s)
 					]
-				)
+				),
 			]
 		)
 	)
