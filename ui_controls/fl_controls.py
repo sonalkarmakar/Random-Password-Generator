@@ -31,3 +31,7 @@ def passlen_sldr_warn(warn_msg: ft.Control, slider: ft.Slider) -> None:
 
 def set_sldr_val(slider: ft.Slider, value: ft.Number) -> None:
 	slider.value = value
+
+def change_tab(tab_list: list[ft.Control], curr_index: int = 0) -> None:
+	for i in range(len(tab_list)):
+		tab_list[i].visible = (i == curr_index)

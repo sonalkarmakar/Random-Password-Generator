@@ -7,8 +7,10 @@ from random import randint
 
 # Components to render
 page_components: list[ft.Control] = []
-# Main Panel Controls
-panel_ctrl_list: list[ft.Control] = []
+# Password Generator Tab Controls
+passgen_tab_ctrl_list: list[ft.Control] = []
+# Guidelines Tab Controls
+gdlns_tab_ctrl_list: list[ft.Control] = []
 
 sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 
@@ -18,12 +20,8 @@ app_title: str = "Random Password Genrator"
 heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
 page_components.append(heading)
 
-# Main Panel Tabs
 
-# Tab Panel Title
-passgen_title: str = "Generate a Random Password"
-tab_panel_title: ft.Text = ft.Text(passgen_title, theme_style=ft.TextThemeStyle.TITLE_LARGE)
-
+# Password Generator Tab Content
 # Password Length section
 # Slider Label
 passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm, expand=True)
@@ -81,7 +79,7 @@ passlen_lbl_cont: ft.Container = ft.Container(
 
 # Password Length section Column
 passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passlen_sldr, warning_panel])
-panel_ctrl_list.append(passlen_col)
+passgen_tab_ctrl_list.append(passlen_col)
 
 
 # Parameters Section
@@ -166,11 +164,10 @@ params_panel: ft.Container = ft.Container(
 		content=ft.Column(alignment=ft.MainAxisAlignment.CENTER, controls=params_list)
 	)
 )
-panel_ctrl_list.append(params_panel)
+passgen_tab_ctrl_list.append(params_panel)
 
 
 # Output Section
-const_height = 45
 # Password Generator Button
 passgen_btn: ft.FilledButton = ft.FilledButton(content="Generate Password",)
 # Show Generated Password
@@ -185,29 +182,70 @@ passwd_copy_btn: ft.IconButton = ft.IconButton(
 )
 # Container for getting output
 output_cont: ft.Container = ft.Container(
-	padding=15, alignment=ft.Alignment.CENTER,
+	padding=ft.Padding(left=15, right=15, bottom=15), alignment=ft.Alignment.CENTER,
 	content=ft.Row(
 		intrinsic_height=True, alignment=ft.MainAxisAlignment.SPACE_EVENLY,
 		vertical_alignment=ft.CrossAxisAlignment.STRETCH,
 		controls=[passgen_btn, passwd_output, passwd_copy_btn]
 	)
 )
-panel_ctrl_list.append(output_cont)
+passgen_tab_ctrl_list.append(output_cont)
 
 
-# Main Panel Column
-panel_col: ft.Column = ft.Column(spacing=0, controls=panel_ctrl_list)
+# Password Generator Tab Column
+passgen_tab_col: ft.Column = ft.Column(spacing=0, controls=passgen_tab_ctrl_list)
+# Password Generator Tab Title
+passgen_tab_title: str = "Generate Random Password"
+passgen_panel_title: ft.Text = ft.Text("Generate a Random Password", theme_style=ft.TextThemeStyle.TITLE_LARGE)
+
+
+# Guidelines Tab Content
+gdlns_tab_title: str = "Secure Password Guidelines"
+gdlns_panel_title: ft.Text = ft.Text("Guidelines for a Secure Password")
+gdlns_tab_ctrl_list.append(gdlns_panel_title)
+# Guidelines Tab Column
+gdlns_tab_col: ft.Column = ft.Column(controls=gdlns_tab_ctrl_list)
+
+
+# Bar for Fake Tabs
+fake_tab_bar: ft.TabBar = ft.TabBar(
+	scrollable=False, divider_color=ft.Colors.TRANSPARENT,
+	tab_alignment=ft.TabAlignment.FILL, tabs=[
+		ft.Tab(label=ft.Text(passgen_tab_title, no_wrap=True)),
+		ft.Tab(label=ft.Text(gdlns_tab_title, no_wrap=True)),
+	]
+)
+
+# Column for each Panel Tab
+tab_panels_col: ft.Column = ft.Column(
+	spacing=0, controls=[passgen_tab_col, gdlns_tab_col],
+)
+
+# Set Default Tab
+passgen_tab_col.visible = True
+gdlns_tab_col.visible = False
+
+# Render Tabs inside Main Panel
+main_panel_tabs: ft.Tabs = ft.Tabs(
+	length=2, selected_index=0,
+	on_change=lambda e: ui.change_tab([passgen_tab_col, gdlns_tab_col], e.data),
+	content=ft.Column(
+		spacing=0, controls=[fake_tab_bar, tab_panels_col],
+	),
+)
+
 # Main Panel
 main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 	alignment=ft.MainAxisAlignment.CENTER,
 	controls=[ft.Card(
 		col={
 			ft.ResponsiveRowBreakpoint.SM: 12,
-			ft.ResponsiveRowBreakpoint.MD: 6,
+			ft.ResponsiveRowBreakpoint.MD: 8,
+			ft.ResponsiveRowBreakpoint.LG: 6,
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
 		bgcolor=ft.Colors.LIGHT_BLUE_50,
-		content=panel_col,
+		content=main_panel_tabs,
 	)]
 )
 page_components.append(main_panel)
