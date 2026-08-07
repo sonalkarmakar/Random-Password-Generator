@@ -55,18 +55,19 @@ passlen_sldr: ft.Slider = ft.Slider(
 	max=default_values['max_passwd_len'],
 	value=default_values['min_passwd_len'],
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
-	on_change=lambda e: ui.update_sldr(passlen_sldr_val, e.control, warning_panel, True),
+	on_change=lambda e: ui.update_sldr(passlen_sldr_val, e.control, None, warning_panel, True),
 )
 # Initiate with Minumum Slider Value
-ui.update_sldr_lbl(label=passlen_sldr_val, value=f"{passlen_sldr.value}")
+ui.update_sldr(label=passlen_sldr_val, slider=passlen_sldr)
 
 # Password Length Randomiser Button
 passlen_rndmz_btn: ft.IconButton = ft.IconButton(
 	icon=ft.Icons.CASINO_OUTLINED, padding=0, tooltip="Randomise password length.",
-	on_click=lambda e: [
-		ui.set_sldr_val(passlen_sldr, randint(default_values['min_passwd_len'], default_values['safe_passwd_len'])),
-		ui.update_sldr(passlen_sldr_val, passlen_sldr, warning_panel, True)
-	],
+	on_click=lambda e: ui.update_sldr(
+		panel=warning_panel, is_passlen=True,
+		label=passlen_sldr_val, slider=passlen_sldr,
+		value=randint(default_values['min_passwd_len'], default_values['safe_passwd_len']),
+	),
 )
 # Container with Password Length Label and Randomiser Button
 passlen_lbl_cont: ft.Container = ft.Container(
@@ -99,10 +100,12 @@ params_list.append(
 						ft.IconButton(
 							icon=ft.Icons.SETTINGS_BACKUP_RESTORE_OUTLINED,
 							padding=0, tooltip="Reset all parameters below.",
+							on_click=lambda e: ui.reset_all_sldrs(),
 						),
 						ft.IconButton(
 							icon=ft.Icons.CASINO_OUTLINED, padding=0,
 							tooltip="Randomise number of all character types.",
+							on_click=lambda e: ui.rndmz_all_sldrs(),
 						)
 					]
 				),
@@ -117,11 +120,8 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 	param_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 	# Parameter Slider
 	param_sldr: ft.Slider = ft.Slider(
-		key=k,
-		min=v['min_val'],
-		max=v['max_val'],
-		value=v['min_val'],
-		divisions=(v['max_val'] - v['min_val']),
+		key=k, min=v['min_val'], max=v['max_val'],
+		value=v['min_val'], divisions=(v['max_val'] - v['min_val']),
 		on_change=lambda e, lbl=param_sldr_val: ui.update_sldr(label=lbl, slider=e.control)
 	)
 	# Parameter Label Container
@@ -134,24 +134,21 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 				ft.IconButton(
 					icon=ft.Icons.CASINO_OUTLINED, padding=0,
 					tooltip=f"{v['rndmz_btn_tip']}",
-					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr: [
-						ui.set_sldr_val(s, randint(v_['min_val'], v_['max_val'])),
-						ui.update_sldr(lbl, s)
-					]
+					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr:
+						ui.update_sldr(lbl, s, randint(v_['min_val'], v_['max_val']))
 				),
 			]
 		)
 	)
 	# Storing Sliders to fetch their values later
 	ui.param_input_sldrs.update({k: param_sldr})
+	ui.param_sldr_labels.update({k: param_sldr_val})
 	# Initiate with Minimum Slider Value
-	ui.update_sldr_lbl(label=param_sldr_val, value=f"{param_sldr.value}")
+	ui.update_sldr(label=param_sldr_val, slider=param_sldr)
 	# Individual Parameter Container
 	param_sldr_cont: ft.Container = ft.Container(
-		padding=0, alignment=ft.Alignment.CENTER,
-		content=ft.Column(
-			spacing=0,
-			controls=[param_lbl_cont, param_sldr]
+			padding=0, alignment=ft.Alignment.CENTER,
+			content=ft.Column(spacing=0, controls=[param_lbl_cont, param_sldr]
 		)
 	)
 	params_list.append(param_sldr_cont)
@@ -169,7 +166,11 @@ passgen_tab_ctrl_list.append(params_panel)
 
 # Output Section
 # Password Generator Button
-passgen_btn: ft.FilledButton = ft.FilledButton(content="Generate Password",)
+passgen_btn: ft.FilledButton = ft.FilledButton(
+	content="Generate", style=ft.ButtonStyle(
+		text_style=ft.TextStyle(size=16), padding=ft.Padding.symmetric(horizontal=16)
+	)
+)
 # Show Generated Password
 passwd_output: ft.TextField = ft.TextField(
 	hint_text="Your Randomly Generated Password", expand=True,
@@ -209,7 +210,7 @@ gdlns_tab_col: ft.Column = ft.Column(controls=gdlns_tab_ctrl_list)
 
 # Bar for Fake Tabs
 fake_tab_bar: ft.TabBar = ft.TabBar(
-	scrollable=False, divider_color=ft.Colors.TRANSPARENT,
+	scrollable=False, divider_color=ft.Colors.TRANSPARENT, indicator_size=ft.TabBarIndicatorSize.TAB,
 	tab_alignment=ft.TabAlignment.FILL, tabs=[
 		ft.Tab(label=ft.Text(passgen_tab_title, no_wrap=True)),
 		ft.Tab(label=ft.Text(gdlns_tab_title, no_wrap=True)),
@@ -244,8 +245,8 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.LG: 6,
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
-		bgcolor=ft.Colors.LIGHT_BLUE_50,
-		content=main_panel_tabs,
+		bgcolor=ft.Colors.LIGHT_BLUE_50, content=main_panel_tabs,
+		clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
 	)]
 )
 page_components.append(main_panel)
