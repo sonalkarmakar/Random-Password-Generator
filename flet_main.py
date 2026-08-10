@@ -55,7 +55,10 @@ passlen_sldr: ft.Slider = ft.Slider(
 	max=default_values['max_passwd_len'],
 	value=default_values['min_passwd_len'],
 	divisions=(default_values['max_passwd_len'] - default_values['min_passwd_len']),
-	on_change=lambda e: ui.update_sldr(passlen_sldr_val, e.control, None, warning_panel, True),
+	on_change=lambda e: [
+		ui.update_sldr(passlen_sldr_val, e.control, None, warning_panel, True),
+		ui.chk_passlen_sldr(e.control),
+	],
 )
 # Initiate with Minumum Slider Value
 ui.update_sldr(label=passlen_sldr_val, slider=passlen_sldr)
@@ -63,11 +66,14 @@ ui.update_sldr(label=passlen_sldr_val, slider=passlen_sldr)
 # Password Length Randomiser Button
 passlen_rndmz_btn: ft.IconButton = ft.IconButton(
 	icon=ft.Icons.CASINO_OUTLINED, padding=0, tooltip="Randomise password length.",
-	on_click=lambda e: ui.update_sldr(
-		panel=warning_panel, is_passlen=True,
-		label=passlen_sldr_val, slider=passlen_sldr,
-		value=randint(default_values['min_passwd_len'], default_values['safe_passwd_len']),
-	),
+	on_click=lambda e: [
+		ui.update_sldr(
+			panel=warning_panel, is_passlen=True,
+			label=passlen_sldr_val, slider=passlen_sldr,
+			value=randint(default_values['min_passwd_len'], default_values['safe_passwd_len']),
+		),
+		ui.chk_passlen_sldr(passlen_sldr),
+	],
 )
 # Container with Password Length Label and Randomiser Button
 passlen_lbl_cont: ft.Container = ft.Container(
@@ -105,7 +111,10 @@ params_list.append(
 						ft.IconButton(
 							icon=ft.Icons.CASINO_OUTLINED, padding=0,
 							tooltip="Randomise number of all character types.",
-							on_click=lambda e: ui.rndmz_all_sldrs(),
+							on_click=lambda e: [
+								ui.rndmz_all_sldrs(),
+								ui.set_passlen_sldr(passlen_sldr, passlen_sldr_val, warning_panel),
+							],
 						)
 					]
 				),
@@ -122,7 +131,10 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 	param_sldr: ft.Slider = ft.Slider(
 		key=k, min=v['min_val'], max=v['max_val'],
 		value=v['min_val'], divisions=(v['max_val'] - v['min_val']),
-		on_change=lambda e, lbl=param_sldr_val: ui.update_sldr(label=lbl, slider=e.control)
+		on_change=lambda e, lbl=param_sldr_val: [
+			ui.update_sldr(label=lbl, slider=e.control),
+			ui.set_passlen_sldr(passlen_sldr, passlen_sldr_val, warning_panel),
+		]
 	)
 	# Parameter Label Container
 	param_lbl_cont: ft.Container = ft.Container(
@@ -134,8 +146,10 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 				ft.IconButton(
 					icon=ft.Icons.CASINO_OUTLINED, padding=0,
 					tooltip=f"{v['rndmz_btn_tip']}",
-					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr:
-						ui.update_sldr(lbl, s, randint(v_['min_val'], v_['max_val']))
+					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr: [
+						ui.update_sldr(lbl, s, randint(v_['min_val'], v_['max_val'])),
+						ui.set_passlen_sldr(passlen_sldr, passlen_sldr_val, warning_panel),
+					]
 				),
 			]
 		)
@@ -165,16 +179,19 @@ passgen_tab_ctrl_list.append(params_panel)
 
 
 # Output Section
-# Password Generator Button
-passgen_btn: ft.FilledButton = ft.FilledButton(
-	content="Generate", style=ft.ButtonStyle(
-		text_style=ft.TextStyle(size=16), padding=ft.Padding.symmetric(horizontal=16)
-	)
-)
 # Show Generated Password
 passwd_output: ft.TextField = ft.TextField(
 	hint_text="Your Randomly Generated Password", expand=True,
 	border_radius=200, text_align=ft.TextAlign.CENTER,
+)
+# Password Generator Button
+passgen_btn: ft.FilledButton = ft.FilledButton(
+	on_click=lambda e: ui.show_password(
+		passwd_output, int(passlen_sldr.value) if passlen_sldr.value is not None else default_values['min_passwd_len']
+	),
+	content="Generate", style=ft.ButtonStyle(
+		text_style=ft.TextStyle(size=16), padding=ft.Padding.symmetric(horizontal=16)
+	)
 )
 # Password Copy Button
 passwd_copy_btn: ft.IconButton = ft.IconButton(
