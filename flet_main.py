@@ -30,7 +30,7 @@ passlen_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 # Password Length Warning
 warning_panel: ft.Container = ft.Container(
 	visible=False, alignment=ft.Alignment.CENTER,
-	padding=ft.Padding.symmetric(horizontal=10),
+	padding=ft.Padding.symmetric(horizontal=10, vertical=0),
 	content=ft.Card(
 		variant=ft.CardVariant.OUTLINED,
 		bgcolor=ft.Colors.YELLOW_100,
@@ -229,7 +229,7 @@ gdlns_tab_col.visible = False
 # Render Tabs inside Main Panel
 main_panel_tabs: ft.Tabs = ft.Tabs(
 	length=2, selected_index=0,
-	on_change=lambda e: ui.change_tab([passgen_tab_col, gdlns_tab_col], e.data),
+	on_change=lambda e: ui.change_tab([passgen_tab_col, gdlns_tab_col], e.control.selected_index),
 	content=ft.Column(
 		spacing=0, controls=[fake_tab_bar, tab_panels_col],
 	),
