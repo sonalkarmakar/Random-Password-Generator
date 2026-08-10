@@ -1,5 +1,6 @@
 from random import choice, shuffle
-from string import ascii_lowercase, ascii_uppercase, punctuation, digits
+from string import ascii_lowercase, ascii_uppercase, digits, punctuation
+
 
 # Generates the Random Password
 def generate_password(

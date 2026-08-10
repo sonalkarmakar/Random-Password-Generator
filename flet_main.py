@@ -1,9 +1,9 @@
-import flet as ft
-from flet.controls.material import slider
-import ui_controls.fl_controls as ui
-
-from src.defined import *
 from random import randint
+
+import flet as ft
+
+import ui_controls.fl_controls as ui
+from src.defined import *
 
 # Components to render
 page_components: list[ft.Control] = []
