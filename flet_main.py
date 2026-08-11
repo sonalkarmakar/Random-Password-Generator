@@ -269,11 +269,27 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 )
 page_components.append(main_panel)
 
-footer_label_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
+footer_lbl_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
+lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0)
 
 dark_mode_togg: ft.Switch = ft.Switch(label="Dark Mode")
-author_credit: ft.Text = ft.Text(value=f"Made by {author_details['name']}", theme_style=footer_label_size)
-repositories: ft.Text = ft.Text(value="Source code: GitHub | GitLab", theme_style=footer_label_size)
+author_credit: ft.Text = ft.Text(value=f"Made by {author_details['name']}", theme_style=footer_lbl_size)
+repositories: ft.Row = ft.Row(
+	spacing=0, controls=[
+		ft.Text(value="Source code:", theme_style=footer_lbl_size),
+		ft.TextButton(
+			content=ft.Text(value="GitHub", color=ft.Colors.PRIMARY, theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+			url=author_details['links']['repository']['GitHub'],
+			style=lnk_btn_style,
+		),
+		ft.Text(value="|", theme_style=footer_lbl_size),
+		ft.TextButton(
+			content=ft.Text(value="GitLab", color=ft.Colors.PRIMARY, theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
+			url=author_details['links']['repository']['GitLab'],
+			style=lnk_btn_style,
+		),
+	]
+)
 
 footer: ft.BottomAppBar = ft.BottomAppBar(
 	bgcolor=ft.Colors.GREY_200,
