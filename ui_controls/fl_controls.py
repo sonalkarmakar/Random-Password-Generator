@@ -8,11 +8,13 @@ from src.logic import generate_password
 __all__ =[
 	"change_tab",
 	"chk_passlen_sldr",
+	"copy_to_clipboard",
 	"passlen_sldr_warn",
 	"reset_all_sldrs",
 	"rndmz_all_sldrs",
 	"set_passlen_sldr",
 	"show_password",
+	"toggle_theme",
 	"update_sldr",
 ]
 
@@ -104,3 +106,8 @@ def show_password(text_input: ft.TextField, passlen: int) -> None:
 async def copy_to_clipboard(text: str) -> None:
 	if text:
 		await ft.Clipboard().set(text)
+
+# Dark Mode switcher
+def toggle_theme(page: ft.Page, is_dark: bool) -> None:
+	page.theme_mode = ft.ThemeMode.DARK if is_dark else ft.ThemeMode.LIGHT
+	page.update()

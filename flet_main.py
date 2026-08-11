@@ -263,7 +263,7 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.LG: 6,
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
-		bgcolor=ft.Colors.LIGHT_BLUE_50, content=main_panel_tabs,
+		bgcolor=ft.Colors.SURFACE_CONTAINER_LOW, content=main_panel_tabs,
 		clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
 	)]
 )
@@ -292,7 +292,7 @@ repositories: ft.Row = ft.Row(
 )
 
 footer: ft.BottomAppBar = ft.BottomAppBar(
-	bgcolor=ft.Colors.GREY_200,
+	bgcolor=ft.Colors.SURFACE_CONTAINER,
 	content=ft.Row(
 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
 		controls=[dark_mode_togg, author_credit, repositories],
@@ -306,6 +306,8 @@ async def main(page: ft.Page):
 	page.bottom_appbar = footer
 	page.vertical_alignment = ft.MainAxisAlignment.START
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+
+	dark_mode_togg.on_change = lambda e: ui.toggle_theme(page, e.control.value)
 
 	# ==== DEBUGGING ====
 	# update_size(page)
