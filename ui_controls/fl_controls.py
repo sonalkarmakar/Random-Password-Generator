@@ -81,6 +81,7 @@ def reset_all_sldrs() -> None:
 	for k, v in param_input_sldrs.items():
 		update_sldr(param_sldr_labels[k], v, int(v.min))
 
+# Shows the password in the output Text Field
 def show_password(text_input: ft.TextField, passlen: int) -> None:
 	text_input.value = generate_password(
 		passlen,
@@ -97,3 +98,9 @@ def show_password(text_input: ft.TextField, passlen: int) -> None:
 		if param_input_sldrs['slider_digits'].value is not None else 1,
 
 	)
+
+# Copies password from Text Field to clipboard
+# Doesn't work without HTTPS if not on localhost
+async def copy_to_clipboard(text: str) -> None:
+	if text:
+		await ft.Clipboard().set(text)

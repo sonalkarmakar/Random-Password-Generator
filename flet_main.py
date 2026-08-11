@@ -191,12 +191,13 @@ passgen_btn: ft.FilledButton = ft.FilledButton(
 	),
 	content="Generate", style=ft.ButtonStyle(
 		text_style=ft.TextStyle(size=16), padding=ft.Padding.symmetric(horizontal=16)
-	)
+	),
 )
 # Password Copy Button
 passwd_copy_btn: ft.IconButton = ft.IconButton(
+	tooltip="Copy password",
 	padding=0, icon=ft.Icons.CONTENT_COPY_OUTLINED,
-	tooltip="Copy password"
+	on_click=lambda e: e.page.run_task(ui.copy_to_clipboard, passwd_output.value),
 )
 # Container for getting output
 output_cont: ft.Container = ft.Container(
@@ -282,7 +283,8 @@ footer: ft.BottomAppBar = ft.BottomAppBar(
 	)
 )
 
-def main(page: ft.Page):
+# Main Function for Flet
+async def main(page: ft.Page):
 	page.title = app_title
 	page.theme_mode = ft.ThemeMode.LIGHT
 	page.bottom_appbar = footer
