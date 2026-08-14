@@ -1,10 +1,17 @@
-import streamlit as st
 from random import choice, randint
+
+import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
 
-from src import defined
 import ui_controls.st_controls as ui
-from src.defined import content_paths, default_values, icons, param_sliders, author_details
+from src import defined
+from src.defined import (
+	author_details,
+	content_paths,
+	default_values,
+	icons,
+	param_sliders,
+)
 
 # Stores user-input for parameters
 param_input: dict[str, int] = {}
