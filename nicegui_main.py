@@ -1,8 +1,15 @@
-from nicegui import ui
 from random import choice, randint
 
+from nicegui import ui
+
 import ui_controls.ngui_controls as ngc
-from src.defined import author_details, icons, param_sliders, content_paths, default_values
+from src.defined import (
+	author_details,
+	content_paths,
+	default_values,
+	icons,
+	param_sliders,
+)
 
 ui_appearance: dict[str, dict[str, str]] = {
 	"class": {
