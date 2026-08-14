@@ -129,8 +129,8 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 	param_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
 	# Parameter Slider
 	param_sldr: ft.Slider = ft.Slider(
-		key=k, min=v['min_val'], max=v['max_val'],
-		value=v['min_val'], divisions=(v['max_val'] - v['min_val']),
+		key=k, min=int(v['min_val']), max=int(v['max_val']),
+		value=int(v['min_val']), divisions=(int(v['max_val']) - int(v['min_val'])),
 		on_change=lambda e, lbl=param_sldr_val: [
 			ui.update_sldr(label=lbl, slider=e.control),
 			ui.set_passlen_sldr(passlen_sldr, passlen_sldr_val, warning_panel),
@@ -141,13 +141,13 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 		padding=ft.Padding.symmetric(horizontal=15),
 		content=ft.Row(
 			intrinsic_height=True, controls=[
-				ft.Markdown(value=v['label'], expand=True,),
+				ft.Markdown(value=str(v['label']), expand=True,),
 				param_sldr_val,
 				ft.IconButton(
 					icon=ft.Icons.CASINO_OUTLINED, padding=0,
 					tooltip=f"{v['rndmz_btn_tip']}",
 					on_click=lambda e, v_=v, lbl=param_sldr_val, s=param_sldr: [
-						ui.update_sldr(lbl, s, randint(v_['min_val'], v_['max_val'])),
+						ui.update_sldr(lbl, s, randint(int(v_['min_val']), int(v_['max_val']))),
 						ui.set_passlen_sldr(passlen_sldr, passlen_sldr_val, warning_panel),
 					]
 				),
@@ -317,4 +317,5 @@ async def main(page: ft.Page):
 	page.add(*page_components)
 
 if __name__ == "__main__":
-	ft.run(main)
+	# Comment below suppresses linter's whining
+	_ = ft.run(main) # pyright: ignore[reportUnknownMemberType]

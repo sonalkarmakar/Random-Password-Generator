@@ -27,18 +27,19 @@ def update_sldr(
 	label: ft.Text, slider: ft.Slider, value: int | None = None,
 	panel: ft.Control | None = None, is_passlen: bool = False,
 ) -> None:
-	if slider is not None:
-		if value is not None:
-			slider.value = value
-		label.value = f"{slider.value}"
+	if value is not None:
+		slider.value = value
+	label.value = f"{slider.value}"
 
-		if is_passlen and panel is not None:
-			passlen_sldr_warn(panel, slider)
+	if is_passlen and panel is not None:
+		passlen_sldr_warn(panel, slider)
 
 # Warns for high Password Length Slider value
 def passlen_sldr_warn(warn_msg: ft.Control, slider: ft.Slider) -> None:
-	warn_msg.visible = slider.value > default_values['safe_passwd_len']
-	if slider.value > default_values['safe_passwd_len']:
+	val: int = int(slider.value) if slider.value is not None else int(slider.min)
+	warn_msg.visible = val > default_values['safe_passwd_len']
+
+	if val > default_values['safe_passwd_len']:
 		slider.active_color = ft.Colors.AMBER
 		slider.inactive_color = ft.Colors.AMBER_50
 	else:

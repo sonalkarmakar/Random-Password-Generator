@@ -1,3 +1,19 @@
+from typing import TypedDict
+
+
+class RepoLinks(TypedDict):
+	GitHub: str
+	GitLab: str
+
+class AuthorLinks(TypedDict):
+	websites: RepoLinks
+	repository: RepoLinks
+
+class AuthorDetails(TypedDict):
+	name: str
+	email: str
+	links: AuthorLinks
+
 __all__ = ['author_details', 'content_paths', 'default_values', 'icons', 'param_sliders',]
 
 # Define Default Values
@@ -59,7 +75,7 @@ content_paths = {
 }
 
 # App Author Details
-author_details = {
+author_details: AuthorDetails = {
 	"name": "Sonal Karmakar",
 	"email": "",
 	"links": {
