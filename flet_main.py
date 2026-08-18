@@ -32,18 +32,26 @@ warning_panel: ft.Container = ft.Container(
 	visible=False, alignment=ft.Alignment.CENTER,
 	padding=ft.Padding.symmetric(horizontal=10, vertical=0),
 	content=ft.Card(
-		variant=ft.CardVariant.OUTLINED,
-		bgcolor=ft.Colors.YELLOW_100,
-		content=ft.Container(
-			padding=5,
-			content=ft.Row(intrinsic_height=True, spacing=0, controls=[
-				ft.Container(content=ft.Icon(ft.Icons.WARNING, size=40, color=ft.Colors.AMBER_600), aspect_ratio=1.0,),
-				ft.VerticalDivider(color=ft.Colors.AMBER_600, thickness=2),
-				ft.Column(expand=True, spacing=5, controls=[
-					ft.Text("Password length might be too long!", weight=ft.FontWeight.BOLD, color=ft.Colors.DEEP_ORANGE_900),
-					ft.Text("Old systems may not support this length.", color=ft.Colors.YELLOW_900),
-				]),
-			])
+		variant=ft.CardVariant.OUTLINED, bgcolor=ft.Colors.TERTIARY_CONTAINER, content=ft.Container(
+			padding=5, content=ft.Row(
+				intrinsic_height=True, spacing=0, controls=[
+					ft.Container(aspect_ratio=1.0, content=ft.Icon(
+						ft.Icons.WARNING, size=40, color=ft.Colors.TERTIARY),
+					),
+					ft.VerticalDivider(color=ft.Colors.TERTIARY, thickness=2),
+					ft.Column(
+						expand=True, spacing=5, controls=[
+							ft.Text(
+								"Password length might be too long!",
+								weight=ft.FontWeight.BOLD, color=ft.Colors.ON_TERTIARY_CONTAINER
+							),
+							ft.Text(
+								"Old systems may not support this length.", color=ft.Colors.ON_TERTIARY
+							),
+						]
+					),
+				]
+			)
 		)
 	)
 )
@@ -181,8 +189,8 @@ passgen_tab_ctrl_list.append(params_panel)
 # Output Section
 # Show Generated Password
 passwd_output: ft.TextField = ft.TextField(
-	hint_text="Your Randomly Generated Password", expand=True,
-	border_radius=200, text_align=ft.TextAlign.CENTER,
+	hint_text="Your Randomly Generated Password", text_align=ft.TextAlign.CENTER,
+	expand=True, border_radius=200, border_color=ft.Colors.ON_PRIMARY_CONTAINER,
 )
 # Password Generator Button
 passgen_btn: ft.FilledButton = ft.FilledButton(
@@ -301,6 +309,24 @@ footer: ft.BottomAppBar = ft.BottomAppBar(
 
 # Main Function for Flet
 async def main(page: ft.Page):
+	page.theme = ft.Theme(
+		color_scheme=ft.ColorScheme(
+			tertiary=ft.Colors.AMBER_600, # warning icon
+			on_tertiary=ft.Colors.YELLOW_900, # warning text
+			tertiary_container=ft.Colors.YELLOW_100, # warning panel
+			on_tertiary_container=ft.Colors.DEEP_ORANGE_900, # warning heading
+		)
+	)
+
+	page.dark_theme = ft.Theme(
+		color_scheme=ft.ColorScheme(
+			tertiary=ft.Colors.AMBER_50, # warning icon
+			on_tertiary=ft.Colors.ORANGE_900, # warning text
+			tertiary_container=ft.Colors.AMBER, # warning panel
+			on_tertiary_container=ft.Colors.DEEP_ORANGE_900, # warning heading
+		)
+	)
+
 	page.title = app_title
 	page.theme_mode = ft.ThemeMode.LIGHT
 	page.bottom_appbar = footer
