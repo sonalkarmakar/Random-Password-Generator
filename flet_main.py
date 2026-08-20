@@ -18,7 +18,7 @@ sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 # App Title and Heading
 app_title: str = "Random Password Genrator"
 heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
-page_components.append(heading)
+# page_components.append(heading)
 
 
 # Password Generator Tab Content
@@ -275,7 +275,7 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 		clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
 	)]
 )
-page_components.append(main_panel)
+# page_components.append(main_panel)
 
 footer_lbl_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
 lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0)
@@ -299,13 +299,31 @@ repositories: ft.Row = ft.Row(
 	]
 )
 
-footer: ft.BottomAppBar = ft.BottomAppBar(
-	bgcolor=ft.Colors.SURFACE_CONTAINER,
-	content=ft.Row(
+# footer: ft.BottomAppBar = ft.BottomAppBar(
+# 	bgcolor=ft.Colors.SURFACE_CONTAINER,
+# 	content=ft.Row(
+# 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+# 		controls=[dark_mode_togg, author_credit, repositories],
+# 	)
+# )
+
+main_cont: ft.Container = ft.Container(
+	padding=0, expand=True, alignment=ft.Alignment.TOP_CENTER,
+	content=ft.Column(
+		spacing=0, alignment=ft.MainAxisAlignment.START,
+		horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+		controls=[heading, main_panel],
+	),
+)
+page_components.append(main_cont)
+
+footer: ft.Container = ft.Container(
+	bgcolor=ft.Colors.ON_INVERSE_SURFACE, content=ft.Row(
 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
 		controls=[dark_mode_togg, author_credit, repositories],
 	)
 )
+page_components.append(footer)
 
 # Main Function for Flet
 async def main(page: ft.Page):
@@ -329,8 +347,8 @@ async def main(page: ft.Page):
 
 	page.padding = 0
 	page.title = app_title
-	page.bottom_appbar = footer
-	page.scroll = ft.ScrollMode.ADAPTIVE
+	# page.bottom_appbar = footer
+	# page.scroll = ft.ScrollMode.ADAPTIVE
 	page.theme_mode = ft.ThemeMode.LIGHT
 	page.vertical_alignment = ft.MainAxisAlignment.START
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -342,7 +360,14 @@ async def main(page: ft.Page):
 	# page.on_resize = update_size
 	# == END DEBUGGING ==
 
-	page.add(*page_components)
+	# page.add(*page_components)
+	page.add(
+		ft.Column(
+			spacing=0, expand=True, controls=page_components,
+			horizontal_alignment=ft.CrossAxisAlignment.STRETCH,
+			alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+		)
+	)
 
 if __name__ == "__main__":
 	# Comment below suppresses linter's whining
