@@ -327,9 +327,11 @@ async def main(page: ft.Page):
 		)
 	)
 
+	page.padding = 0
 	page.title = app_title
-	page.theme_mode = ft.ThemeMode.LIGHT
 	page.bottom_appbar = footer
+	page.scroll = ft.ScrollMode.ADAPTIVE
+	page.theme_mode = ft.ThemeMode.LIGHT
 	page.vertical_alignment = ft.MainAxisAlignment.START
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
