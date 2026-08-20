@@ -271,7 +271,7 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 			ft.ResponsiveRowBreakpoint.LG: 6,
 			ft.ResponsiveRowBreakpoint.XXL: 4,
 		},
-		bgcolor=ft.Colors.SURFACE_CONTAINER_LOW, content=main_panel_tabs,
+		bgcolor=ft.Colors.INVERSE_PRIMARY, content=main_panel_tabs,
 		clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
 	)]
 )
