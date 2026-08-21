@@ -1,3 +1,4 @@
+from pathlib import Path
 from random import randint
 
 import flet as ft
@@ -229,7 +230,41 @@ passgen_panel_title: ft.Text = ft.Text("Generate a Random Password", theme_style
 # Guidelines Tab Content
 gdlns_tab_title: str = "Secure Password Guidelines"
 gdlns_panel_title: ft.Text = ft.Text("Guidelines for a Secure Password")
-gdlns_tab_ctrl_list.append(gdlns_panel_title)
+
+gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
+	divider_color=ft.Colors.INVERSE_PRIMARY, expanded_header_padding=ft.Padding.symmetric(horizontal=15),
+	controls=[
+		ft.ExpansionPanel(
+			header=ft.Row(
+				intrinsic_height=True, controls=[
+					ft.Icon(ft.Icons.PASSWORD_OUTLINED), ft.Text("Creating a Secure Password", expand=True)
+				]
+			),
+			content=ft.Container(
+				padding=ft.Padding.all(10),
+				content=ft.Markdown(ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['create_passwd']}")),
+			)
+		),
+		ft.ExpansionPanel(
+			header=ft.Row(
+				intrinsic_height=True, controls=[
+					ft.Icon(ft.Icons.PRIVACY_TIP_OUTLINED), ft.Text("Maintaining Password Security", expand=True),
+				]
+			),
+			content=ft.Container(
+				padding=ft.Padding.all(10),
+				content=ft.Markdown(ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['maintain_passwd']}")),
+			)
+		),
+	]
+)
+
+gdlns_exp_cont: ft.Container = ft.Container(
+	padding=ft.Padding.all(15),
+	content=gdlns_exp_lst,
+)
+
+gdlns_tab_ctrl_list.append(gdlns_exp_cont)
 # Guidelines Tab Column
 gdlns_tab_col: ft.Column = ft.Column(controls=gdlns_tab_ctrl_list)
 

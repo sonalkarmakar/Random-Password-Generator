@@ -9,6 +9,7 @@ __all__ =[
 	"change_tab",
 	"chk_passlen_sldr",
 	"copy_to_clipboard",
+	"load_markdown",
 	"passlen_sldr_warn",
 	"reset_all_sldrs",
 	"rndmz_all_sldrs",
@@ -112,3 +113,8 @@ async def copy_to_clipboard(text: str) -> None:
 def toggle_theme(page: ft.Page, is_dark: bool) -> None:
 	page.theme_mode = ft.ThemeMode.DARK if is_dark else ft.ThemeMode.LIGHT
 	page.update()
+
+# Load Markdown content from file
+def load_markdown(file_path: str) -> str:
+	with open(file_path, 'r', encoding="utf-8") as f:
+		return f.read()
