@@ -6,23 +6,27 @@ import flet as ft
 import ui_controls.fl_controls as ui
 from src.defined import *
 
+#-----------------------#
+# VARIABLE DECLARATIONS #
+#-----------------------#
 # Components to render
 page_components: list[ft.Control] = []
 # Password Generator Tab Controls
 passgen_tab_ctrl_list: list[ft.Control] = []
 # Guidelines Tab Controls
 gdlns_tab_ctrl_list: list[ft.Control] = []
-
+# Slider Label Text Theme
 sldr_lbl_txt_thm: ft.TextThemeStyle = ft.TextThemeStyle.BODY_MEDIUM
 
-
-# App Title and Heading
+#-----------------------#
+# APP TITLE AND HEADING #
+#-----------------------#
 app_title: str = "Random Password Genrator"
 heading: ft.Text = ft.Text(value=app_title, theme_style=ft.TextThemeStyle.HEADLINE_LARGE)
-# page_components.append(heading)
 
-
-# Password Generator Tab Content
+#--------------------------------#
+# PASSWORD GENERATOR TAB CONTENT #
+#--------------------------------#
 # Password Length section
 # Slider Label
 passlen_sldr_lbl: ft.Text = ft.Text("Password Length", theme_style=sldr_lbl_txt_thm, expand=True)
@@ -98,7 +102,9 @@ passlen_col: ft.Column = ft.Column(spacing=0, controls=[passlen_lbl_cont, passle
 passgen_tab_ctrl_list.append(passlen_col)
 
 
-# Parameters Section
+#--------------------#
+# PARAMETERS SECTION #
+#--------------------#
 # Parameters List
 params_list: list[ft.Control] = [] # list of Controls to render for Parameters Panel
 
@@ -132,7 +138,7 @@ params_list.append(
 		)
 	)
 )
-
+# Looping through defined parameters
 for k, v in param_sliders.items(): # defines all Parameter Controls
 	# Shows Parameter Slider value
 	param_sldr_val: ft.Text = ft.Text(theme_style=sldr_lbl_txt_thm)
@@ -187,7 +193,9 @@ params_panel: ft.Container = ft.Container(
 passgen_tab_ctrl_list.append(params_panel)
 
 
-# Output Section
+#----------------#
+# OUTPUT SECTION #
+#----------------#
 # Show Generated Password
 passwd_output: ft.TextField = ft.TextField(
 	hint_text="Your Randomly Generated Password", text_align=ft.TextAlign.CENTER,
@@ -220,17 +228,9 @@ output_cont: ft.Container = ft.Container(
 passgen_tab_ctrl_list.append(output_cont)
 
 
-# Password Generator Tab Column
-passgen_tab_col: ft.Column = ft.Column(spacing=0, controls=passgen_tab_ctrl_list)
-# Password Generator Tab Title
-passgen_tab_title: str = "Generate Random Password"
-passgen_panel_title: ft.Text = ft.Text("Generate a Random Password", theme_style=ft.TextThemeStyle.TITLE_LARGE)
-
-
-# Guidelines Tab Content
-gdlns_tab_title: str = "Secure Password Guidelines"
-gdlns_panel_title: ft.Text = ft.Text("Guidelines for a Secure Password")
-
+#------------------------#
+# GUIDELINES TAB CONTENT #
+#------------------------#
 gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 	divider_color=ft.Colors.INVERSE_PRIMARY, expanded_header_padding=ft.Padding.symmetric(horizontal=15),
 	controls=[
@@ -258,16 +258,28 @@ gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 		),
 	]
 )
-
+# Guidelines Expansion Panel Container
 gdlns_exp_cont: ft.Container = ft.Container(
 	padding=ft.Padding.all(15),
 	content=gdlns_exp_lst,
 )
-
+# Guidelines Tab Controls
 gdlns_tab_ctrl_list.append(gdlns_exp_cont)
 # Guidelines Tab Column
 gdlns_tab_col: ft.Column = ft.Column(controls=gdlns_tab_ctrl_list)
 
+
+#-----------------#
+# TAB DEFINITIONS #
+#-----------------#
+# Password Generator Tab Column
+passgen_tab_col: ft.Column = ft.Column(spacing=0, controls=passgen_tab_ctrl_list)
+# Password Generator Tab Title
+passgen_tab_title: str = "Generate Random Password"
+passgen_panel_title: ft.Text = ft.Text("Generate a Random Password", theme_style=ft.TextThemeStyle.TITLE_LARGE)
+# Guidelines Tab Title
+gdlns_tab_title: str = "Secure Password Guidelines"
+gdlns_panel_title: ft.Text = ft.Text("Guidelines for a Secure Password")
 
 # Bar for Fake Tabs
 fake_tab_bar: ft.TabBar = ft.TabBar(
@@ -296,6 +308,9 @@ main_panel_tabs: ft.Tabs = ft.Tabs(
 	),
 )
 
+#---------------------#
+# MAIN CONTENT LAYOUT #
+#---------------------#
 # Main Panel
 main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 	alignment=ft.MainAxisAlignment.CENTER,
@@ -311,10 +326,29 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 	)]
 )
 
+# Main Content Container
+main_cont: ft.Container = ft.Container(
+	padding=0, expand=True, alignment=ft.Alignment.TOP_CENTER,
+	content=ft.Column(
+		spacing=0, alignment=ft.MainAxisAlignment.START,
+		horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+		controls=[heading, main_panel], scroll=ft.ScrollMode.AUTO
+	),
+)
+page_components.append(main_cont)
+
+
+#----------------------------#
+# FOOTER LAYOUT & DEFINITION #
+#----------------------------#
+# Text Label Themes
 footer_lbl_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
 lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0)
 
+# Dark Mode Toggle Button
 dark_mode_togg: ft.Switch = ft.Switch(label="Dark Mode")
+
+# Links and Credits
 author_credit: ft.Text = ft.Text(value=f"Made by {author_details['name']}", theme_style=footer_lbl_size)
 repositories: ft.Row = ft.Row(
 	spacing=0, controls=[
@@ -333,16 +367,7 @@ repositories: ft.Row = ft.Row(
 	]
 )
 
-main_cont: ft.Container = ft.Container(
-	padding=0, expand=True, alignment=ft.Alignment.TOP_CENTER,
-	content=ft.Column(
-		spacing=0, alignment=ft.MainAxisAlignment.START,
-		horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-		controls=[heading, main_panel], scroll=ft.ScrollMode.AUTO
-	),
-)
-page_components.append(main_cont)
-
+# Creating the Footer Row
 footer: ft.Container = ft.Container(
 	bgcolor=ft.Colors.ON_INVERSE_SURFACE, content=ft.Row(
 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
@@ -351,8 +376,12 @@ footer: ft.Container = ft.Container(
 )
 page_components.append(footer)
 
-# Main Function for Flet
+
+#------------------------#
+# MAIN FUNCTION FOR FLET #
+#------------------------#
 async def main(page: ft.Page):
+	# Light Theme definition
 	page.theme = ft.Theme(
 		color_scheme=ft.ColorScheme(
 			tertiary=ft.Colors.AMBER_600, # warning icon
@@ -361,7 +390,7 @@ async def main(page: ft.Page):
 			on_tertiary_container=ft.Colors.DEEP_ORANGE_900, # warning heading
 		)
 	)
-
+	# Dark Theme definition
 	page.dark_theme = ft.Theme(
 		color_scheme=ft.ColorScheme(
 			tertiary=ft.Colors.AMBER_50, # warning icon
@@ -371,14 +400,15 @@ async def main(page: ft.Page):
 		)
 	)
 
-	page.padding = 0
+	page.padding = 0 # Makes the page more compact
 	page.title = app_title
-	page.theme_mode = ft.ThemeMode.LIGHT
-	page.vertical_alignment = ft.MainAxisAlignment.START
-	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-
+	page.theme_mode = ft.ThemeMode.LIGHT # Initial theme on launch
+	page.vertical_alignment = ft.MainAxisAlignment.START # Content renders from window top edge
+	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER # Content renders vertically centred
+	# Function call for theme change
 	dark_mode_togg.on_change = lambda e: ui.toggle_theme(page, e.control.value)
 
+	# Adding all conetnts to render
 	page.add(
 		ft.Column(
 			spacing=0, expand=True, controls=page_components,
