@@ -235,7 +235,7 @@ gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 	divider_color=ft.Colors.INVERSE_PRIMARY, expanded_header_padding=ft.Padding.symmetric(horizontal=15),
 	controls=[
 		ft.ExpansionPanel(
-			header=ft.Row(
+			can_tap_header=True, header=ft.Row(
 				intrinsic_height=True, controls=[
 					ft.Icon(ft.Icons.PASSWORD_OUTLINED), ft.Text("Creating a Secure Password", expand=True)
 				]
@@ -246,7 +246,7 @@ gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 			)
 		),
 		ft.ExpansionPanel(
-			header=ft.Row(
+			can_tap_header=True, header=ft.Row(
 				intrinsic_height=True, controls=[
 					ft.Icon(ft.Icons.PRIVACY_TIP_OUTLINED), ft.Text("Maintaining Password Security", expand=True),
 				]
@@ -347,7 +347,7 @@ main_cont: ft.Container = ft.Container(
 	content=ft.Column(
 		spacing=0, alignment=ft.MainAxisAlignment.START,
 		horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-		controls=[heading, main_panel],
+		controls=[heading, main_panel], scroll=ft.ScrollMode.AUTO
 	),
 )
 page_components.append(main_cont)
