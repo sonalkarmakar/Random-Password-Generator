@@ -310,7 +310,6 @@ main_panel: ft.ResponsiveRow = ft.ResponsiveRow(
 		clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
 	)]
 )
-# page_components.append(main_panel)
 
 footer_lbl_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
 lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0)
@@ -333,14 +332,6 @@ repositories: ft.Row = ft.Row(
 		),
 	]
 )
-
-# footer: ft.BottomAppBar = ft.BottomAppBar(
-# 	bgcolor=ft.Colors.SURFACE_CONTAINER,
-# 	content=ft.Row(
-# 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-# 		controls=[dark_mode_togg, author_credit, repositories],
-# 	)
-# )
 
 main_cont: ft.Container = ft.Container(
 	padding=0, expand=True, alignment=ft.Alignment.TOP_CENTER,
@@ -382,20 +373,12 @@ async def main(page: ft.Page):
 
 	page.padding = 0
 	page.title = app_title
-	# page.bottom_appbar = footer
-	# page.scroll = ft.ScrollMode.ADAPTIVE
 	page.theme_mode = ft.ThemeMode.LIGHT
 	page.vertical_alignment = ft.MainAxisAlignment.START
 	page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
 	dark_mode_togg.on_change = lambda e: ui.toggle_theme(page, e.control.value)
 
-	# ==== DEBUGGING ====
-	# update_size(page)
-	# page.on_resize = update_size
-	# == END DEBUGGING ==
-
-	# page.add(*page_components)
 	page.add(
 		ft.Column(
 			spacing=0, expand=True, controls=page_components,
