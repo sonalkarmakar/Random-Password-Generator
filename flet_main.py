@@ -9,6 +9,9 @@ from src.defined import *
 #-----------------------#
 # VARIABLE DECLARATIONS #
 #-----------------------#
+# Minimum Window Dimensions
+min_window_width: int = 520
+min_window_height: int = 780
 # Components to render
 page_components: list[ft.Control] = []
 # Password Generator Tab Controls
@@ -381,6 +384,13 @@ page_components.append(footer)
 # MAIN FUNCTION FOR FLET #
 #------------------------#
 async def main(page: ft.Page):
+	# Setting App Window Size
+	page.window.height = min_window_height
+	page.window.width = min_window_width
+	# Extra offsets counter Flet's bug allowing sizes smaller than defined minimum
+	page.window.min_height = min_window_height + 99
+	page.window.min_width = min_window_width + 52
+
 	# Light Theme definition
 	page.theme = ft.Theme(
 		color_scheme=ft.ColorScheme(
@@ -400,6 +410,7 @@ async def main(page: ft.Page):
 		)
 	)
 
+	# Layout Configuration
 	page.padding = 0 # Makes the page more compact
 	page.title = app_title
 	page.theme_mode = ft.ThemeMode.LIGHT # Initial theme on launch
