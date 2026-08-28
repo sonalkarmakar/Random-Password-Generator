@@ -207,7 +207,8 @@ passwd_output: ft.TextField = ft.TextField(
 # Password Generator Button
 passgen_btn: ft.FilledButton = ft.FilledButton(
 	on_click=lambda e: ui.show_password(
-		passwd_output, int(passlen_sldr.value) if passlen_sldr.value is not None else default_values['min_passwd_len']
+		passwd_output,
+		int(passlen_sldr.value) if passlen_sldr.value is not None else default_values['min_passwd_len']
 	),
 	content="Generate", style=ft.ButtonStyle(
 		text_style=ft.TextStyle(size=16), padding=ft.Padding.symmetric(horizontal=16)
@@ -245,7 +246,9 @@ gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 			),
 			content=ft.Container(
 				padding=ft.Padding.all(10),
-				content=ft.Markdown(ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['create_passwd']}")),
+				content=ft.Markdown(
+					ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['create_passwd']}")
+				),
 			)
 		),
 		ft.ExpansionPanel(
@@ -256,7 +259,9 @@ gdlns_exp_lst: ft.ExpansionPanelList = ft.ExpansionPanelList(
 			),
 			content=ft.Container(
 				padding=ft.Padding.all(10),
-				content=ft.Markdown(ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['maintain_passwd']}")),
+				content=ft.Markdown(
+					ui.load_markdown(f"{Path(__file__).resolve().parent}/{content_paths['maintain_passwd']}")
+				),
 			)
 		),
 	]
@@ -346,32 +351,55 @@ page_components.append(main_cont)
 #----------------------------#
 # Text Label Themes
 footer_lbl_size: ft.TextThemeStyle = ft.TextThemeStyle.LABEL_MEDIUM
-lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0)
+lnk_btn_style: ft.ButtonStyle = ft.ButtonStyle(padding=0, visual_density=ft.VisualDensity.COMPACT)
 
 # Dark Mode Toggle Button
-dark_mode_togg: ft.Switch = ft.Switch(label="Dark Mode")
+dark_mode_togg: ft.Switch = ft.Switch(label="Dark Mode", expand=True)
 
-# Links and Credits
-author_credit: ft.Text = ft.Text(value=f"Made by {author_details['name']}", theme_style=footer_lbl_size)
+# Author's Name
+author_credit: ft.Row = ft.Row(
+	alignment=ft.MainAxisAlignment.CENTER,
+	expand=True, spacing=0, wrap=True, controls=[
+		ft.Text(value="Made by ", theme_style=footer_lbl_size),
+		ft.Text(value=f"{author_details['name']}", theme_style=footer_lbl_size, weight=ft.FontWeight.BOLD)
+	]
+)
+# Links to Repositories
 repositories: ft.Row = ft.Row(
-	spacing=0, controls=[
-		ft.Text(value="Source code:", theme_style=footer_lbl_size),
-		ft.TextButton(
-			content=ft.Text(value="GitHub", color=ft.Colors.PRIMARY, theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-			url=author_details['links']['repository']['GitHub'],
-			style=lnk_btn_style,
+	wrap=True, expand=True, vertical_alignment=ft.CrossAxisAlignment.CENTER,
+	spacing=0, run_spacing=0, run_alignment=ft.MainAxisAlignment.END,
+	alignment=ft.MainAxisAlignment.END, controls=[
+		ft.Container(
+			padding=ft.Padding(top=10, right=10), # Counters extra padding of TextButton
+			content=ft.Text(value="Source code:", theme_style=footer_lbl_size),
 		),
-		ft.Text(value="|", theme_style=footer_lbl_size),
-		ft.TextButton(
-			content=ft.Text(value="GitLab", color=ft.Colors.PRIMARY, theme_style=ft.TextThemeStyle.LABEL_MEDIUM),
-			url=author_details['links']['repository']['GitLab'],
-			style=lnk_btn_style,
+		ft.Row(
+			wrap=False, spacing=0, tight=True, controls=[
+				ft.TextButton(
+					content=ft.Text(
+						value="GitHub", color=ft.Colors.PRIMARY,
+						theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+					),
+					url=author_details['links']['repository']['GitHub'],
+					style=lnk_btn_style,
+				),
+				ft.Text(value="|", theme_style=footer_lbl_size),
+				ft.TextButton(
+					content=ft.Text(
+						value="GitLab", color=ft.Colors.PRIMARY,
+						theme_style=ft.TextThemeStyle.LABEL_MEDIUM
+					),
+					url=author_details['links']['repository']['GitLab'],
+					style=lnk_btn_style,
+				),
+			]
 		),
 	]
 )
 
 # Creating the Footer Row
 footer: ft.Container = ft.Container(
+	alignment=ft.Alignment.CENTER,
 	bgcolor=ft.Colors.ON_INVERSE_SURFACE, content=ft.Row(
 		alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
 		controls=[dark_mode_togg, author_credit, repositories],
