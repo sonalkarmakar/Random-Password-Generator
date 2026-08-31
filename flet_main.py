@@ -365,14 +365,12 @@ author_credit: ft.Row = ft.Row(
 	]
 )
 # Links to Repositories
+repo_lnk_lbl: ft.Container = ft.Container(content=ft.Text(value="Source code:", theme_style=footer_lbl_size))
 repositories: ft.Row = ft.Row(
 	wrap=True, expand=True, vertical_alignment=ft.CrossAxisAlignment.CENTER,
 	spacing=0, run_spacing=0, run_alignment=ft.MainAxisAlignment.END,
 	alignment=ft.MainAxisAlignment.END, controls=[
-		ft.Container(
-			padding=ft.Padding(top=10, right=10), # Counters extra padding of TextButton
-			content=ft.Text(value="Source code:", theme_style=footer_lbl_size),
-		),
+		repo_lnk_lbl,
 		ft.Row(
 			wrap=False, spacing=0, tight=True, controls=[
 				ft.TextButton(
@@ -455,6 +453,11 @@ async def main(page: ft.Page):
 			alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
 		)
 	)
+
+	# Counters extra padding of TextButton in Repository Links
+	def set_repo_lnk_lbl_padding(e: ft.PageResizeEvent):
+		repo_lnk_lbl.padding = 0 if e.page.width is None or e.page.width > 622 else ft.Padding(top=10, right=10)
+	page.on_resize = set_repo_lnk_lbl_padding
 
 if __name__ == "__main__":
 	# Comment below suppresses linter's whining
