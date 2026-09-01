@@ -11,7 +11,7 @@ from src.defined import *
 #-----------------------#
 # Minimum Window Dimensions
 min_window_width: int = 520
-min_window_height: int = 780
+min_window_height: int = 793
 # Components to render
 page_components: list[ft.Control] = []
 # Password Generator Tab Controls
@@ -405,6 +405,10 @@ footer: ft.Container = ft.Container(
 )
 page_components.append(footer)
 
+# Counters extra padding of TextButton in Repository Links
+def set_repo_lnk_lbl_padding(w: ft.Number | None):
+	if w is not None:
+		repo_lnk_lbl.padding = 0 if w > 622 else ft.Padding(top=10, right=10)
 
 #------------------------#
 # MAIN FUNCTION FOR FLET #
@@ -414,7 +418,7 @@ async def main(page: ft.Page):
 	page.window.height = min_window_height
 	page.window.width = min_window_width
 	# Extra offsets counter Flet's bug allowing sizes smaller than defined minimum
-	page.window.min_height = min_window_height + 99
+	page.window.min_height = min_window_height + 86
 	page.window.min_width = min_window_width + 52
 
 	# Light Theme definition
@@ -445,6 +449,8 @@ async def main(page: ft.Page):
 	# Function call for theme change
 	dark_mode_togg.on_change = lambda e: ui.toggle_theme(page, e.control.value)
 
+	# Set initial Padding for repository link label
+	set_repo_lnk_lbl_padding(page.width)
 	# Adding all conetnts to render
 	page.add(
 		ft.Column(
@@ -453,11 +459,8 @@ async def main(page: ft.Page):
 			alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
 		)
 	)
-
-	# Counters extra padding of TextButton in Repository Links
-	def set_repo_lnk_lbl_padding(e: ft.PageResizeEvent):
-		repo_lnk_lbl.padding = 0 if e.page.width is None or e.page.width > 622 else ft.Padding(top=10, right=10)
-	page.on_resize = set_repo_lnk_lbl_padding
+	# Set dynamic Padding for repository link label
+	page.on_resize = lambda e: set_repo_lnk_lbl_padding(e.page.width)
 
 if __name__ == "__main__":
 	# Comment below suppresses linter's whining
