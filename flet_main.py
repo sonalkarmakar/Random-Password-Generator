@@ -11,7 +11,7 @@ from src.defined import *
 #-----------------------#
 # Minimum Window Dimensions
 min_window_width: int = 520
-min_window_height: int = 793
+min_window_height: int = 815
 # Components to render
 page_components: list[ft.Control] = []
 # Password Generator Tab Controls
@@ -179,7 +179,7 @@ for k, v in param_sliders.items(): # defines all Parameter Controls
 	ui.update_sldr(label=param_sldr_val, slider=param_sldr)
 	# Individual Parameter Container
 	param_sldr_cont: ft.Container = ft.Container(
-			padding=0, alignment=ft.Alignment.CENTER,
+			padding=ft.Padding(left=10), alignment=ft.Alignment.CENTER,
 			content=ft.Column(spacing=0, controls=[param_lbl_cont, param_sldr]
 		)
 	)
@@ -190,7 +190,10 @@ params_panel: ft.Container = ft.Container(
 	padding=10, alignment=ft.Alignment.CENTER,
 	content=ft.Card(
 		variant=ft.CardVariant.OUTLINED,
-		content=ft.Column(alignment=ft.MainAxisAlignment.CENTER, controls=params_list)
+		content=ft.Container(
+			padding=ft.Padding.symmetric(vertical=10),
+			content=ft.Column(alignment=ft.MainAxisAlignment.CENTER, controls=params_list)
+		)
 	)
 )
 passgen_tab_ctrl_list.append(params_panel)
@@ -418,7 +421,7 @@ async def main(page: ft.Page):
 	page.window.height = min_window_height
 	page.window.width = min_window_width
 	# Extra offsets counter Flet's bug allowing sizes smaller than defined minimum
-	page.window.min_height = min_window_height + 86
+	page.window.min_height = min_window_height + 99
 	page.window.min_width = min_window_width + 52
 
 	# Light Theme definition
