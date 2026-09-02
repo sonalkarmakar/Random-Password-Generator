@@ -417,6 +417,7 @@ def set_repo_lnk_lbl_padding(w: ft.Number | None):
 # MAIN FUNCTION FOR FLET #
 #------------------------#
 async def main(page: ft.Page):
+	page.window.icon = "icon.png"
 	# Setting App Window Size
 	page.window.height = min_window_height
 	page.window.width = min_window_width
@@ -467,4 +468,4 @@ async def main(page: ft.Page):
 
 if __name__ == "__main__":
 	# Comment below suppresses linter's whining
-	_ = ft.run(main) # pyright: ignore[reportUnknownMemberType]
+	_ = ft.run(main, assets_dir="assets") # pyright: ignore[reportUnknownMemberType]
