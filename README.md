@@ -1,8 +1,8 @@
-# Random Password Generator with NiceGUI
+# Random Password Generator with Flet
 ## Summary
-This is a web-application that generates a random password based on the user-input of how many uppercase, lowercase, special characters and digits must be present in the password.
+This is a application with both native and web versions, that generates a random password based on the user-input of how many uppercase, lowercase, special characters and digits must be present in the password.
 
-This version of the application is written in Python with the [NiceGUI library](https://flet.dev/).
+This version of the application is written in Python with the [Flet library](https://flet.dev/).
 
 ## Screenshots
 | UI Library | Mobile UI                                               | Desktop UI                                                |
@@ -57,9 +57,9 @@ Follow the steps below to set up your environment for running and developing thi
 	- Go inside the project directory and open the Terminal/Console/Command Prompt/PowerShell.
 
 > [!IMPORTANT]
-> If you cloned this repository, you need to switch to the `nicegui` branch in the project directory:
+> If you cloned this repository, you need to switch to the `flet` branch in the project directory:
 > ```sh
-> git switch nicegui
+> git switch flet
 > ```
 
 - <ins>**Step 4:**</ins> Create and activate a virtual environment. Ensure that you're inside the project directory, and then run the commands below.
@@ -90,14 +90,18 @@ Follow the steps below to set up your environment for running and developing thi
 
 - <ins>**Step 5:**</ins> Install the required packages from the index. Ensure that you're in the _virtual environment_ inside the project directory.
 	```sh
-	python -m pip install -r requirements/nicegui-requirements.txt
+	python -m pip install -r requirements/flet-requirements.txt
 	```
 
 ## Running and Packaging/Deployment
 - To run the application, simply activate the virtual environment, and then run the command below.
 	```sh
-	python flet_main.py
+	flet run flet_main.py
 	```
+	- For running as a **web-application**, use `--web` flag and _optionally_ specifying the port with `-p <port-number>`.
+		```sh
+		flet run flet_main.py --web -p 8080
+		```
 - Refer to [Flet documentation](https://flet.dev/docs/publish/) for packaging and deployment configurations.
 
 ## References
