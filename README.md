@@ -2,12 +2,13 @@
 ## Summary
 This is a web-application that generates a random password based on the user-input of how many uppercase, lowercase, special characters and digits must be present in the password.
 
-This version of the application is written in Python with the [NiceGUI library](https://nicegui.io/).
+This version of the application is written in Python with the [NiceGUI library](https://flet.dev/).
 
 ## Screenshots
-| UI Library | Mobile UI                                                 | Desktop UI                                                  |
-|:----------:|:---------------------------------------------------------:|:-----------------------------------------------------------:|
-| NiceGUI    | ![Mobile UI with NiceGUI](screenshots/NiceGUI-Mobile.png) | ![Desktop UI with NiceGUI](screenshots/NiceGUI-Desktop.png) |
+| UI Library | Mobile UI                                               | Desktop UI                                                |
+|:----------:|:-------------------------------------------------------:|:---------------------------------------------------------:|
+| Flet App   | ![Mobile UI with Flet](screenshots/Flet-Mobile-App.png) | ![Desktop UI with Flet](screenshots/Flet-Desktop-App.png) |
+| Flet Web   | ![Mobile UI with Flet](screenshots/Flet-Mobile-Web.png) | ![Desktop UI with Flet](screenshots/Flet-Desktop-Web.png) |
 
 ## Environment Setup
 Follow the steps below to set up your environment for running and developing this application:
@@ -95,10 +96,9 @@ Follow the steps below to set up your environment for running and developing thi
 ## Running and Packaging/Deployment
 - To run the application, simply activate the virtual environment, and then run the command below.
 	```sh
-	python nicegui_main.py
+	python flet_main.py
 	```
-- Refer to [NiceGUI documentation](https://nicegui.io/documentation/section_configuration_deployment) for packaging and deployment configurations.
+- Refer to [Flet documentation](https://flet.dev/docs/publish/) for packaging and deployment configurations.
 
 ## References
-- [NiceGUI documentation](https://nicegui.io/documentation).
-- [Quasar documentation](https://quasar.dev/docs).
+- [Flet documentation](https://flet.dev/docs/).
