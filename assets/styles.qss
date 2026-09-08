@@ -1,0 +1,17 @@
+/* Target only buttons with the objectName 'primaryButton' */
+QPushButton#primaryButton {
+	background-color: #00bcd4; /* Cyan */
+	color: white;
+	border-radius: 15px;
+	border: none;
+	padding: 6px 14px;
+	font-weight: bold;
+}
+
+QPushButton#primaryButton:hover {
+	background-color: #00acc1; /* Slightly darker cyan on hover */
+}
+
+QPushButton#primaryButton:pressed {
+	background-color: #00838f; /* Darker cyan on click */
+}
