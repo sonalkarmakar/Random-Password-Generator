@@ -31,9 +31,9 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="MainHorizontalLayout">
       <item alignment="Qt::AlignHCenter">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="MainContentFrame">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -60,7 +60,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QTabWidget" name="tabWidget">
+          <widget class="QTabWidget" name="MainTabWidget">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -73,13 +73,13 @@
            <property name="usesScrollButtons">
             <bool>false</bool>
            </property>
-           <widget class="QWidget" name="tab">
+           <widget class="QWidget" name="PassGenTab">
             <attribute name="title">
              <string>Generate Random Password</string>
             </attribute>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="PassGenTabHeadingLabel">
                <property name="font">
                 <font>
                  <pointsize>20</pointsize>
@@ -94,12 +94,12 @@
               </widget>
              </item>
              <item alignment="Qt::AlignTop">
-              <widget class="QWidget" name="widget" native="true">
+              <widget class="QWidget" name="PasswdLenWidget" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_4">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <layout class="QHBoxLayout" name="PasswdLenHeaderLayout">
                   <item alignment="Qt::AlignLeft">
-                   <widget class="QLabel" name="label_5">
+                   <widget class="QLabel" name="PasswdLenLabel">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                       <horstretch>1</horstretch>
@@ -112,17 +112,7 @@
                    </widget>
                   </item>
                   <item alignment="Qt::AlignRight">
-                   <widget class="QPushButton" name="pushButton_3">
-                    <property name="text">
-                     <string>Reset</string>
-                    </property>
-                    <property name="flat">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item alignment="Qt::AlignRight">
-                   <widget class="QPushButton" name="pushButton">
+                   <widget class="QPushButton" name="PasswdLenRndmzButton">
                     <property name="text">
                      <string>Randomise</string>
                     </property>
@@ -144,7 +134,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QFrame" name="frame_4">
+              <widget class="QFrame" name="ParamsFrame">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
@@ -153,7 +143,7 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout">
                 <item>
-                 <widget class="QWidget" name="widget_2" native="true">
+                 <widget class="QWidget" name="ParamsHeaderWidget" native="true">
                   <layout class="QVBoxLayout" name="verticalLayout_5">
                    <property name="leftMargin">
                     <number>0</number>
@@ -168,9 +158,9 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_4">
-                     <item>
-                      <widget class="QLabel" name="label_6">
+                    <layout class="QHBoxLayout" name="ParamsHeaderLayout">
+                     <item alignment="Qt::AlignLeft">
+                      <widget class="QLabel" name="ParamsHeaderLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>1</horstretch>
@@ -182,8 +172,18 @@
                        </property>
                       </widget>
                      </item>
+                     <item>
+                      <widget class="QPushButton" name="ParamsResetButton">
+                       <property name="text">
+                        <string>Reset</string>
+                       </property>
+                       <property name="flat">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
                      <item alignment="Qt::AlignRight">
-                      <widget class="QPushButton" name="pushButton_2">
+                      <widget class="QPushButton" name="ParamsRndmzButton">
                        <property name="text">
                         <string>Randomise</string>
                        </property>
@@ -195,7 +195,7 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="Line" name="line">
+                    <widget class="Line" name="SeparatorLine">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -205,7 +205,7 @@
                  </widget>
                 </item>
                 <item alignment="Qt::AlignTop">
-                 <widget class="QWidget" name="widget_3" native="true">
+                 <widget class="QWidget" name="UperCharWidget" native="true">
                   <layout class="QVBoxLayout" name="verticalLayout_6">
                    <property name="leftMargin">
                     <number>0</number>
@@ -220,9 +220,9 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <layout class="QHBoxLayout" name="UpperCharHeaderLayout">
                      <item alignment="Qt::AlignLeft">
-                      <widget class="QLabel" name="label_7">
+                      <widget class="QLabel" name="UpperCharLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>1</horstretch>
@@ -235,7 +235,7 @@
                       </widget>
                      </item>
                      <item alignment="Qt::AlignRight">
-                      <widget class="QPushButton" name="pushButton_4">
+                      <widget class="QPushButton" name="UpperCharRndmzButton">
                        <property name="text">
                         <string>Randomise</string>
                        </property>
@@ -247,7 +247,7 @@
                     </layout>
                    </item>
                    <item alignment="Qt::AlignTop">
-                    <widget class="QSlider" name="horizontalSlider_2">
+                    <widget class="QSlider" name="UpperCharSlider">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -257,7 +257,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_4" native="true">
+                 <widget class="QWidget" name="LowerCharWidget" native="true">
                   <layout class="QVBoxLayout" name="verticalLayout_7">
                    <property name="leftMargin">
                     <number>0</number>
@@ -269,9 +269,9 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                    <layout class="QHBoxLayout" name="LowerCharHeaderLayout">
                      <item alignment="Qt::AlignLeft">
-                      <widget class="QLabel" name="label_8">
+                      <widget class="QLabel" name="LowerCharLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>1</horstretch>
@@ -284,7 +284,7 @@
                       </widget>
                      </item>
                      <item alignment="Qt::AlignRight">
-                      <widget class="QPushButton" name="pushButton_5">
+                      <widget class="QPushButton" name="LowerCharRndmzButton">
                        <property name="text">
                         <string>Randomise</string>
                        </property>
@@ -296,7 +296,7 @@
                     </layout>
                    </item>
                    <item alignment="Qt::AlignTop">
-                    <widget class="QSlider" name="horizontalSlider_3">
+                    <widget class="QSlider" name="LowerCharSlider">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -306,7 +306,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_5" native="true">
+                 <widget class="QWidget" name="SpclCharWidget" native="true">
                   <layout class="QVBoxLayout" name="verticalLayout_8">
                    <property name="leftMargin">
                     <number>0</number>
@@ -321,9 +321,9 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <layout class="QHBoxLayout" name="SpclCharHeaderLayout">
                      <item alignment="Qt::AlignLeft">
-                      <widget class="QLabel" name="label_9">
+                      <widget class="QLabel" name="SpclCharLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>1</horstretch>
@@ -336,7 +336,7 @@
                       </widget>
                      </item>
                      <item alignment="Qt::AlignRight">
-                      <widget class="QPushButton" name="pushButton_6">
+                      <widget class="QPushButton" name="SpclCharRndmzButton">
                        <property name="text">
                         <string>Randomise</string>
                        </property>
@@ -348,7 +348,7 @@
                     </layout>
                    </item>
                    <item alignment="Qt::AlignTop">
-                    <widget class="QSlider" name="horizontalSlider_4">
+                    <widget class="QSlider" name="SpclCharSlider">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -358,7 +358,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QWidget" name="widget_6" native="true">
+                 <widget class="QWidget" name="DigitCharWidget" native="true">
                   <layout class="QVBoxLayout" name="verticalLayout_9">
                    <property name="leftMargin">
                     <number>0</number>
@@ -373,9 +373,9 @@
                     <number>0</number>
                    </property>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_9">
+                    <layout class="QHBoxLayout" name="DigitCharHeaderLayout">
                      <item alignment="Qt::AlignLeft">
-                      <widget class="QLabel" name="label_10">
+                      <widget class="QLabel" name="DigitCharLabel">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                          <horstretch>1</horstretch>
@@ -388,7 +388,7 @@
                       </widget>
                      </item>
                      <item alignment="Qt::AlignRight">
-                      <widget class="QPushButton" name="pushButton_7">
+                      <widget class="QPushButton" name="DigitCharRndmzButton">
                        <property name="text">
                         <string>Randomise</string>
                        </property>
@@ -400,7 +400,7 @@
                     </layout>
                    </item>
                    <item alignment="Qt::AlignTop">
-                    <widget class="QSlider" name="horizontalSlider_5">
+                    <widget class="QSlider" name="DigitCharSlider">
                      <property name="orientation">
                       <enum>Qt::Horizontal</enum>
                      </property>
@@ -413,16 +413,16 @@
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <layout class="QHBoxLayout" name="OutputLayout">
                <item alignment="Qt::AlignLeft">
-                <widget class="QPushButton" name="pushButton_8">
+                <widget class="QPushButton" name="PasswdGenButton">
                  <property name="text">
                   <string>Generate</string>
                  </property>
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="PasswdOutputLineEdit">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                    <horstretch>1</horstretch>
@@ -432,7 +432,7 @@
                 </widget>
                </item>
                <item alignment="Qt::AlignRight">
-                <widget class="QPushButton" name="pushButton_9">
+                <widget class="QPushButton" name="PasswdCopyButton">
                  <property name="text">
                   <string>Copy</string>
                  </property>
