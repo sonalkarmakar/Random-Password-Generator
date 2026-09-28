@@ -1,18 +1,24 @@
 import sys
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget  #, QWidget
+from PyQt6.QtCore import QUrl
+from PyQt6.QtWidgets import QApplication, QMainWindow  #, QWidget
 from PyQt6.uic.load_ui import loadUi
+
+from src.defined import content_paths
 
 
 class MainWindow(QMainWindow):
 	def __init__(self) -> None:
 		super().__init__()
 		loadUi("ui/main_window.ui", self)
-		self.CreatePasswdScrollArea.setVisible(self.CreatePasswdHeaderButton.isChecked())
-		self.MaintPasswdScrollArea.setVisible(self.MaintPasswdHeaderButton.isChecked())
 
+		self.CreatePasswdTextBrowser.setVisible(self.CreatePasswdHeaderButton.isChecked())
+		self.CreatePasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["create_passwd"]))
 
-if __name__ == "__main__":
+		self.MaintPasswdTextBrowser.setVisible(self.MaintPasswdHeaderButton.isChecked())
+		self.MaintPasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["maintain_passwd"]))
+
+def main():
 	app = QApplication(sys.argv)
 
 	try:
@@ -25,3 +31,6 @@ if __name__ == "__main__":
 	window.show()
 
 	app.exec()
+
+if __name__ == "__main__":
+	main()

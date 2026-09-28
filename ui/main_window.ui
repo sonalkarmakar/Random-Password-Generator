@@ -493,33 +493,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QScrollArea" name="CreatePasswdScrollArea">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="widgetResizable">
-                   <bool>true</bool>
-                  </property>
-                  <widget class="QWidget" name="CreatePasswdContent">
-                   <property name="geometry">
-                    <rect>
-                     <x>0</x>
-                     <y>0</y>
-                     <width>405</width>
-                     <height>113</height>
-                    </rect>
-                   </property>
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                  </widget>
-                 </widget>
+                 <widget class="QTextBrowser" name="CreatePasswdTextBrowser"/>
                 </item>
                </layout>
               </widget>
@@ -567,27 +541,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QScrollArea" name="MaintPasswdScrollArea">
-                  <property name="widgetResizable">
-                   <bool>true</bool>
-                  </property>
-                  <widget class="QWidget" name="MaintPasswdContent">
-                   <property name="geometry">
-                    <rect>
-                     <x>0</x>
-                     <y>0</y>
-                     <width>405</width>
-                     <height>112</height>
-                    </rect>
-                   </property>
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                     <horstretch>0</horstretch>
-                     <verstretch>1</verstretch>
-                    </sizepolicy>
-                   </property>
-                  </widget>
-                 </widget>
+                 <widget class="QTextBrowser" name="MaintPasswdTextBrowser"/>
                 </item>
                </layout>
               </widget>
@@ -673,34 +627,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>CreatePasswdHeaderButton</sender>
+   <sender>MaintPasswdHeaderButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>CreatePasswdScrollArea</receiver>
+   <receiver>MaintPasswdTextBrowser</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>233</x>
-     <y>111</y>
+     <x>344</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
-     <x>235</x>
-     <y>137</y>
+     <x>350</x>
+     <y>380</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>MaintPasswdHeaderButton</sender>
+   <sender>CreatePasswdHeaderButton</sender>
    <signal>toggled(bool)</signal>
-   <receiver>MaintPasswdScrollArea</receiver>
+   <receiver>CreatePasswdTextBrowser</receiver>
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>261</y>
+     <x>286</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
-     <x>321</x>
-     <y>368</y>
+     <x>288</x>
+     <y>159</y>
     </hint>
    </hints>
   </connection>
