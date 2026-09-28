@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>726</height>
+    <width>700</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,6 +15,21 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>10</number>
+    </property>
+    <property name="topMargin">
+     <number>10</number>
+    </property>
+    <property name="rightMargin">
+     <number>10</number>
+    </property>
+    <property name="bottomMargin">
+     <number>10</number>
+    </property>
     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
      <widget class="QLabel" name="MainHeadingLabel">
       <property name="font">
@@ -34,6 +49,9 @@
      <layout class="QHBoxLayout" name="MainHorizontalLayout">
       <item alignment="Qt::AlignHCenter">
        <widget class="QFrame" name="MainContentFrame">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -493,7 +511,14 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextBrowser" name="CreatePasswdTextBrowser"/>
+                 <widget class="QTextBrowser" name="CreatePasswdTextBrowser">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
@@ -541,13 +566,20 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QTextBrowser" name="MaintPasswdTextBrowser"/>
+                 <widget class="QTextBrowser" name="MaintPasswdTextBrowser">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
-              <spacer name="verticalSpacer">
+              <spacer name="GuideTabVerticalSpacer">
                <property name="orientation">
                 <enum>Qt::Vertical</enum>
                </property>

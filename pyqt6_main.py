@@ -12,11 +12,24 @@ class MainWindow(QMainWindow):
 		super().__init__()
 		loadUi("ui/main_window.ui", self)
 
-		self.CreatePasswdTextBrowser.setVisible(self.CreatePasswdHeaderButton.isChecked())
 		self.CreatePasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["create_passwd"]))
-
-		self.MaintPasswdTextBrowser.setVisible(self.MaintPasswdHeaderButton.isChecked())
 		self.MaintPasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["maintain_passwd"]))
+
+		self.guideline_sections = (
+			(self.CreatePasswdHeaderButton, self.CreatePasswdWidget, self.CreatePasswdTextBrowser),
+			(self.MaintPasswdHeaderButton, self.MaintPasswdWidget, self.MaintPasswdTextBrowser),
+		)
+		for button, _, browser in self.guideline_sections:
+			browser.setVisible(button.isChecked()) # start collapsed unless checked
+			button.toggled.connect(self.update_guideline_stretch)
+
+		self.update_guideline_stretch()
+
+	def update_guideline_stretch(self) -> None:
+		for button, section, _ in self.guideline_sections:
+			policy = section.sizePolicy()
+			policy.setVerticalStretch(1 if button.isChecked() else 0)
+			section.setSizePolicy(policy)
 
 def main():
 	app = QApplication(sys.argv)
