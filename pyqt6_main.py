@@ -13,6 +13,9 @@ class MainWindow(QMainWindow):
 		super().__init__()
 		loadUi("ui/main_window.ui", self)
 
+		self.PasswdCopyButton.setIcon(qta.icon(f"mdi6.{icons['content_copy'].replace('_', '-')}"))
+		self.PasswdCopyButton.setText("")
+
 		self.CreatePasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["create_passwd"]))
 		self.MaintPasswdTextBrowser.setSource(QUrl.fromLocalFile(content_paths["maintain_passwd"]))
 
