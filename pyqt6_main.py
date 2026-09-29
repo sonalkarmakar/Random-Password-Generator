@@ -1,10 +1,11 @@
 import sys
 
+import qtawesome as qta
 from PyQt6.QtCore import QUrl
 from PyQt6.QtWidgets import QApplication, QMainWindow  #, QWidget
 from PyQt6.uic.load_ui import loadUi
 
-from src.defined import content_paths
+from src.defined import content_paths, icons
 
 
 class MainWindow(QMainWindow):
@@ -26,10 +27,15 @@ class MainWindow(QMainWindow):
 		self.update_guideline_stretch()
 
 	def update_guideline_stretch(self) -> None:
+		any_open = any(button.isChecked() for button, _, _ in self.guideline_sections)
+
 		for button, section, _ in self.guideline_sections:
 			policy = section.sizePolicy()
 			policy.setVerticalStretch(1 if button.isChecked() else 0)
 			section.setSizePolicy(policy)
+
+		outer_layout = self.centralWidget().layout()
+		outer_layout.setStretch(1, 1 if any_open else 0) # index 1 = MainHorizontalLayout / MainContentFrame
 
 def main():
 	app = QApplication(sys.argv)
